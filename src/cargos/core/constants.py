@@ -45,18 +45,17 @@ UNIFORM_COLUMN_MAPPING = {
     20: "BAR_POLO",
     21: "BAR_PECHERA",
     
-    # W-X (22-23): CAJERO (included but not actively used)
-    22: "CAJERO_CAMISA",
-    23: "CAJERO_BLUSA",
+    # W-X (22-23): CAJERO (skip these columns entirely)
+    # Note: Columns 22-23 are intentionally omitted from mapping
     
-    # Y-AA (24-26): SEGURIDAD
-    24: "SEGURIDAD_CAMISA",
-    25: "SEGURIDAD_BLUSA",
-    26: "SEGURIDAD_SACO",
+    # Y-AA (24-26): ANFITRION (occupation determines which prendas apply)
+    24: "ANFITRION_CAMISA",    # CAMISA (for both, same price)
+    25: "ANFITRION_BLUSA",     # BLUSA (for both, same price)
+    26: "ANFITRION_SACO",      # SACO (for both, different prices by occupation)
     
-    # AB-AC (27-28): ANFITRIÓN
-    27: "ANFITRION_CAMISA",
-    28: "ANFITRION_CASACA",
+    # AB-AC (27-28): SEGURIDAD
+    27: "SEGURIDAD_CAMISA",
+    28: "SEGURIDAD_CASACA",
     
     # AD-AH (29-33): PRODUCCIÓN
     29: "PRODUCCION_CHAQUETA",

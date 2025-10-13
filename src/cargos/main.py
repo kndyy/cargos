@@ -78,7 +78,7 @@ class FileGeneratorApp:
         self.notebook.pack(fill="both", expand=True, padx=10, pady=10)
 
         # Create Cargos tab
-        self.cargos_tab = CargosTab(self.notebook, self.config)
+        self.cargos_tab = CargosTab(self.notebook, self.config, self.unified_config_service)
         self.notebook.add(self.cargos_tab.frame, text="Cargos")
 
         # Create Configuration tab
@@ -196,7 +196,8 @@ class FileGeneratorApp:
     def _handle_config_changed(self):
         """Handle configuration changes and save to file."""
         try:
-            success = self.unified_config_service.save()
+            # Pass the current config to ensure destination path is saved
+            success = self.unified_config_service.save(config=self.config)
             if success:
                 self.logger.info("Configuration saved successfully")
             else:

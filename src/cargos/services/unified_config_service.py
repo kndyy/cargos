@@ -117,9 +117,12 @@ class UnifiedConfigService:
         total = 0.0
         occupation = self.get_occupation(cargo)
         if not occupation:
+            self.logger.warning(f"No occupation found for cargo: {cargo}")
             return total
 
         local = local.upper().strip()
+        self.logger.info(f"Calculating price for {cargo} -> {occupation.name} in {local}")
+        
         for prenda in prendas:
             qty = prenda.get("qty", 0)
             if qty <= 0:
@@ -127,13 +130,20 @@ class UnifiedConfigService:
 
             prenda_type = prenda.get("prenda_type", "").upper().strip()
             size = self._extract_size(prenda.get("string", ""))
+            prenda_string = prenda.get("string", "")
 
             prenda_cfg = next((p for p in occupation.prendas if p.prenda_type.upper() == prenda_type), None)
             if not prenda_cfg:
+                self.logger.warning(f"No prenda config found for {prenda_type} in occupation {occupation.name}")
                 continue
 
             price = self._resolve_price(prenda_cfg, size, local)
-            total += price * qty
+            subtotal = price * qty
+            total += subtotal
+            
+            self.logger.info(f"  {prenda_string}: {prenda_type} TALLA {size} x{qty} = {price} x {qty} = {subtotal}")
+            
+        self.logger.info(f"Total price for {cargo}: {total}")
         return total
 
     def _resolve_price(self, prenda: OccupationPrenda, size: str, local: str) -> float:
@@ -147,7 +157,10 @@ class UnifiedConfigService:
 
         local_norm = "san_isidro" if "SAN" in local else "tarapoto" if "TARAPOTO" in local else "other"
         attr = f"{size_key}_{local_norm}"
-        return getattr(prenda, attr, 0.0)
+        price = getattr(prenda, attr, 0.0)
+        
+        self.logger.debug(f"Price resolution: {prenda.prenda_type} size={size} local={local} -> {attr}={price}")
+        return price
 
     def _extract_size(self, name: str) -> str:
         name = name.upper()

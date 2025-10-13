@@ -1,6 +1,6 @@
 {
   "app_settings": {
-    "destination_path": "output",
+    "destination_path": "/Users/leonardocandio/Desktop/cargos de nico",
     "cargo_template_path": "templates/CARGO UNIFORMES.docx",
     "autorizacion_template_path": "templates/50% - AUTORIZACIÓN DESCUENTO DE UNIFORMES (02).docx",
     "preview_rows_limit": 100
@@ -12,7 +12,19 @@
       "synonyms": [
         "DELIVERY",
         "DELIVERYMAN",
-        "REPARTIDOR"
+        "REPARTIDOR",
+        "DELIVERY P/T",
+        "DELIVERYMAN P/T",
+        "REPARTIDOR P/T",
+        "DELIVERY PART TIME",
+        "DELIVERYMAN PART TIME",
+        "REPARTIDOR PART TIME",
+        "DELIVERY F/T",
+        "DELIVERYMAN F/T",
+        "REPARTIDOR F/T",
+        "DELIVERY FULL TIME",
+        "DELIVERYMAN FULL TIME",
+        "REPARTIDOR FULL TIME"
       ],
       "prendas": [
         {
@@ -69,7 +81,15 @@
       "display_name": "Packer",
       "synonyms": [
         "PACKER",
-        "EMPAQUETADOR"
+        "EMPAQUETADOR",
+        "PACKER P/T",
+        "EMPAQUETADOR P/T",
+        "PACKER PART TIME",
+        "EMPAQUETADOR PART TIME",
+        "PACKER F/T",
+        "EMPAQUETADOR F/T",
+        "PACKER FULL TIME",
+        "EMPAQUETADOR FULL TIME"
       ],
       "prendas": [
         {
@@ -110,7 +130,11 @@
       "name": "STAFF ADMINISTRATIVO (HOMBRE)",
       "display_name": "Staff Administrativo (Hombre)",
       "synonyms": [
-        "STAFF ADMINISTRATIVO (HOMBRE)"
+        "STAFF ADMINISTRATIVO (HOMBRE)",
+        "STAFF ADMINISTRATIVO (HOMBRE) P/T",
+        "STAFF ADMINISTRATIVO (HOMBRE) PART TIME",
+        "STAFF ADMINISTRATIVO (HOMBRE) F/T",
+        "STAFF ADMINISTRATIVO (HOMBRE) FULL TIME"
       ],
       "prendas": [
         {
@@ -166,7 +190,11 @@
       "name": "STAFF ADMINISTRATIVO (MUJER)",
       "display_name": "Staff Administrativo (Mujer)",
       "synonyms": [
-        "STAFF ADMINISTRATIVO (MUJER)"
+        "STAFF ADMINISTRATIVO (MUJER)",
+        "STAFF ADMINISTRATIVO (MUJER) P/T",
+        "STAFF ADMINISTRATIVO (MUJER) PART TIME",
+        "STAFF ADMINISTRATIVO (MUJER) F/T",
+        "STAFF ADMINISTRATIVO (MUJER) FULL TIME"
       ],
       "prendas": [
         {
@@ -222,7 +250,11 @@
       "name": "CAJA (HOMBRE)",
       "display_name": "Caja (Hombre)",
       "synonyms": [
-        "CAJA (HOMBRE)"
+        "CAJA (HOMBRE)",
+        "CAJA (HOMBRE) P/T",
+        "CAJA (HOMBRE) PART TIME",
+        "CAJA (HOMBRE) F/T",
+        "CAJA (HOMBRE) FULL TIME"
       ],
       "prendas": [
         {
@@ -293,7 +325,11 @@
       "name": "CAJA (MUJER)",
       "display_name": "Caja (Mujer)",
       "synonyms": [
-        "CAJA (MUJER)"
+        "CAJA (MUJER)",
+        "CAJA (MUJER) P/T",
+        "CAJA (MUJER) PART TIME",
+        "CAJA (MUJER) F/T",
+        "CAJA (MUJER) FULL TIME"
       ],
       "prendas": [
         {
@@ -366,7 +402,19 @@
       "synonyms": [
         "MOZO",
         "MESERO",
-        "GARZON"
+        "GARZON",
+        "MOZO P/T",
+        "MESERO P/T",
+        "GARZON P/T",
+        "MOZO PART TIME",
+        "MESERO PART TIME",
+        "GARZON PART TIME",
+        "MOZO F/T",
+        "MESERO F/T",
+        "GARZON F/T",
+        "MOZO FULL TIME",
+        "MESERO FULL TIME",
+        "GARZON FULL TIME"
       ],
       "prendas": [
         {
@@ -438,8 +486,15 @@
       "display_name": "Azafata",
       "synonyms": [
         "AZAFATA",
-        "ANFITRIONA",
-        "HOSTESS"
+        "HOSTESS",
+        "AZAFATA P/T",
+        "HOSTESS P/T",
+        "AZAFATA PART TIME",
+        "HOSTESS PART TIME",
+        "AZAFATA F/T",
+        "HOSTESS F/T",
+        "AZAFATA FULL TIME",
+        "HOSTESS FULL TIME"
       ],
       "prendas": [
         {
@@ -512,7 +567,19 @@
       "synonyms": [
         "SEGURIDAD",
         "GUARDIA",
-        "VIGILANTE"
+        "VIGILANTE",
+        "SEGURIDAD P/T",
+        "GUARDIA P/T",
+        "VIGILANTE P/T",
+        "SEGURIDAD PART TIME",
+        "GUARDIA PART TIME",
+        "VIGILANTE PART TIME",
+        "SEGURIDAD F/T",
+        "GUARDIA F/T",
+        "VIGILANTE F/T",
+        "SEGURIDAD FULL TIME",
+        "GUARDIA FULL TIME",
+        "VIGILANTE FULL TIME"
       ],
       "prendas": [
         {
@@ -568,12 +635,51 @@
       "name": "ANFITRIONAJE (HOMBRE)",
       "display_name": "Anfitrionaje (Hombre)",
       "synonyms": [
-        "ANFITRIONAJE (HOMBRE)"
+        "ANFITRIONAJE (HOMBRE)",
+        "ANFITRION",
+        "ANFITRIÓN",
+        "ANFITRION(A)",
+        "ANFITRION (A)",
+        "ANFITRIONAJE (HOMBRE) P/T",
+        "ANFITRION P/T",
+        "ANFITRIÓN P/T",
+        "ANFITRION(A) P/T",
+        "ANFITRION (A) P/T",
+        "ANFITRIONAJE (HOMBRE) PART TIME",
+        "ANFITRION PART TIME",
+        "ANFITRIÓN PART TIME",
+        "ANFITRION(A) PART TIME",
+        "ANFITRION (A) PART TIME",
+        "ANFITRIONAJE (HOMBRE) F/T",
+        "ANFITRION F/T",
+        "ANFITRIÓN F/T",
+        "ANFITRION(A) F/T",
+        "ANFITRION (A) F/T",
+        "ANFITRIONAJE (HOMBRE) FULL TIME",
+        "ANFITRION FULL TIME",
+        "ANFITRIÓN FULL TIME",
+        "ANFITRION(A) FULL TIME",
+        "ANFITRION (A) FULL TIME"
       ],
       "prendas": [
         {
           "prenda_type": "CAMISA",
           "display_name": "Camisa",
+          "has_sizes": true,
+          "garment_type": "UPPER",
+          "price_sml_other": 18.0,
+          "price_xl_other": 18.0,
+          "price_xxl_other": 19.0,
+          "price_sml_tarapoto": 0.0,
+          "price_xl_tarapoto": 0.0,
+          "price_xxl_tarapoto": 0.0,
+          "price_sml_san_isidro": 0.0,
+          "price_xl_san_isidro": 0.0,
+          "price_xxl_san_isidro": 0.0
+        },
+        {
+          "prenda_type": "BLUSA",
+          "display_name": "Blusa",
           "has_sizes": true,
           "garment_type": "UPPER",
           "price_sml_other": 18.0,
@@ -609,9 +715,43 @@
       "name": "ANFITRIONAJE (MUJER)",
       "display_name": "Anfitrionaje (Mujer)",
       "synonyms": [
-        "ANFITRIONAJE (MUJER)"
+        "ANFITRIONAJE (MUJER)",
+        "ANFITRIONA",
+        "ANFITRIONA(A)",
+        "ANFITRIONA (A)",
+        "ANFITRIONA (A) P/T",
+        "ANFITRIONAJE (MUJER) P/T",
+        "ANFITRIONA P/T",
+        "ANFITRIONA(A) P/T",
+        "ANFITRIONAJE (MUJER) PART TIME",
+        "ANFITRIONA PART TIME",
+        "ANFITRIONA(A) PART TIME",
+        "ANFITRIONA (A) PART TIME",
+        "ANFITRIONAJE (MUJER) F/T",
+        "ANFITRIONA F/T",
+        "ANFITRIONA(A) F/T",
+        "ANFITRIONA (A) F/T",
+        "ANFITRIONAJE (MUJER) FULL TIME",
+        "ANFITRIONA FULL TIME",
+        "ANFITRIONA(A) FULL TIME",
+        "ANFITRIONA (A) FULL TIME"
       ],
       "prendas": [
+        {
+          "prenda_type": "CAMISA",
+          "display_name": "Camisa",
+          "has_sizes": true,
+          "garment_type": "UPPER",
+          "price_sml_other": 18.0,
+          "price_xl_other": 18.0,
+          "price_xxl_other": 19.0,
+          "price_sml_tarapoto": 0.0,
+          "price_xl_tarapoto": 0.0,
+          "price_xxl_tarapoto": 0.0,
+          "price_sml_san_isidro": 0.0,
+          "price_xl_san_isidro": 0.0,
+          "price_xxl_san_isidro": 0.0
+        },
         {
           "prenda_type": "BLUSA",
           "display_name": "Blusa",
@@ -650,7 +790,11 @@
       "name": "LIMPIEZA / MANTENIMIENTO",
       "display_name": "Limpieza / Mantenimiento",
       "synonyms": [
-        "LIMPIEZA / MANTENIMIENTO"
+        "LIMPIEZA / MANTENIMIENTO",
+        "LIMPIEZA / MANTENIMIENTO P/T",
+        "LIMPIEZA / MANTENIMIENTO PART TIME",
+        "LIMPIEZA / MANTENIMIENTO F/T",
+        "LIMPIEZA / MANTENIMIENTO FULL TIME"
       ],
       "prendas": [
         {
@@ -708,7 +852,19 @@
       "synonyms": [
         "BAR",
         "BARTENDER",
-        "CANTINERO"
+        "CANTINERO",
+        "BAR P/T",
+        "BARTENDER P/T",
+        "CANTINERO P/T",
+        "BAR PART TIME",
+        "BARTENDER PART TIME",
+        "CANTINERO PART TIME",
+        "BAR F/T",
+        "BARTENDER F/T",
+        "CANTINERO F/T",
+        "BAR FULL TIME",
+        "BARTENDER FULL TIME",
+        "CANTINERO FULL TIME"
       ],
       "prendas": [
         {
@@ -764,7 +920,108 @@
       "name": "PRODUCCIÓN / COCINA",
       "display_name": "Producción / Cocina",
       "synonyms": [
-        "PRODUCCIÓN / COCINA"
+        "PRODUCCIÓN / COCINA",
+        "PRODUCCION",
+        "PRODUCCIÓN",
+        "COCINA",
+        "COCINERO",
+        "COCINERA",
+        "AYUDANTE DE COCINA",
+        "PARRILLERO",
+        "HORNERO",
+        "HORNERA",
+        "HORNERO(A)",
+        "HORNERO (A)",
+        "PARRILLERO(A)",
+        "PARRILLERO (A)",
+        "PARRILLERO(A)",
+        "SALTEADOR",
+        "SALTEADORA",
+        "SALTEADOR(A)",
+        "SALTEADOR (A)",
+        "SALTEADORA(A)",
+        "SALTEADORA (A)",
+        "SALTEADOR(A)",
+        "PRODUCCIÓN / COCINA P/T",
+        "PRODUCCION P/T",
+        "PRODUCCIÓN P/T",
+        "COCINA P/T",
+        "COCINERO P/T",
+        "COCINERA P/T",
+        "AYUDANTE DE COCINA P/T",
+        "PARRILLERO P/T",
+        "HORNERO P/T",
+        "HORNERA P/T",
+        "HORNERO(A) P/T",
+        "HORNERO (A) P/T",
+        "PARRILLERO(A) P/T",
+        "PARRILLERO (A) P/T",
+        "SALTEADOR P/T",
+        "SALTEADORA P/T",
+        "SALTEADOR(A) P/T",
+        "SALTEADOR (A) P/T",
+        "SALTEADORA(A) P/T",
+        "SALTEADORA (A) P/T",
+        "PRODUCCIÓN / COCINA PART TIME",
+        "PRODUCCION PART TIME",
+        "PRODUCCIÓN PART TIME",
+        "COCINA PART TIME",
+        "COCINERO PART TIME",
+        "COCINERA PART TIME",
+        "AYUDANTE DE COCINA PART TIME",
+        "PARRILLERO PART TIME",
+        "HORNERO PART TIME",
+        "HORNERA PART TIME",
+        "HORNERO(A) PART TIME",
+        "HORNERO (A) PART TIME",
+        "PARRILLERO(A) PART TIME",
+        "PARRILLERO (A) PART TIME",
+        "SALTEADOR PART TIME",
+        "SALTEADORA PART TIME",
+        "SALTEADOR(A) PART TIME",
+        "SALTEADOR (A) PART TIME",
+        "SALTEADORA(A) PART TIME",
+        "SALTEADORA (A) PART TIME",
+        "PRODUCCIÓN / COCINA F/T",
+        "PRODUCCION F/T",
+        "PRODUCCIÓN F/T",
+        "COCINA F/T",
+        "COCINERO F/T",
+        "COCINERA F/T",
+        "AYUDANTE DE COCINA F/T",
+        "PARRILLERO F/T",
+        "HORNERO F/T",
+        "HORNERA F/T",
+        "HORNERO(A) F/T",
+        "HORNERO (A) F/T",
+        "PARRILLERO(A) F/T",
+        "PARRILLERO (A) F/T",
+        "SALTEADOR F/T",
+        "SALTEADORA F/T",
+        "SALTEADOR(A) F/T",
+        "SALTEADOR (A) F/T",
+        "SALTEADORA(A) F/T",
+        "SALTEADORA (A) F/T",
+        "PRODUCCIÓN / COCINA FULL TIME",
+        "PRODUCCION FULL TIME",
+        "PRODUCCIÓN FULL TIME",
+        "COCINA FULL TIME",
+        "COCINERO FULL TIME",
+        "COCINERA FULL TIME",
+        "AYUDANTE DE COCINA FULL TIME",
+        "PARRILLERO FULL TIME",
+        "HORNERO FULL TIME",
+        "HORNERA FULL TIME",
+        "HORNERO(A) FULL TIME",
+        "HORNERO (A) FULL TIME",
+        "PARRILLERO(A) FULL TIME",
+        "PARRILLERO (A) FULL TIME",
+        "SALTEADOR FULL TIME",
+        "SALTEADORA FULL TIME",
+        "SALTEADOR(A) FULL TIME",
+        "SALTEADOR (A) FULL TIME",
+        "SALTEADORA(A) FULL TIME",
+        "SALTEADORA (A) FULL TIME"
       ],
       "prendas": [
         {
@@ -850,7 +1107,11 @@
       "name": "CORREDOR",
       "display_name": "Corredor",
       "synonyms": [
-        "CORREDOR"
+        "CORREDOR",
+        "CORREDOR P/T",
+        "CORREDOR PART TIME",
+        "CORREDOR F/T",
+        "CORREDOR FULL TIME"
       ],
       "prendas": [
         {

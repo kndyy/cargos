@@ -351,9 +351,10 @@ class WorksheetSummaryFrame:
 class DataPreviewFrame:
     """Frame for data preview with treeview."""
     
-    def __init__(self, parent):
+    def __init__(self, parent, unified_service: UnifiedConfigService):
         self.frame = ttk.LabelFrame(parent, text="Data Preview", padding=10)
         self.current_excel_data: Optional[ExcelData] = None
+        self.unified_service = unified_service
         self._create_widgets()
     
     def _create_widgets(self):
@@ -733,13 +734,15 @@ class DataPreviewFrame:
         
         # Setup and configure treeview
         columns = list(worksheet.data.columns)
-        self._configure_data_treeview(columns)
+        # Add occupation column at the beginning
+        columns_with_occupation = ["Occupation"] + columns
+        self._configure_data_treeview(columns_with_occupation)
         
         # Identify date columns for special formatting
         fecha_cols = self._identify_fecha_columns(columns)
         
         # Populate with data
-        self._populate_data_tree(worksheet.data, columns, fecha_cols)
+        self._populate_data_tree(worksheet.data, columns, columns_with_occupation, fecha_cols)
     
     def _configure_data_treeview(self, columns):
         """Configure the data treeview with columns and headers."""
@@ -759,11 +762,29 @@ class DataPreviewFrame:
                 fecha_cols.add(col)
         return fecha_cols
     
-    def _populate_data_tree(self, data, columns, fecha_cols):
+    def _populate_data_tree(self, data, original_columns, columns_with_occupation, fecha_cols):
         """Populate the data treeview with actual data."""
         for index, row in data.head(100).iterrows():  # Limit to 100 rows for performance
             row_values = []
-            for col in columns:
+            
+            # Add occupation column first
+            cargo = ""
+            # Try to find cargo/occupation column with different possible names
+            cargo_keys = ["cargo", "CARGO", "Cargo", "occupation", "OCCUPATION", "Occupation"]
+            for key in cargo_keys:
+                if key in row.index:
+                    cargo = self._to_scalar(row[key])
+                    break
+            
+            if cargo and str(cargo).strip():
+                # Get normalized occupation name
+                normalized_occupation = self.unified_service.normalize_occupation(str(cargo))
+                row_values.append(normalized_occupation)
+            else:
+                row_values.append("")
+            
+            # Add other columns
+            for col in original_columns:
                 val = self._to_scalar(row[col])
                 if col in fecha_cols:
                     row_values.append(self._format_date_only(val))
@@ -878,9 +899,10 @@ class DataPreviewFrame:
 class CargosTab:
     """Main tab for Cargos functionality with optimized layout."""
     
-    def __init__(self, parent, config: AppConfig):
+    def __init__(self, parent, config: AppConfig, unified_service: UnifiedConfigService):
         self.frame = ttk.Frame(parent)
         self.config = config
+        self.unified_service = unified_service
         
         # Create main container
         self.main_frame = ttk.Frame(self.frame)
@@ -888,7 +910,7 @@ class CargosTab:
         
         # Create UI components
         self.file_selection = CompactFileSelectionFrame(self.main_frame, config)
-        self.data_preview = DataPreviewFrame(self.main_frame)
+        self.data_preview = DataPreviewFrame(self.main_frame, unified_service)
         self.generate_button = GenerateButtonFrame(self.main_frame)
         
         # Layout components

@@ -44,15 +44,15 @@ class ExcelService:
             self.logger.info(f"Loading Excel file: {file_path}")
             
             # Read all sheets from Excel file
-            excel_file = pd.ExcelFile(file_path)
-            sheet_names = excel_file.sheet_names
-            
-            self.logger.info(f"Found {len(sheet_names)} worksheets: {sheet_names}")
-            
-            worksheets = []
-            for sheet_name in sheet_names:
-                worksheet_result = self._parse_worksheet(excel_file, sheet_name)
-                worksheets.append(worksheet_result)
+            with pd.ExcelFile(file_path) as excel_file:
+                sheet_names = excel_file.sheet_names
+                
+                self.logger.info(f"Found {len(sheet_names)} worksheets: {sheet_names}")
+                
+                worksheets = []
+                for sheet_name in sheet_names:
+                    worksheet_result = self._parse_worksheet(excel_file, sheet_name)
+                    worksheets.append(worksheet_result)
             
             excel_data = ExcelData(
                 file_path=file_path,
@@ -655,75 +655,47 @@ class FileGenerationService:
         tpl.save(str(output_docx))
 
     def _create_combined_docx(self, individual_docs: List[Path], output_path: Path) -> None:
-        """Combine multiple DOCX files into one document with page breaks between each."""
+        """Combine multiple DOCX files into one document with proper formatting using docxcompose."""
         try:
+            from docxcompose.composer import Composer
             from docx import Document
-            from docx.enum.text import WD_BREAK
             
             if not individual_docs:
                 self.logger.warning("No individual documents to combine")
                 return
             
-            # Use the first document as the base
-            first_doc_path = individual_docs[0]
-            if not first_doc_path.exists():
-                self.logger.error(f"First document does not exist: {first_doc_path}")
+            # Filter out non-existent documents
+            valid_docs = [doc for doc in individual_docs if doc.exists()]
+            if not valid_docs:
+                self.logger.error("No valid documents to combine")
                 return
             
             # Load the first document as the master
-            master_doc = Document(str(first_doc_path))
+            master_doc = Document(str(valid_docs[0]))
+            composer = Composer(master_doc)
             
-            # Append remaining documents with page breaks
-            for doc_path in individual_docs[1:]:
-                if not doc_path.exists():
-                    self.logger.warning(f"Document does not exist, skipping: {doc_path}")
-                    continue
-                    
+            # Append each subsequent document
+            for doc_path in valid_docs[1:]:
                 try:
-                    # Add a page break before the next document
-                    master_doc.add_page_break()
-                    
-                    # Load the document to append
                     doc_to_append = Document(str(doc_path))
-                    
-                    # Copy paragraphs from the document to append
-                    for paragraph in doc_to_append.paragraphs:
-                        new_paragraph = master_doc.add_paragraph()
-                        for run in paragraph.runs:
-                            new_run = new_paragraph.add_run(run.text)
-                            # Copy formatting if needed
-                            if run.bold:
-                                new_run.bold = True
-                            if run.italic:
-                                new_run.italic = True
-                            if run.font.size:
-                                new_run.font.size = run.font.size
-                    
-                    # Copy tables from the document to append
-                    for table in doc_to_append.tables:
-                        new_table = master_doc.add_table(rows=len(table.rows), cols=len(table.columns))
-                        for i, row in enumerate(table.rows):
-                            for j, cell in enumerate(row.cells):
-                                new_table.cell(i, j).text = cell.text
-                    
+                    composer.append(doc_to_append)
                     self.logger.debug(f"Successfully appended: {doc_path}")
-                    
                 except Exception as e:
                     self.logger.warning(f"Failed to append document {doc_path}: {e}")
                     continue
             
-            # Save the combined document
-            master_doc.save(str(output_path))
-            self.logger.info(f"Created combined document with page breaks: {output_path}")
+            # Save the merged document
+            composer.save(str(output_path))
+            self.logger.info(f"Created combined document with preserved formatting: {output_path}")
             
         except ImportError as e:
-            self.logger.error(f"python-docx not available: {e}")
-            # Fallback to simple concatenation
+            self.logger.error(f"docxcompose not available: {e}")
+            # Fallback to manual method
             self._create_fallback_combined_docx(individual_docs, output_path)
             
         except Exception as e:
-            self.logger.error(f"Failed to create combined document: {e}")
-            # Fallback to simple concatenation
+            self.logger.error(f"Failed to create combined document with docxcompose: {e}")
+            # Fallback to manual method
             self._create_fallback_combined_docx(individual_docs, output_path)
     
     def _create_fallback_combined_docx(self, individual_docs: List[Path], output_path: Path) -> None:
@@ -990,9 +962,8 @@ class FileGenerationService:
     def _format_prenda_string(self, display_name: str, talla_superior: str) -> str:
         """Format prenda string for display."""
         # Items that don't need "TALLA" prefix (typically one-size items)
-        no_talla_items = {"ANDARIN", "MANDILON"}
+        no_talla_items = {"ANDARIN", "MANDILON", "GORRA", "PECHERA", "PECHERA BAR", "GARIBALDI"}
         
-        # GORRA, PECHERA, PECHERA BAR, and GARIBALDI should show sizes
         if display_name.upper() in no_talla_items:
             return display_name
         else:
