@@ -1,0 +1,506 @@
+[
+  {
+    "local": "other",
+    "occupation": "DELIVERY",
+    "material": "POLO PIQUÉ PLOMO, MANGA LARGA",
+    "precio_sml": 17,
+    "precio_xl": 17,
+    "precio_xxl": 17
+  },
+  {
+    "local": "other",
+    "occupation": "DELIVERY",
+    "material": "GORRO NEGRO",
+    "precio_sml": 5,
+    "precio_xl": 5,
+    "precio_xxl": 5
+  },
+  {
+    "local": "other",
+    "occupation": "DELIVERY",
+    "material": "CASACA NEGRA CON REFLECTIVOS",
+    "precio_sml": 39,
+    "precio_xl": 39,
+    "precio_xxl": 41
+  },
+  {
+    "local": "other",
+    "occupation": "PACKER",
+    "material": "POLO PIQUÉ PLOMO, MANGA LARGA",
+    "precio_sml": 17,
+    "precio_xl": 17,
+    "precio_xxl": 18
+  },
+  {
+    "local": "other",
+    "occupation": "PACKER",
+    "material": "GORRO NEGRO",
+    "precio_sml": 5,
+    "precio_xl": 5,
+    "precio_xxl": 5
+  },
+  {
+    "local": "other",
+    "occupation": "STAFF ADMINISTRATIVO (HOMBRE)",
+    "material": "CAMISA OXFORD CELESTE",
+    "precio_sml": 18,
+    "precio_xl": 18,
+    "precio_xxl": 19
+  },
+  {
+    "local": "other",
+    "occupation": "STAFF ADMINISTRATIVO (HOMBRE)",
+    "material": "SACO NEGRO",
+    "precio_sml": 60,
+    "precio_xl": 60,
+    "precio_xxl": 62.5
+  },
+  {
+    "local": "other",
+    "occupation": "STAFF ADMINISTRATIVO (HOMBRE)",
+    "material": "POLO PIQUÉ PIZARRA RX, MANGA CORTA",
+    "precio_sml": 13.5,
+    "precio_xl": 13.5,
+    "precio_xxl": 15
+  },
+  {
+    "local": "other",
+    "occupation": "STAFF ADMINISTRATIVO (MUJER)",
+    "material": "BLUSA OXFORD CELESTE",
+    "precio_sml": 18,
+    "precio_xl": 18,
+    "precio_xxl": 19
+  },
+  {
+    "local": "other",
+    "occupation": "STAFF ADMINISTRATIVO (MUJER)",
+    "material": "SACO NEGRO",
+    "precio_sml": 35,
+    "precio_xl": 35,
+    "precio_xxl": 37.5
+  },
+  {
+    "local": "other",
+    "occupation": "STAFF ADMINISTRATIVO (MUJER)",
+    "material": "POLO PIQUÉ PIZARRA RX, MANGA CORTA",
+    "precio_sml": 13.5,
+    "precio_xl": 13.5,
+    "precio_xxl": 15
+  },
+  {
+    "local": "other",
+    "occupation": "CAJA (HOMBRE)",
+    "material": "CAMISA A RALLAS AZUL",
+    "precio_sml": 18,
+    "precio_xl": 18,
+    "precio_xxl": 19
+  },
+  {
+    "local": "other",
+    "occupation": "CAJA (HOMBRE)",
+    "material": "PANTALÓN AZUL NOCHE",
+    "precio_sml": 20,
+    "precio_xl": 20,
+    "precio_xxl": 21
+  },
+  {
+    "local": "other",
+    "occupation": "CAJA (HOMBRE)",
+    "material": "CHALECO AZUL NOCHE",
+    "precio_sml": 17.5,
+    "precio_xl": 17.5,
+    "precio_xxl": 18.5
+  },
+  {
+    "local": "other",
+    "occupation": "CAJA (HOMBRE)",
+    "material": "SACO NEGRO",
+    "precio_sml": 60,
+    "precio_xl": 60,
+    "precio_xxl": 62.5
+  },
+  {
+    "local": "other",
+    "occupation": "CAJA (MUJER)",
+    "material": "BLUSA A RALLAS AZUL",
+    "precio_sml": 18,
+    "precio_xl": 18,
+    "precio_xxl": 19
+  },
+  {
+    "local": "other",
+    "occupation": "CAJA (MUJER)",
+    "material": "PANTALÓN AZUL NOCHE",
+    "precio_sml": 20,
+    "precio_xl": 20,
+    "precio_xxl": 21
+  },
+  {
+    "local": "other",
+    "occupation": "CAJA (MUJER)",
+    "material": "CHALECO AZUL NOCHE",
+    "precio_sml": 17.5,
+    "precio_xl": 17.5,
+    "precio_xxl": 18.5
+  },
+  {
+    "local": "other",
+    "occupation": "CAJA (MUJER)",
+    "material": "SACO NEGRO",
+    "precio_sml": 35,
+    "precio_xl": 35,
+    "precio_xxl": 37.5
+  },
+  {
+    "local": "other",
+    "occupation": "MOZO",
+    "material": "CAMISA BLANCA (MANGA LARGA)",
+    "precio_sml": 18.5,
+    "precio_xl": 18.5,
+    "precio_xxl": 19.5
+  },
+  {
+    "local": "other",
+    "occupation": "MOZO",
+    "material": "MANDILON DRILL NEGRO",
+    "precio_sml": 7,
+    "precio_xl": 7,
+    "precio_xxl": 7
+  },
+  {
+    "local": "other",
+    "occupation": "MOZO",
+    "material": "ANDARIN GRANATE",
+    "precio_sml": 1.75,
+    "precio_xl": 1.75,
+    "precio_xxl": 1.75
+  },
+  {
+    "local": "other",
+    "occupation": "AZAFATA",
+    "material": "BLUSA BLANCA (MANGA LARGA)",
+    "precio_sml": 18.5,
+    "precio_xl": 18.5,
+    "precio_xxl": 19.5
+  },
+  {
+    "local": "other",
+    "occupation": "AZAFATA",
+    "material": "MANDILON DRILL NEGRO",
+    "precio_sml": 7,
+    "precio_xl": 7,
+    "precio_xxl": 7
+  },
+  {
+    "local": "other",
+    "occupation": "AZAFATA",
+    "material": "ANDARIN GRANATE",
+    "precio_sml": 1.75,
+    "precio_xl": 1.75,
+    "precio_xxl": 1.75
+  },
+  {
+    "local": "other",
+    "occupation": "SEGURIDAD",
+    "material": "CAMISA CHARCOL MANGA LARGA",
+    "precio_sml": 18,
+    "precio_xl": 18,
+    "precio_xxl": 19
+  },
+  {
+    "local": "other",
+    "occupation": "SEGURIDAD",
+    "material": "GORRA NEGRA",
+    "precio_sml": 5,
+    "precio_xl": 5,
+    "precio_xxl": 5
+  },
+  {
+    "local": "other",
+    "occupation": "SEGURIDAD",
+    "material": "CASACA NEGRA",
+    "precio_sml": 39,
+    "precio_xl": 39,
+    "precio_xxl": 39
+  },
+  {
+    "local": "other",
+    "occupation": "ANFITRIONAJE (HOMBRE)",
+    "material": "CAMISA COLOR NEGRO MANGA LARGA",
+    "precio_sml": 18,
+    "precio_xl": 18,
+    "precio_xxl": 19
+  },
+  {
+    "local": "other",
+    "occupation": "ANFITRIONAJE (HOMBRE)",
+    "material": "SACO NEGRO",
+    "precio_sml": 60,
+    "precio_xl": 60,
+    "precio_xxl": 62.5
+  },
+  {
+    "local": "other",
+    "occupation": "ANFITRIONAJE (MUJER)",
+    "material": "BLUSA COLOR NEGRO MANGA LARGA",
+    "precio_sml": 18,
+    "precio_xl": 18,
+    "precio_xxl": 19
+  },
+  {
+    "local": "other",
+    "occupation": "ANFITRIONAJE (MUJER)",
+    "material": "SACO NEGRO",
+    "precio_sml": 35,
+    "precio_xl": 35,
+    "precio_xxl": 37.5
+  },
+  {
+    "local": "other",
+    "occupation": "LIMPIEZA / MANTENIMIENTO",
+    "material": "PANTALÓN CARGO AZUL NOCHE",
+    "precio_sml": 12.5,
+    "precio_xl": 12.5,
+    "precio_xxl": 13.5
+  },
+  {
+    "local": "other",
+    "occupation": "LIMPIEZA / MANTENIMIENTO",
+    "material": "CHAQUETA AZUL NOCHE MANGA CORTA",
+    "precio_sml": 14,
+    "precio_xl": 14,
+    "precio_xxl": 15
+  },
+  {
+    "local": "other",
+    "occupation": "LIMPIEZA / MANTENIMIENTO",
+    "material": "POLO 30/1 GRIS",
+    "precio_sml": 7.5,
+    "precio_xl": 7.5,
+    "precio_xxl": 8.5
+  },
+  {
+    "local": "other",
+    "occupation": "BAR",
+    "material": "CAMISA NEGRA MANGA CORTA",
+    "precio_sml": 16.5,
+    "precio_xl": 16.5,
+    "precio_xxl": 17.5
+  },
+  {
+    "local": "other",
+    "occupation": "BAR",
+    "material": "PECHERA NEGRA CUERINA",
+    "precio_sml": 19.5,
+    "precio_xl": 19.5,
+    "precio_xxl": 19.5
+  },
+  {
+    "local": "other",
+    "occupation": "BAR",
+    "material": "POLO 30/1 GRIS",
+    "precio_sml": 7.5,
+    "precio_xl": 7.5,
+    "precio_xxl": 8.5
+  },
+  {
+    "local": "other",
+    "occupation": "PRODUCCIÓN / COCINA",
+    "material": "PANTALÓN SAL Y PIMIENTA",
+    "precio_sml": 11,
+    "precio_xl": 11,
+    "precio_xxl": 11.5
+  },
+  {
+    "local": "other",
+    "occupation": "PRODUCCIÓN / COCINA",
+    "material": "PECHERA GRIS EN DRILL",
+    "precio_sml": 6.5,
+    "precio_xl": 6.5,
+    "precio_xxl": 6.5
+  },
+  {
+    "local": "other",
+    "occupation": "PRODUCCIÓN / COCINA",
+    "material": "GARIBALDI GRIS",
+    "precio_sml": 4.5,
+    "precio_xl": 4.5,
+    "precio_xxl": 4.5
+  },
+  {
+    "local": "other",
+    "occupation": "PRODUCCIÓN / COCINA",
+    "material": "CHAQUETA DRILL BLANCO",
+    "precio_sml": 16.25,
+    "precio_xl": 16.25,
+    "precio_xxl": 17.25
+  },
+  {
+    "local": "other",
+    "occupation": "PRODUCCIÓN / COCINA",
+    "material": "POLO 30/1 GRIS",
+    "precio_sml": 7.5,
+    "precio_xl": 7.5,
+    "precio_xxl": 8.5
+  },
+  {
+    "local": "tarapoto",
+    "occupation": "MOZO",
+    "material": "CAMISA BLANCA (MANGA CORTA)",
+    "precio_sml": 17,
+    "precio_xl": 17,
+    "precio_xxl": 18
+  },
+  {
+    "local": "tarapoto",
+    "occupation": "MOZO",
+    "material": "MANDILON DRILL NEGRO",
+    "precio_sml": 7,
+    "precio_xl": 7,
+    "precio_xxl": 7
+  },
+  {
+    "local": "tarapoto",
+    "occupation": "MOZO",
+    "material": "ANDARIN GRANATE",
+    "precio_sml": 1.75,
+    "precio_xl": 1.75,
+    "precio_xxl": 1.75
+  },
+  {
+    "local": "tarapoto",
+    "occupation": "AZAFATA",
+    "material": "BLUSA BLANCA (MANGA CORTA)",
+    "precio_sml": 17,
+    "precio_xl": 17,
+    "precio_xxl": 18
+  },
+  {
+    "local": "tarapoto",
+    "occupation": "AZAFATA",
+    "material": "MANDILON DRILL NEGRO",
+    "precio_sml": 7,
+    "precio_xl": 7,
+    "precio_xxl": 7
+  },
+  {
+    "local": "tarapoto",
+    "occupation": "AZAFATA",
+    "material": "ANDARIN GRANATE",
+    "precio_sml": 1.75,
+    "precio_xl": 1.75,
+    "precio_xxl": 1.75
+  },
+  {
+    "local": "tarapoto",
+    "occupation": "PACKER",
+    "material": "POLO PIQUÉ CONCHE VINO, MANGA CORTA",
+    "precio_sml": 13.5,
+    "precio_xl": 13.5,
+    "precio_xxl": 15
+  },
+  {
+    "local": "tarapoto",
+    "occupation": "PACKER",
+    "material": "GORRO JOCKEY CONCHE VINO",
+    "precio_sml": 5,
+    "precio_xl": 5,
+    "precio_xxl": 5
+  },
+  {
+    "local": "tarapoto",
+    "occupation": "DELIVERY",
+    "material": "POLO PIQUÉ CONCHE VINO, MANGA CORTA",
+    "precio_sml": 13.5,
+    "precio_xl": 13.5,
+    "precio_xxl": 15
+  },
+  {
+    "local": "tarapoto",
+    "occupation": "DELIVERY",
+    "material": "GORRO JOCKEY CONCHE VINO",
+    "precio_sml": 5,
+    "precio_xl": 5,
+    "precio_xxl": 5
+  },
+  {
+    "local": "tarapoto",
+    "occupation": "DELIVERY",
+    "material": "CASACA NEGRA CON REFLECTIVOS",
+    "precio_sml": 39,
+    "precio_xl": 39,
+    "precio_xxl": 41
+  },
+  {
+    "local": "san isidro",
+    "occupation": "MOZO",
+    "material": "CAMISA OXFORD BLANCA CON RAYAS",
+    "precio_sml": 21.5,
+    "precio_xl": 21.5,
+    "precio_xxl": 23
+  },
+  {
+    "local": "san isidro",
+    "occupation": "MOZO",
+    "material": "ANDARIN NEGRO",
+    "precio_sml": 1.75,
+    "precio_xl": 1.75,
+    "precio_xxl": 1.75
+  },
+  {
+    "local": "san isidro",
+    "occupation": "MOZO",
+    "material": "PECHERA GUINDA",
+    "precio_sml": 12,
+    "precio_xl": 12,
+    "precio_xxl": 12
+  },
+  {
+    "local": "san isidro",
+    "occupation": "AZAFATA",
+    "material": "BLUSA OXFORD BLANCA CON RAYAS",
+    "precio_sml": 21.5,
+    "precio_xl": 21.5,
+    "precio_xxl": 23
+  },
+  {
+    "local": "san isidro",
+    "occupation": "AZAFATA",
+    "material": "ANDARIN NEGRO",
+    "precio_sml": 1.75,
+    "precio_xl": 1.75,
+    "precio_xxl": 1.75
+  },
+  {
+    "local": "san isidro",
+    "occupation": "AZAFATA",
+    "material": "PECHERA GUINDA",
+    "precio_sml": 12,
+    "precio_xl": 12,
+    "precio_xxl": 12
+  },
+  {
+    "local": "san isidro",
+    "occupation": "CORREDOR",
+    "material": "CAMISA OXFORD BLANCA CON RAYAS",
+    "precio_sml": 21.5,
+    "precio_xl": 21.5,
+    "precio_xxl": 23
+  },
+  {
+    "local": "san isidro",
+    "occupation": "CORREDOR",
+    "material": "ANDARIN NEGRO",
+    "precio_sml": 1.75,
+    "precio_xl": 1.75,
+    "precio_xxl": 1.75
+  },
+  {
+    "local": "san isidro",
+    "occupation": "CORREDOR",
+    "material": "PECHERA GUINDA",
+    "precio_sml": 12,
+    "precio_xl": 12,
+    "precio_xxl": 12
+  }
+]

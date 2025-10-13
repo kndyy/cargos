@@ -5,10 +5,10 @@ import pandas as pd
 import logging
 from pathlib import Path
 from typing import List, Optional, Dict, Any
-from models import ExcelData, GenerationResult, AppConfig, ExcelValidationResult, WorksheetMetadata, WorksheetParsingResult, GenerationOptions
-from validators import TemplateValidator
-from unified_config_service import UnifiedConfigService
-from constants import (
+from cargos.core.models import ExcelData, GenerationResult, AppConfig, ExcelValidationResult, WorksheetMetadata, WorksheetParsingResult, GenerationOptions
+from cargos.core.validators import TemplateValidator
+from cargos.services.unified_config_service import UnifiedConfigService
+from cargos.core.constants import (
     METADATA_ROW_FECHA_SOLICITUD, METADATA_COL_FECHA_SOLICITUD,
     METADATA_ROW_TIENDA, METADATA_COL_TIENDA,
     METADATA_ROW_ADMINISTRADOR, METADATA_COL_ADMINISTRADOR,
@@ -138,24 +138,18 @@ class ExcelService:
                         # Extract uniform data (columns J onward) starting from row 8
                         uniform_data = None
                         if len(sheet_data) > UNIFORM_DATA_START_ROW:
-                            from constants import UNIFORM_COLUMN_MAPPING
+                            from cargos.core.constants import UNIFORM_COLUMN_MAPPING
                             
                             # Extract uniform data rows (starting from row 8)
                             uniform_data_rows = sheet_data.iloc[UNIFORM_DATA_START_ROW:, UNIFORM_DATA_START_COLUMN:UNIFORM_DATA_END_COLUMN + 1]
 
                             # Use fixed column mapping based on position
-                            # This ensures consistent column names regardless of Excel header format
+                            # Column names now include occupation prefix (e.g., "DELIVERY_POLO")
+                            # This ensures unique names and matches Excel structure exactly
                             column_names = []
                             for i, col_idx in enumerate(range(UNIFORM_DATA_START_COLUMN, UNIFORM_DATA_END_COLUMN + 1)):
                                 if col_idx in UNIFORM_COLUMN_MAPPING:
-                                    prenda_name = UNIFORM_COLUMN_MAPPING[col_idx]
-                                    # Handle duplicate names by adding context
-                                    if prenda_name in column_names:
-                                        # Count how many times this name appears
-                                        count = column_names.count(prenda_name) + 1
-                                        column_names.append(f"{prenda_name}_{count}")
-                                    else:
-                                        column_names.append(prenda_name)
+                                    column_names.append(UNIFORM_COLUMN_MAPPING[col_idx])
                                 else:
                                     column_names.append(f"PRENDA_{i}")
                             
@@ -661,52 +655,74 @@ class FileGenerationService:
         tpl.save(str(output_docx))
 
     def _create_combined_docx(self, individual_docs: List[Path], output_path: Path) -> None:
-        """Combine multiple DOCX files into one concatenated document using docxcompose."""
+        """Combine multiple DOCX files into one document with page breaks between each."""
         try:
-            from docxcompose.composer import Composer
             from docx import Document
+            from docx.enum.text import WD_BREAK
             
             if not individual_docs:
                 self.logger.warning("No individual documents to combine")
                 return
             
-            # Use the first document as master
+            # Use the first document as the base
             first_doc_path = individual_docs[0]
             if not first_doc_path.exists():
                 self.logger.error(f"First document does not exist: {first_doc_path}")
                 return
             
-            # Load master document
+            # Load the first document as the master
             master_doc = Document(str(first_doc_path))
-            composer = Composer(master_doc)
             
-            # Append remaining documents
+            # Append remaining documents with page breaks
             for doc_path in individual_docs[1:]:
                 if not doc_path.exists():
                     self.logger.warning(f"Document does not exist, skipping: {doc_path}")
                     continue
                     
                 try:
-                    # Load document to append
+                    # Add a page break before the next document
+                    master_doc.add_page_break()
+                    
+                    # Load the document to append
                     doc_to_append = Document(str(doc_path))
-                    composer.append(doc_to_append)
+                    
+                    # Copy paragraphs from the document to append
+                    for paragraph in doc_to_append.paragraphs:
+                        new_paragraph = master_doc.add_paragraph()
+                        for run in paragraph.runs:
+                            new_run = new_paragraph.add_run(run.text)
+                            # Copy formatting if needed
+                            if run.bold:
+                                new_run.bold = True
+                            if run.italic:
+                                new_run.italic = True
+                            if run.font.size:
+                                new_run.font.size = run.font.size
+                    
+                    # Copy tables from the document to append
+                    for table in doc_to_append.tables:
+                        new_table = master_doc.add_table(rows=len(table.rows), cols=len(table.columns))
+                        for i, row in enumerate(table.rows):
+                            for j, cell in enumerate(row.cells):
+                                new_table.cell(i, j).text = cell.text
+                    
                     self.logger.debug(f"Successfully appended: {doc_path}")
                     
                 except Exception as e:
                     self.logger.warning(f"Failed to append document {doc_path}: {e}")
                     continue
             
-            # Save combined document
-            composer.save(str(output_path))
-            self.logger.info(f"Created combined document using docxcompose: {output_path}")
+            # Save the combined document
+            master_doc.save(str(output_path))
+            self.logger.info(f"Created combined document with page breaks: {output_path}")
             
-        except ImportError:
-            self.logger.error("docxcompose not available. Please install: pip install docxcompose")
+        except ImportError as e:
+            self.logger.error(f"python-docx not available: {e}")
             # Fallback to simple concatenation
             self._create_fallback_combined_docx(individual_docs, output_path)
             
         except Exception as e:
-            self.logger.error(f"Failed to create combined document with docxcompose: {e}")
+            self.logger.error(f"Failed to create combined document: {e}")
             # Fallback to simple concatenation
             self._create_fallback_combined_docx(individual_docs, output_path)
     
@@ -920,10 +936,21 @@ class FileGenerationService:
         return any(indicator in column_lower for indicator in prenda_indicators)
     
     def _normalize_prenda_type(self, column_name: str) -> str:
-        """Normalize column name to standard prenda type."""
-        col_lower = str(column_name).lower().strip()
+        """
+        Normalize column name to standard prenda type.
+        Column names come in format: "OCCUPATION_PRENDA" (e.g., "DELIVERY_POLO")
+        Returns just the prenda part (e.g., "POLO") for pricing lookup.
+        """
+        col_upper = str(column_name).upper().strip()
         
-        # Direct mappings
+        # If in OCCUPATION_PRENDA format, extract just the prenda part
+        if '_' in col_upper:
+            # Split by underscore and take the last part (the prenda name)
+            parts = col_upper.split('_')
+            return parts[-1]  # Return just the prenda part (e.g., "POLO" from "DELIVERY_POLO")
+        
+        # Fallback for legacy format
+        col_lower = col_upper.lower()
         mapping = {
             'camisa': 'CAMISA',
             'blusa': 'BLUSA', 
@@ -943,39 +970,29 @@ class FileGenerationService:
             'gorro': 'GORRO'
         }
         
-        # Check direct matches first
         for key, value in mapping.items():
             if key in col_lower:
-                # Handle special cases with prefixes
-                if 'delivery' in col_lower and key in ['polo', 'casaca', 'gorro']:
-                    return f"DELIVERY{value}"
-                elif 'packer' in col_lower and key in ['polo', 'gorra']:
-                    return f"PACKER{value}"
-                elif 'bar' in col_lower and key in ['pechera']:
-                    return "PECHERA_BAR"
-                else:
-                    return value
+                return value
         
-        # Fallback: return uppercase version
-        return col_lower.upper().replace(' ', '_')
+        return col_upper.replace(' ', '_')
     
     def _get_display_name(self, prenda_type: str) -> str:
-        """Get display name for prenda type."""
-        display = prenda_type
-        if prenda_type.startswith('PACKER'):
-            display = prenda_type.replace('PACKER', '').strip()
-        elif prenda_type.startswith('DELIVERY'):
-            display = prenda_type.replace('DELIVERY', '').strip()
-        elif prenda_type == 'PECHERA_BAR':
-            display = 'PECHERA BAR'
-
-        return display.replace('_', ' ')
+        """
+        Get display name for prenda type.
+        For document generation, we only show the prenda name (not the occupation prefix).
+        Example: "POLO" -> "Polo", not "DELIVERY_POLO" -> "Delivery Polo"
+        """
+        # prenda_type is already just the prenda part (e.g., "POLO") after _normalize_prenda_type
+        # Just title case it for display
+        display = prenda_type.replace('_', ' ').title()
+        return display
     
     def _format_prenda_string(self, display_name: str, talla_superior: str) -> str:
         """Format prenda string for display."""
-        # Items that don't need "TALLA" prefix
-        no_talla_items = {"ANDARIN", "MANDILON", "GORRA", "PECHERA", "PECHERA BAR"}
+        # Items that don't need "TALLA" prefix (typically one-size items)
+        no_talla_items = {"ANDARIN", "MANDILON"}
         
+        # GORRA, PECHERA, PECHERA BAR, and GARIBALDI should show sizes
         if display_name.upper() in no_talla_items:
             return display_name
         else:

@@ -7,12 +7,12 @@ from typing import Callable, Optional, List
 from datetime import datetime
 import pandas as pd
 
-from models import ExcelData, AppConfig, Occupation, OccupationPrenda
-from constants import (
+from cargos.core.models import ExcelData, AppConfig, Occupation, OccupationPrenda
+from cargos.core.constants import (
     GENERATION_DIALOG_WIDTH, GENERATION_DIALOG_HEIGHT, GENERATION_DIALOG_CANVAS_HEIGHT,
     TREE_COLUMN_WIDTH_PEOPLE, TREE_COLUMN_WIDTH_STATUS, TREE_COLUMN_WIDTH_UNIFORM, TREE_COLUMN_WIDTH_DATA
 )
-from unified_config_service import UnifiedConfigService
+from cargos.services.unified_config_service import UnifiedConfigService
 
 
 class CompactFileSelectionFrame:
@@ -242,7 +242,7 @@ class WorksheetSummaryFrame:
     
     def _create_widgets(self):
         """Create and layout widgets."""
-        from constants import DEFAULT_TREE_HEIGHT
+        from cargos.core.constants import DEFAULT_TREE_HEIGHT
         
         # Create treeview for worksheet summary
         columns = ("Sheet", "People", "Errors", "Status")
@@ -982,6 +982,7 @@ class CargosTab:
             # Stash selections for retrieval by controller
             self._selected_locales = selected_locales
             self._combine_per_local = combine
+            
             if self.on_generate_files:
                 self.on_generate_files()
         except Exception as e:
@@ -1017,7 +1018,7 @@ class CargosTab:
                         has_locales_available = True
                         break
             # Check template validation for enabled templates only
-            from validators import TemplateValidator
+            from cargos.core.validators import TemplateValidator
             enabled_templates = self.file_selection.get_enabled_templates()
             templates_ok = len(enabled_templates) > 0  # At least one template must be enabled
             
@@ -1360,31 +1361,38 @@ class ConfigurationTab:
         
         # Load pricing matrix
         self.pricing_tree.delete(*self.pricing_tree.get_children())
-        configuration_matrix = self.unified_service.get_configuration_matrix()
-        
-        for config in configuration_matrix:
-            if config["price"] > 0:  # Only show entries with prices
-                self.pricing_tree.insert("", "end", values=(
-                    config["occupation_display"],
-                    config["prenda_type"],
-                    config["size_group"],
-                    config["local_group"],
-                    f"S/ {config['price']:.2f}"
-                ))
+        try:
+            configuration_matrix = self.unified_service.get_configuration_matrix()
+            
+            for config in configuration_matrix:
+                if config["price"] > 0:  # Only show entries with prices
+                    self.pricing_tree.insert("", "end", values=(
+                        config["occupation_display"],
+                        config["prenda_type"],
+                        config["size_group"],
+                        config["local_group"],
+                        f"S/ {config['price']:.2f}"
+                    ))
+        except Exception as e:
+            # Log error but don't crash the UI
+            import logging
+            logging.error(f"Error loading configuration matrix: {e}")
+            self.pricing_tree.insert("", "end", values=("Error", "Loading", "Failed", "", ""))
     
     def _save_config(self):
         """Save unified configuration."""
-        if self.unified_service.save_config():
+        if self.unified_service.save():
             messagebox.showinfo("Success", "Configuration saved successfully!")
         else:
             messagebox.showerror("Error", "Failed to save configuration!")
     
     def _reset_to_defaults(self):
         """Reset to default configuration."""
-        if messagebox.askyesno("Confirm Reset", "Are you sure you want to reset to default configuration? This will overwrite all current settings."):
-            self.unified_service.unified_config = self.unified_service._create_default_config()
-            self._load_data()
-            messagebox.showinfo("Success", "Configuration reset to defaults!")
+        messagebox.showwarning(
+            "Not Available", 
+            "Reset to defaults is not available. All configuration is loaded from config.json.\n\n"
+            "To reset, please edit config.json directly or delete it to start fresh."
+        )
     
     def _add_occupation(self):
         """Add a new occupation."""
@@ -1492,18 +1500,21 @@ class ConfigurationTab:
                 description=description
             )
             
-            if occupation:
-                if self.unified_service.update_occupation(new_occupation):
-                    self._load_data()
-                    dlg.destroy()
+            try:
+                if occupation:
+                    if self.unified_service.update_occupation(new_occupation):
+                        self._load_data()
+                        dlg.destroy()
+                    else:
+                        messagebox.showerror("Error", "Failed to update occupation!")
                 else:
-                    messagebox.showerror("Error", "Failed to update occupation!")
-            else:
-                if self.unified_service.add_occupation(new_occupation):
-                    self._load_data()
-                    dlg.destroy()
-                else:
-                    messagebox.showerror("Error", "Failed to add occupation!")
+                    if self.unified_service.add_occupation(new_occupation):
+                        self._load_data()
+                        dlg.destroy()
+                    else:
+                        messagebox.showerror("Error", "Failed to add occupation!")
+            except Exception as e:
+                messagebox.showerror("Error", f"An error occurred: {str(e)}")
         
         ttk.Button(button_frame, text="Save", command=save_occupation).pack(side="left", padx=5)
         ttk.Button(button_frame, text="Cancel", command=dlg.destroy).pack(side="left", padx=5)
@@ -1524,22 +1535,26 @@ class ConfigurationTab:
         prenda_var = tk.StringVar(value=prenda.prenda_type if prenda else "")
         ttk.Entry(dlg, textvariable=prenda_var, width=40).grid(row=1, column=1, padx=5, pady=5)
         
+        ttk.Label(dlg, text="Display Name:").grid(row=2, column=0, sticky="w", padx=5, pady=5)
+        display_name_var = tk.StringVar(value=prenda.display_name if prenda else "")
+        ttk.Entry(dlg, textvariable=display_name_var, width=40).grid(row=2, column=1, padx=5, pady=5)
+        
         has_sizes_var = tk.BooleanVar(value=prenda.has_sizes if prenda else True)
-        ttk.Checkbutton(dlg, text="Has Sizes", variable=has_sizes_var).grid(row=2, column=1, sticky="w", padx=5, pady=5)
+        ttk.Checkbutton(dlg, text="Has Sizes", variable=has_sizes_var).grid(row=3, column=1, sticky="w", padx=5, pady=5)
         
         is_required_var = tk.BooleanVar(value=prenda.is_required if prenda else False)
-        ttk.Checkbutton(dlg, text="Required", variable=is_required_var).grid(row=3, column=1, sticky="w", padx=5, pady=5)
+        ttk.Checkbutton(dlg, text="Required", variable=is_required_var).grid(row=4, column=1, sticky="w", padx=5, pady=5)
         
-        ttk.Label(dlg, text="Default Quantity:").grid(row=4, column=0, sticky="w", padx=5, pady=5)
+        ttk.Label(dlg, text="Default Quantity:").grid(row=5, column=0, sticky="w", padx=5, pady=5)
         qty_var = tk.StringVar(value=str(prenda.default_quantity) if prenda else "0")
-        ttk.Entry(dlg, textvariable=qty_var, width=40).grid(row=4, column=1, padx=5, pady=5)
+        ttk.Entry(dlg, textvariable=qty_var, width=40).grid(row=5, column=1, padx=5, pady=5)
         
         # Pricing section
-        ttk.Label(dlg, text="Pricing (S/):", font=("TkDefaultFont", 10, "bold")).grid(row=5, column=0, columnspan=2, pady=(20, 5))
+        ttk.Label(dlg, text="Pricing (S/):", font=("TkDefaultFont", 10, "bold")).grid(row=6, column=0, columnspan=2, pady=(20, 5))
         
         # Create pricing grid
         pricing_frame = ttk.Frame(dlg)
-        pricing_frame.grid(row=6, column=0, columnspan=2, padx=5, pady=5, sticky="ew")
+        pricing_frame.grid(row=7, column=0, columnspan=2, padx=5, pady=5, sticky="ew")
         
         # Headers
         ttk.Label(pricing_frame, text="Size\\Local").grid(row=0, column=0, padx=2, pady=2)
@@ -1559,7 +1574,7 @@ class ConfigurationTab:
         
         # Buttons
         button_frame = ttk.Frame(dlg)
-        button_frame.grid(row=7, column=0, columnspan=2, pady=20)
+        button_frame.grid(row=8, column=0, columnspan=2, pady=20)
         
         def save_prenda():
             try:
@@ -1571,6 +1586,7 @@ class ConfigurationTab:
             # Create prenda with pricing
             prenda_data = {
                 "prenda_type": prenda_var.get(),
+                "display_name": display_name_var.get(),
                 "has_sizes": has_sizes_var.get(),
                 "is_required": is_required_var.get(),
                 "default_quantity": default_qty
@@ -1587,11 +1603,14 @@ class ConfigurationTab:
             
             new_prenda = OccupationPrenda(**prenda_data)
             
-            if self.unified_service.add_prenda_to_occupation(occ_var.get(), new_prenda):
-                self._load_data()
-                dlg.destroy()
-            else:
-                messagebox.showerror("Error", "Failed to add prenda!")
+            try:
+                if self.unified_service.add_prenda_to_occupation(occ_var.get(), new_prenda):
+                    self._load_data()
+                    dlg.destroy()
+                else:
+                    messagebox.showerror("Error", "Failed to add prenda!")
+            except Exception as e:
+                messagebox.showerror("Error", f"An error occurred: {str(e)}")
         
         ttk.Button(button_frame, text="Save", command=save_prenda).pack(side="left", padx=5)
         ttk.Button(button_frame, text="Cancel", command=dlg.destroy).pack(side="left", padx=5)
@@ -1638,6 +1657,8 @@ class ConfigurationTab:
                     messagebox.showerror("Error", "Failed to update price!")
             except ValueError:
                 messagebox.showerror("Error", "Please enter a valid price!")
+            except Exception as e:
+                messagebox.showerror("Error", f"An error occurred: {str(e)}")
         
         ttk.Button(button_frame, text="Save", command=save_price).pack(side="left", padx=5)
         ttk.Button(button_frame, text="Cancel", command=dlg.destroy).pack(side="left", padx=5)

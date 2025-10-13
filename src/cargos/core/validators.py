@@ -3,7 +3,7 @@ Validation utilities for the File Generator application.
 """
 from pathlib import Path
 from typing import List
-from models import AppConfig
+from cargos.core.models import AppConfig
 
 
 class TemplateValidator:

@@ -8418,3 +8418,1062 @@ AttributeError: 'GenerationResult' object has no attribute 'is_valid'
 2025-10-01 22:39:51,039 - ERROR - Failed to load unified config: OccupationPrenda.__init__() got an unexpected keyword argument 'display_name'
 2025-10-01 22:39:51,214 - ERROR - Failed to save configuration: 'OccupationPrenda' object has no attribute 'display_name'
 2025-10-01 22:39:51,216 - INFO - Application initialized successfully
+2025-10-12 21:03:03,262 - INFO - Configuration saved to config.json
+2025-10-12 21:03:03,263 - INFO - Application initialized successfully
+2025-10-12 21:03:12,946 - INFO - Loading Excel file: /Users/leonardocandio/Downloads/REQUERIMIENTO DE UNIFORMES OCTUBRE 2025 este es.xlsx
+2025-10-12 21:03:13,117 - INFO - Found 18 worksheets: ['MEGAPLAZA', 'DOMINICANA', 'EL POLO', 'FAUCETT', 'GUARDIA CIVIL', 'ICA PROVINCIA', 'JESUS MARIA', 'LIMA HISTORICO', 'LOS OLIVOS', 'MAGDALENA', 'LA MOLINA', 'PURUCHUCO', 'RISSO', 'SAN ISIDRO', 'SAN MIGUEL', 'DOÑA ROSA', 'LARCOMAR', 'IQUITOS']
+2025-10-12 21:03:13,147 - INFO - Sheet 'MEGAPLAZA': 7 people parsed from 57 total lines
+2025-10-12 21:03:13,147 - INFO - Sheet 'MEGAPLAZA': 7 uniform data rows extracted
+2025-10-12 21:03:13,158 - INFO - Sheet 'DOMINICANA': 14 people parsed from 57 total lines
+2025-10-12 21:03:13,158 - INFO - Sheet 'DOMINICANA': 14 uniform data rows extracted
+2025-10-12 21:03:13,169 - INFO - Sheet 'EL POLO': 12 people parsed from 57 total lines
+2025-10-12 21:03:13,169 - INFO - Sheet 'EL POLO': 12 uniform data rows extracted
+2025-10-12 21:03:13,178 - INFO - Sheet 'FAUCETT': 7 people parsed from 57 total lines
+2025-10-12 21:03:13,178 - INFO - Sheet 'FAUCETT': 6 uniform data rows extracted
+2025-10-12 21:03:13,187 - INFO - Sheet 'GUARDIA CIVIL': 10 people parsed from 57 total lines
+2025-10-12 21:03:13,187 - INFO - Sheet 'GUARDIA CIVIL': 10 uniform data rows extracted
+2025-10-12 21:03:13,197 - INFO - Sheet 'ICA PROVINCIA': 44 people parsed from 57 total lines
+2025-10-12 21:03:13,197 - INFO - Sheet 'ICA PROVINCIA': 32 uniform data rows extracted
+2025-10-12 21:03:13,205 - INFO - Sheet 'JESUS MARIA': 18 people parsed from 57 total lines
+2025-10-12 21:03:13,205 - INFO - Sheet 'JESUS MARIA': 18 uniform data rows extracted
+2025-10-12 21:03:13,215 - INFO - Sheet 'LIMA HISTORICO': 22 people parsed from 57 total lines
+2025-10-12 21:03:13,216 - INFO - Sheet 'LIMA HISTORICO': 22 uniform data rows extracted
+2025-10-12 21:03:13,224 - INFO - Sheet 'LOS OLIVOS': 17 people parsed from 57 total lines
+2025-10-12 21:03:13,225 - INFO - Sheet 'LOS OLIVOS': 17 uniform data rows extracted
+2025-10-12 21:03:13,234 - INFO - Sheet 'MAGDALENA': 23 people parsed from 57 total lines
+2025-10-12 21:03:13,234 - INFO - Sheet 'MAGDALENA': 23 uniform data rows extracted
+2025-10-12 21:03:13,243 - INFO - Sheet 'LA MOLINA': 17 people parsed from 57 total lines
+2025-10-12 21:03:13,243 - INFO - Sheet 'LA MOLINA': 17 uniform data rows extracted
+2025-10-12 21:03:13,251 - INFO - Sheet 'PURUCHUCO': 2 people parsed from 57 total lines
+2025-10-12 21:03:13,252 - INFO - Sheet 'PURUCHUCO': 2 uniform data rows extracted
+2025-10-12 21:03:13,260 - INFO - Sheet 'RISSO': 16 people parsed from 57 total lines
+2025-10-12 21:03:13,260 - INFO - Sheet 'RISSO': 16 uniform data rows extracted
+2025-10-12 21:03:13,269 - INFO - Sheet 'SAN ISIDRO': 18 people parsed from 57 total lines
+2025-10-12 21:03:13,269 - INFO - Sheet 'SAN ISIDRO': 18 uniform data rows extracted
+2025-10-12 21:03:13,276 - INFO - Sheet 'SAN MIGUEL': 13 people parsed from 52 total lines
+2025-10-12 21:03:13,276 - INFO - Sheet 'SAN MIGUEL': 13 uniform data rows extracted
+2025-10-12 21:03:13,285 - INFO - Sheet 'DOÑA ROSA': 15 people parsed from 57 total lines
+2025-10-12 21:03:13,285 - INFO - Sheet 'DOÑA ROSA': 15 uniform data rows extracted
+2025-10-12 21:03:13,293 - INFO - Sheet 'LARCOMAR': 5 people parsed from 57 total lines
+2025-10-12 21:03:13,293 - INFO - Sheet 'LARCOMAR': 5 uniform data rows extracted
+2025-10-12 21:03:13,302 - INFO - Sheet 'IQUITOS': 45 people parsed from 54 total lines
+2025-10-12 21:03:13,302 - INFO - Sheet 'IQUITOS': 6 uniform data rows extracted
+2025-10-12 21:03:13,302 - INFO - Excel file loaded successfully. 18/18 worksheets parsed, 305 people total.
+2025-10-12 22:20:44,078 - ERROR - Error loading configuration matrix: 'UnifiedConfigService' object has no attribute 'get_configuration_matrix'
+2025-10-12 22:20:44,082 - INFO - Application initialized successfully
+2025-10-12 22:21:00,556 - INFO - Loading Excel file: /Users/leonardocandio/Downloads/REQUERIMIENTO DE UNIFORMES OCTUBRE 2025 este es.xlsx
+2025-10-12 22:21:00,682 - INFO - Found 18 worksheets: ['MEGAPLAZA', 'DOMINICANA', 'EL POLO', 'FAUCETT', 'GUARDIA CIVIL', 'ICA PROVINCIA', 'JESUS MARIA', 'LIMA HISTORICO', 'LOS OLIVOS', 'MAGDALENA', 'LA MOLINA', 'PURUCHUCO', 'RISSO', 'SAN ISIDRO', 'SAN MIGUEL', 'DOÑA ROSA', 'LARCOMAR', 'IQUITOS']
+2025-10-12 22:21:00,707 - INFO - Sheet 'MEGAPLAZA': 7 people parsed from 57 total lines
+2025-10-12 22:21:00,707 - INFO - Sheet 'MEGAPLAZA': 7 uniform data rows extracted
+2025-10-12 22:21:00,717 - INFO - Sheet 'DOMINICANA': 14 people parsed from 57 total lines
+2025-10-12 22:21:00,717 - INFO - Sheet 'DOMINICANA': 14 uniform data rows extracted
+2025-10-12 22:21:00,726 - INFO - Sheet 'EL POLO': 12 people parsed from 57 total lines
+2025-10-12 22:21:00,726 - INFO - Sheet 'EL POLO': 12 uniform data rows extracted
+2025-10-12 22:21:00,734 - INFO - Sheet 'FAUCETT': 7 people parsed from 57 total lines
+2025-10-12 22:21:00,734 - INFO - Sheet 'FAUCETT': 6 uniform data rows extracted
+2025-10-12 22:21:00,743 - INFO - Sheet 'GUARDIA CIVIL': 10 people parsed from 57 total lines
+2025-10-12 22:21:00,743 - INFO - Sheet 'GUARDIA CIVIL': 10 uniform data rows extracted
+2025-10-12 22:21:00,752 - INFO - Sheet 'ICA PROVINCIA': 44 people parsed from 57 total lines
+2025-10-12 22:21:00,752 - INFO - Sheet 'ICA PROVINCIA': 32 uniform data rows extracted
+2025-10-12 22:21:00,761 - INFO - Sheet 'JESUS MARIA': 18 people parsed from 57 total lines
+2025-10-12 22:21:00,761 - INFO - Sheet 'JESUS MARIA': 18 uniform data rows extracted
+2025-10-12 22:21:00,770 - INFO - Sheet 'LIMA HISTORICO': 22 people parsed from 57 total lines
+2025-10-12 22:21:00,770 - INFO - Sheet 'LIMA HISTORICO': 22 uniform data rows extracted
+2025-10-12 22:21:00,779 - INFO - Sheet 'LOS OLIVOS': 17 people parsed from 57 total lines
+2025-10-12 22:21:00,779 - INFO - Sheet 'LOS OLIVOS': 17 uniform data rows extracted
+2025-10-12 22:21:00,788 - INFO - Sheet 'MAGDALENA': 23 people parsed from 57 total lines
+2025-10-12 22:21:00,788 - INFO - Sheet 'MAGDALENA': 23 uniform data rows extracted
+2025-10-12 22:21:00,797 - INFO - Sheet 'LA MOLINA': 17 people parsed from 57 total lines
+2025-10-12 22:21:00,798 - INFO - Sheet 'LA MOLINA': 17 uniform data rows extracted
+2025-10-12 22:21:00,806 - INFO - Sheet 'PURUCHUCO': 2 people parsed from 57 total lines
+2025-10-12 22:21:00,806 - INFO - Sheet 'PURUCHUCO': 2 uniform data rows extracted
+2025-10-12 22:21:00,816 - INFO - Sheet 'RISSO': 16 people parsed from 57 total lines
+2025-10-12 22:21:00,816 - INFO - Sheet 'RISSO': 16 uniform data rows extracted
+2025-10-12 22:21:00,825 - INFO - Sheet 'SAN ISIDRO': 18 people parsed from 57 total lines
+2025-10-12 22:21:00,825 - INFO - Sheet 'SAN ISIDRO': 18 uniform data rows extracted
+2025-10-12 22:21:00,834 - INFO - Sheet 'SAN MIGUEL': 13 people parsed from 52 total lines
+2025-10-12 22:21:00,834 - INFO - Sheet 'SAN MIGUEL': 13 uniform data rows extracted
+2025-10-12 22:21:00,843 - INFO - Sheet 'DOÑA ROSA': 15 people parsed from 57 total lines
+2025-10-12 22:21:00,843 - INFO - Sheet 'DOÑA ROSA': 15 uniform data rows extracted
+2025-10-12 22:21:00,851 - INFO - Sheet 'LARCOMAR': 5 people parsed from 57 total lines
+2025-10-12 22:21:00,851 - INFO - Sheet 'LARCOMAR': 5 uniform data rows extracted
+2025-10-12 22:21:00,859 - INFO - Sheet 'IQUITOS': 45 people parsed from 54 total lines
+2025-10-12 22:21:00,860 - INFO - Sheet 'IQUITOS': 6 uniform data rows extracted
+2025-10-12 22:21:00,860 - INFO - Excel file loaded successfully. 18/18 worksheets parsed, 305 people total.
+2025-10-12 22:24:51,419 - INFO - Application initialized successfully
+2025-10-12 22:25:00,350 - INFO - Loading Excel file: /Users/leonardocandio/Downloads/REQUERIMIENTO DE UNIFORMES OCTUBRE 2025 este es.xlsx
+2025-10-12 22:25:00,485 - INFO - Found 18 worksheets: ['MEGAPLAZA', 'DOMINICANA', 'EL POLO', 'FAUCETT', 'GUARDIA CIVIL', 'ICA PROVINCIA', 'JESUS MARIA', 'LIMA HISTORICO', 'LOS OLIVOS', 'MAGDALENA', 'LA MOLINA', 'PURUCHUCO', 'RISSO', 'SAN ISIDRO', 'SAN MIGUEL', 'DOÑA ROSA', 'LARCOMAR', 'IQUITOS']
+2025-10-12 22:25:00,512 - INFO - Sheet 'MEGAPLAZA': 7 people parsed from 57 total lines
+2025-10-12 22:25:00,512 - INFO - Sheet 'MEGAPLAZA': 7 uniform data rows extracted
+2025-10-12 22:25:00,522 - INFO - Sheet 'DOMINICANA': 14 people parsed from 57 total lines
+2025-10-12 22:25:00,522 - INFO - Sheet 'DOMINICANA': 14 uniform data rows extracted
+2025-10-12 22:25:00,529 - INFO - Sheet 'EL POLO': 12 people parsed from 57 total lines
+2025-10-12 22:25:00,529 - INFO - Sheet 'EL POLO': 12 uniform data rows extracted
+2025-10-12 22:25:00,537 - INFO - Sheet 'FAUCETT': 7 people parsed from 57 total lines
+2025-10-12 22:25:00,537 - INFO - Sheet 'FAUCETT': 6 uniform data rows extracted
+2025-10-12 22:25:00,545 - INFO - Sheet 'GUARDIA CIVIL': 10 people parsed from 57 total lines
+2025-10-12 22:25:00,545 - INFO - Sheet 'GUARDIA CIVIL': 10 uniform data rows extracted
+2025-10-12 22:25:00,553 - INFO - Sheet 'ICA PROVINCIA': 44 people parsed from 57 total lines
+2025-10-12 22:25:00,553 - INFO - Sheet 'ICA PROVINCIA': 32 uniform data rows extracted
+2025-10-12 22:25:00,560 - INFO - Sheet 'JESUS MARIA': 18 people parsed from 57 total lines
+2025-10-12 22:25:00,561 - INFO - Sheet 'JESUS MARIA': 18 uniform data rows extracted
+2025-10-12 22:25:00,569 - INFO - Sheet 'LIMA HISTORICO': 22 people parsed from 57 total lines
+2025-10-12 22:25:00,569 - INFO - Sheet 'LIMA HISTORICO': 22 uniform data rows extracted
+2025-10-12 22:25:00,576 - INFO - Sheet 'LOS OLIVOS': 17 people parsed from 57 total lines
+2025-10-12 22:25:00,576 - INFO - Sheet 'LOS OLIVOS': 17 uniform data rows extracted
+2025-10-12 22:25:00,584 - INFO - Sheet 'MAGDALENA': 23 people parsed from 57 total lines
+2025-10-12 22:25:00,584 - INFO - Sheet 'MAGDALENA': 23 uniform data rows extracted
+2025-10-12 22:25:00,592 - INFO - Sheet 'LA MOLINA': 17 people parsed from 57 total lines
+2025-10-12 22:25:00,592 - INFO - Sheet 'LA MOLINA': 17 uniform data rows extracted
+2025-10-12 22:25:00,600 - INFO - Sheet 'PURUCHUCO': 2 people parsed from 57 total lines
+2025-10-12 22:25:00,600 - INFO - Sheet 'PURUCHUCO': 2 uniform data rows extracted
+2025-10-12 22:25:00,608 - INFO - Sheet 'RISSO': 16 people parsed from 57 total lines
+2025-10-12 22:25:00,608 - INFO - Sheet 'RISSO': 16 uniform data rows extracted
+2025-10-12 22:25:00,615 - INFO - Sheet 'SAN ISIDRO': 18 people parsed from 57 total lines
+2025-10-12 22:25:00,616 - INFO - Sheet 'SAN ISIDRO': 18 uniform data rows extracted
+2025-10-12 22:25:00,623 - INFO - Sheet 'SAN MIGUEL': 13 people parsed from 52 total lines
+2025-10-12 22:25:00,623 - INFO - Sheet 'SAN MIGUEL': 13 uniform data rows extracted
+2025-10-12 22:25:00,630 - INFO - Sheet 'DOÑA ROSA': 15 people parsed from 57 total lines
+2025-10-12 22:25:00,631 - INFO - Sheet 'DOÑA ROSA': 15 uniform data rows extracted
+2025-10-12 22:25:00,638 - INFO - Sheet 'LARCOMAR': 5 people parsed from 57 total lines
+2025-10-12 22:25:00,638 - INFO - Sheet 'LARCOMAR': 5 uniform data rows extracted
+2025-10-12 22:25:00,647 - INFO - Sheet 'IQUITOS': 45 people parsed from 54 total lines
+2025-10-12 22:25:00,647 - INFO - Sheet 'IQUITOS': 6 uniform data rows extracted
+2025-10-12 22:25:00,647 - INFO - Excel file loaded successfully. 18/18 worksheets parsed, 305 people total.
+2025-10-12 22:35:19,111 - INFO - Application initialized successfully
+2025-10-12 22:35:30,746 - INFO - Application initialized successfully
+2025-10-12 22:35:38,816 - INFO - Loading Excel file: /Users/leonardocandio/Downloads/REQUERIMIENTO DE UNIFORMES OCTUBRE 2025 este es.xlsx
+2025-10-12 22:35:38,955 - INFO - Found 18 worksheets: ['MEGAPLAZA', 'DOMINICANA', 'EL POLO', 'FAUCETT', 'GUARDIA CIVIL', 'ICA PROVINCIA', 'JESUS MARIA', 'LIMA HISTORICO', 'LOS OLIVOS', 'MAGDALENA', 'LA MOLINA', 'PURUCHUCO', 'RISSO', 'SAN ISIDRO', 'SAN MIGUEL', 'DOÑA ROSA', 'LARCOMAR', 'IQUITOS']
+2025-10-12 22:35:38,974 - INFO - Sheet 'MEGAPLAZA': 7 people parsed from 57 total lines
+2025-10-12 22:35:38,974 - INFO - Sheet 'MEGAPLAZA': 7 uniform data rows extracted
+2025-10-12 22:35:38,984 - INFO - Sheet 'DOMINICANA': 14 people parsed from 57 total lines
+2025-10-12 22:35:38,984 - INFO - Sheet 'DOMINICANA': 14 uniform data rows extracted
+2025-10-12 22:35:38,992 - INFO - Sheet 'EL POLO': 12 people parsed from 57 total lines
+2025-10-12 22:35:38,993 - INFO - Sheet 'EL POLO': 12 uniform data rows extracted
+2025-10-12 22:35:39,001 - INFO - Sheet 'FAUCETT': 7 people parsed from 57 total lines
+2025-10-12 22:35:39,001 - INFO - Sheet 'FAUCETT': 6 uniform data rows extracted
+2025-10-12 22:35:39,010 - INFO - Sheet 'GUARDIA CIVIL': 10 people parsed from 57 total lines
+2025-10-12 22:35:39,010 - INFO - Sheet 'GUARDIA CIVIL': 10 uniform data rows extracted
+2025-10-12 22:35:39,019 - INFO - Sheet 'ICA PROVINCIA': 44 people parsed from 57 total lines
+2025-10-12 22:35:39,020 - INFO - Sheet 'ICA PROVINCIA': 32 uniform data rows extracted
+2025-10-12 22:35:39,029 - INFO - Sheet 'JESUS MARIA': 18 people parsed from 57 total lines
+2025-10-12 22:35:39,029 - INFO - Sheet 'JESUS MARIA': 18 uniform data rows extracted
+2025-10-12 22:35:39,039 - INFO - Sheet 'LIMA HISTORICO': 22 people parsed from 57 total lines
+2025-10-12 22:35:39,039 - INFO - Sheet 'LIMA HISTORICO': 22 uniform data rows extracted
+2025-10-12 22:35:39,048 - INFO - Sheet 'LOS OLIVOS': 17 people parsed from 57 total lines
+2025-10-12 22:35:39,048 - INFO - Sheet 'LOS OLIVOS': 17 uniform data rows extracted
+2025-10-12 22:35:39,057 - INFO - Sheet 'MAGDALENA': 23 people parsed from 57 total lines
+2025-10-12 22:35:39,057 - INFO - Sheet 'MAGDALENA': 23 uniform data rows extracted
+2025-10-12 22:35:39,066 - INFO - Sheet 'LA MOLINA': 17 people parsed from 57 total lines
+2025-10-12 22:35:39,066 - INFO - Sheet 'LA MOLINA': 17 uniform data rows extracted
+2025-10-12 22:35:39,074 - INFO - Sheet 'PURUCHUCO': 2 people parsed from 57 total lines
+2025-10-12 22:35:39,074 - INFO - Sheet 'PURUCHUCO': 2 uniform data rows extracted
+2025-10-12 22:35:39,083 - INFO - Sheet 'RISSO': 16 people parsed from 57 total lines
+2025-10-12 22:35:39,083 - INFO - Sheet 'RISSO': 16 uniform data rows extracted
+2025-10-12 22:35:39,091 - INFO - Sheet 'SAN ISIDRO': 18 people parsed from 57 total lines
+2025-10-12 22:35:39,091 - INFO - Sheet 'SAN ISIDRO': 18 uniform data rows extracted
+2025-10-12 22:35:39,099 - INFO - Sheet 'SAN MIGUEL': 13 people parsed from 52 total lines
+2025-10-12 22:35:39,099 - INFO - Sheet 'SAN MIGUEL': 13 uniform data rows extracted
+2025-10-12 22:35:39,108 - INFO - Sheet 'DOÑA ROSA': 15 people parsed from 57 total lines
+2025-10-12 22:35:39,108 - INFO - Sheet 'DOÑA ROSA': 15 uniform data rows extracted
+2025-10-12 22:35:39,116 - INFO - Sheet 'LARCOMAR': 5 people parsed from 57 total lines
+2025-10-12 22:35:39,116 - INFO - Sheet 'LARCOMAR': 5 uniform data rows extracted
+2025-10-12 22:35:39,124 - INFO - Sheet 'IQUITOS': 45 people parsed from 54 total lines
+2025-10-12 22:35:39,125 - INFO - Sheet 'IQUITOS': 6 uniform data rows extracted
+2025-10-12 22:35:39,125 - INFO - Excel file loaded successfully. 18/18 worksheets parsed, 305 people total.
+2025-10-12 22:45:40,687 - INFO - Application initialized successfully
+2025-10-12 22:47:49,592 - INFO - Application initialized successfully
+2025-10-12 22:47:55,263 - INFO - Loading Excel file: /Users/leonardocandio/Downloads/REQUERIMIENTO DE UNIFORMES OCTUBRE 2025 este es.xlsx
+2025-10-12 22:47:55,428 - INFO - Found 18 worksheets: ['MEGAPLAZA', 'DOMINICANA', 'EL POLO', 'FAUCETT', 'GUARDIA CIVIL', 'ICA PROVINCIA', 'JESUS MARIA', 'LIMA HISTORICO', 'LOS OLIVOS', 'MAGDALENA', 'LA MOLINA', 'PURUCHUCO', 'RISSO', 'SAN ISIDRO', 'SAN MIGUEL', 'DOÑA ROSA', 'LARCOMAR', 'IQUITOS']
+2025-10-12 22:47:55,464 - INFO - Sheet 'MEGAPLAZA': 7 people parsed from 57 total lines
+2025-10-12 22:47:55,464 - INFO - Sheet 'MEGAPLAZA': 7 uniform data rows extracted
+2025-10-12 22:47:55,476 - INFO - Sheet 'DOMINICANA': 14 people parsed from 57 total lines
+2025-10-12 22:47:55,476 - INFO - Sheet 'DOMINICANA': 14 uniform data rows extracted
+2025-10-12 22:47:55,486 - INFO - Sheet 'EL POLO': 12 people parsed from 57 total lines
+2025-10-12 22:47:55,486 - INFO - Sheet 'EL POLO': 12 uniform data rows extracted
+2025-10-12 22:47:55,495 - INFO - Sheet 'FAUCETT': 7 people parsed from 57 total lines
+2025-10-12 22:47:55,496 - INFO - Sheet 'FAUCETT': 6 uniform data rows extracted
+2025-10-12 22:47:55,506 - INFO - Sheet 'GUARDIA CIVIL': 10 people parsed from 57 total lines
+2025-10-12 22:47:55,506 - INFO - Sheet 'GUARDIA CIVIL': 10 uniform data rows extracted
+2025-10-12 22:47:55,516 - INFO - Sheet 'ICA PROVINCIA': 44 people parsed from 57 total lines
+2025-10-12 22:47:55,516 - INFO - Sheet 'ICA PROVINCIA': 32 uniform data rows extracted
+2025-10-12 22:47:55,526 - INFO - Sheet 'JESUS MARIA': 18 people parsed from 57 total lines
+2025-10-12 22:47:55,526 - INFO - Sheet 'JESUS MARIA': 18 uniform data rows extracted
+2025-10-12 22:47:55,536 - INFO - Sheet 'LIMA HISTORICO': 22 people parsed from 57 total lines
+2025-10-12 22:47:55,536 - INFO - Sheet 'LIMA HISTORICO': 22 uniform data rows extracted
+2025-10-12 22:47:55,545 - INFO - Sheet 'LOS OLIVOS': 17 people parsed from 57 total lines
+2025-10-12 22:47:55,545 - INFO - Sheet 'LOS OLIVOS': 17 uniform data rows extracted
+2025-10-12 22:47:55,556 - INFO - Sheet 'MAGDALENA': 23 people parsed from 57 total lines
+2025-10-12 22:47:55,556 - INFO - Sheet 'MAGDALENA': 23 uniform data rows extracted
+2025-10-12 22:47:55,565 - INFO - Sheet 'LA MOLINA': 17 people parsed from 57 total lines
+2025-10-12 22:47:55,565 - INFO - Sheet 'LA MOLINA': 17 uniform data rows extracted
+2025-10-12 22:47:55,575 - INFO - Sheet 'PURUCHUCO': 2 people parsed from 57 total lines
+2025-10-12 22:47:55,575 - INFO - Sheet 'PURUCHUCO': 2 uniform data rows extracted
+2025-10-12 22:47:55,586 - INFO - Sheet 'RISSO': 16 people parsed from 57 total lines
+2025-10-12 22:47:55,586 - INFO - Sheet 'RISSO': 16 uniform data rows extracted
+2025-10-12 22:47:55,596 - INFO - Sheet 'SAN ISIDRO': 18 people parsed from 57 total lines
+2025-10-12 22:47:55,596 - INFO - Sheet 'SAN ISIDRO': 18 uniform data rows extracted
+2025-10-12 22:47:55,606 - INFO - Sheet 'SAN MIGUEL': 13 people parsed from 52 total lines
+2025-10-12 22:47:55,606 - INFO - Sheet 'SAN MIGUEL': 13 uniform data rows extracted
+2025-10-12 22:47:55,615 - INFO - Sheet 'DOÑA ROSA': 15 people parsed from 57 total lines
+2025-10-12 22:47:55,616 - INFO - Sheet 'DOÑA ROSA': 15 uniform data rows extracted
+2025-10-12 22:47:55,625 - INFO - Sheet 'LARCOMAR': 5 people parsed from 57 total lines
+2025-10-12 22:47:55,625 - INFO - Sheet 'LARCOMAR': 5 uniform data rows extracted
+2025-10-12 22:47:55,636 - INFO - Sheet 'IQUITOS': 45 people parsed from 54 total lines
+2025-10-12 22:47:55,636 - INFO - Sheet 'IQUITOS': 6 uniform data rows extracted
+2025-10-12 22:47:55,636 - INFO - Excel file loaded successfully. 18/18 worksheets parsed, 305 people total.
+2025-10-12 22:50:08,469 - INFO - Application initialized successfully
+2025-10-12 22:50:43,093 - INFO - Loading Excel file: /Users/leonardocandio/Downloads/REQUERIMIENTO DE UNIFORMES OCTUBRE 2025 este es.xlsx
+2025-10-12 22:50:43,242 - INFO - Found 18 worksheets: ['MEGAPLAZA', 'DOMINICANA', 'EL POLO', 'FAUCETT', 'GUARDIA CIVIL', 'ICA PROVINCIA', 'JESUS MARIA', 'LIMA HISTORICO', 'LOS OLIVOS', 'MAGDALENA', 'LA MOLINA', 'PURUCHUCO', 'RISSO', 'SAN ISIDRO', 'SAN MIGUEL', 'DOÑA ROSA', 'LARCOMAR', 'IQUITOS']
+2025-10-12 22:50:43,267 - INFO - Sheet 'MEGAPLAZA': 7 people parsed from 57 total lines
+2025-10-12 22:50:43,267 - INFO - Sheet 'MEGAPLAZA': 7 uniform data rows extracted
+2025-10-12 22:50:43,277 - INFO - Sheet 'DOMINICANA': 14 people parsed from 57 total lines
+2025-10-12 22:50:43,278 - INFO - Sheet 'DOMINICANA': 14 uniform data rows extracted
+2025-10-12 22:50:43,287 - INFO - Sheet 'EL POLO': 12 people parsed from 57 total lines
+2025-10-12 22:50:43,287 - INFO - Sheet 'EL POLO': 12 uniform data rows extracted
+2025-10-12 22:50:43,295 - INFO - Sheet 'FAUCETT': 7 people parsed from 57 total lines
+2025-10-12 22:50:43,295 - INFO - Sheet 'FAUCETT': 6 uniform data rows extracted
+2025-10-12 22:50:43,305 - INFO - Sheet 'GUARDIA CIVIL': 10 people parsed from 57 total lines
+2025-10-12 22:50:43,305 - INFO - Sheet 'GUARDIA CIVIL': 10 uniform data rows extracted
+2025-10-12 22:50:43,313 - INFO - Sheet 'ICA PROVINCIA': 44 people parsed from 57 total lines
+2025-10-12 22:50:43,314 - INFO - Sheet 'ICA PROVINCIA': 32 uniform data rows extracted
+2025-10-12 22:50:43,322 - INFO - Sheet 'JESUS MARIA': 18 people parsed from 57 total lines
+2025-10-12 22:50:43,322 - INFO - Sheet 'JESUS MARIA': 18 uniform data rows extracted
+2025-10-12 22:50:43,331 - INFO - Sheet 'LIMA HISTORICO': 22 people parsed from 57 total lines
+2025-10-12 22:50:43,331 - INFO - Sheet 'LIMA HISTORICO': 22 uniform data rows extracted
+2025-10-12 22:50:43,341 - INFO - Sheet 'LOS OLIVOS': 17 people parsed from 57 total lines
+2025-10-12 22:50:43,341 - INFO - Sheet 'LOS OLIVOS': 17 uniform data rows extracted
+2025-10-12 22:50:43,350 - INFO - Sheet 'MAGDALENA': 23 people parsed from 57 total lines
+2025-10-12 22:50:43,350 - INFO - Sheet 'MAGDALENA': 23 uniform data rows extracted
+2025-10-12 22:50:43,359 - INFO - Sheet 'LA MOLINA': 17 people parsed from 57 total lines
+2025-10-12 22:50:43,359 - INFO - Sheet 'LA MOLINA': 17 uniform data rows extracted
+2025-10-12 22:50:43,368 - INFO - Sheet 'PURUCHUCO': 2 people parsed from 57 total lines
+2025-10-12 22:50:43,368 - INFO - Sheet 'PURUCHUCO': 2 uniform data rows extracted
+2025-10-12 22:50:43,377 - INFO - Sheet 'RISSO': 16 people parsed from 57 total lines
+2025-10-12 22:50:43,377 - INFO - Sheet 'RISSO': 16 uniform data rows extracted
+2025-10-12 22:50:43,386 - INFO - Sheet 'SAN ISIDRO': 18 people parsed from 57 total lines
+2025-10-12 22:50:43,386 - INFO - Sheet 'SAN ISIDRO': 18 uniform data rows extracted
+2025-10-12 22:50:43,394 - INFO - Sheet 'SAN MIGUEL': 13 people parsed from 52 total lines
+2025-10-12 22:50:43,394 - INFO - Sheet 'SAN MIGUEL': 13 uniform data rows extracted
+2025-10-12 22:50:43,403 - INFO - Sheet 'DOÑA ROSA': 15 people parsed from 57 total lines
+2025-10-12 22:50:43,403 - INFO - Sheet 'DOÑA ROSA': 15 uniform data rows extracted
+2025-10-12 22:50:43,412 - INFO - Sheet 'LARCOMAR': 5 people parsed from 57 total lines
+2025-10-12 22:50:43,412 - INFO - Sheet 'LARCOMAR': 5 uniform data rows extracted
+2025-10-12 22:50:43,422 - INFO - Sheet 'IQUITOS': 45 people parsed from 54 total lines
+2025-10-12 22:50:43,422 - INFO - Sheet 'IQUITOS': 6 uniform data rows extracted
+2025-10-12 22:50:43,422 - INFO - Excel file loaded successfully. 18/18 worksheets parsed, 305 people total.
+2025-10-12 22:51:13,516 - INFO - Application initialized successfully
+2025-10-12 22:51:18,228 - INFO - Loading Excel file: /Users/leonardocandio/Downloads/REQUERIMIENTO DE UNIFORMES OCTUBRE 2025 este es.xlsx
+2025-10-12 22:51:18,387 - INFO - Found 18 worksheets: ['MEGAPLAZA', 'DOMINICANA', 'EL POLO', 'FAUCETT', 'GUARDIA CIVIL', 'ICA PROVINCIA', 'JESUS MARIA', 'LIMA HISTORICO', 'LOS OLIVOS', 'MAGDALENA', 'LA MOLINA', 'PURUCHUCO', 'RISSO', 'SAN ISIDRO', 'SAN MIGUEL', 'DOÑA ROSA', 'LARCOMAR', 'IQUITOS']
+2025-10-12 22:51:18,405 - INFO - Sheet 'MEGAPLAZA': 7 people parsed from 57 total lines
+2025-10-12 22:51:18,405 - INFO - Sheet 'MEGAPLAZA': 7 uniform data rows extracted
+2025-10-12 22:51:18,414 - INFO - Sheet 'DOMINICANA': 14 people parsed from 57 total lines
+2025-10-12 22:51:18,414 - INFO - Sheet 'DOMINICANA': 14 uniform data rows extracted
+2025-10-12 22:51:18,423 - INFO - Sheet 'EL POLO': 12 people parsed from 57 total lines
+2025-10-12 22:51:18,424 - INFO - Sheet 'EL POLO': 12 uniform data rows extracted
+2025-10-12 22:51:18,432 - INFO - Sheet 'FAUCETT': 7 people parsed from 57 total lines
+2025-10-12 22:51:18,432 - INFO - Sheet 'FAUCETT': 6 uniform data rows extracted
+2025-10-12 22:51:18,441 - INFO - Sheet 'GUARDIA CIVIL': 10 people parsed from 57 total lines
+2025-10-12 22:51:18,441 - INFO - Sheet 'GUARDIA CIVIL': 10 uniform data rows extracted
+2025-10-12 22:51:18,450 - INFO - Sheet 'ICA PROVINCIA': 44 people parsed from 57 total lines
+2025-10-12 22:51:18,450 - INFO - Sheet 'ICA PROVINCIA': 32 uniform data rows extracted
+2025-10-12 22:51:18,459 - INFO - Sheet 'JESUS MARIA': 18 people parsed from 57 total lines
+2025-10-12 22:51:18,459 - INFO - Sheet 'JESUS MARIA': 18 uniform data rows extracted
+2025-10-12 22:51:18,469 - INFO - Sheet 'LIMA HISTORICO': 22 people parsed from 57 total lines
+2025-10-12 22:51:18,469 - INFO - Sheet 'LIMA HISTORICO': 22 uniform data rows extracted
+2025-10-12 22:51:18,478 - INFO - Sheet 'LOS OLIVOS': 17 people parsed from 57 total lines
+2025-10-12 22:51:18,478 - INFO - Sheet 'LOS OLIVOS': 17 uniform data rows extracted
+2025-10-12 22:51:18,488 - INFO - Sheet 'MAGDALENA': 23 people parsed from 57 total lines
+2025-10-12 22:51:18,488 - INFO - Sheet 'MAGDALENA': 23 uniform data rows extracted
+2025-10-12 22:51:18,508 - INFO - Sheet 'LA MOLINA': 17 people parsed from 57 total lines
+2025-10-12 22:51:18,508 - INFO - Sheet 'LA MOLINA': 17 uniform data rows extracted
+2025-10-12 22:51:18,524 - INFO - Sheet 'PURUCHUCO': 2 people parsed from 57 total lines
+2025-10-12 22:51:18,525 - INFO - Sheet 'PURUCHUCO': 2 uniform data rows extracted
+2025-10-12 22:51:18,545 - INFO - Sheet 'RISSO': 16 people parsed from 57 total lines
+2025-10-12 22:51:18,545 - INFO - Sheet 'RISSO': 16 uniform data rows extracted
+2025-10-12 22:51:18,555 - INFO - Sheet 'SAN ISIDRO': 18 people parsed from 57 total lines
+2025-10-12 22:51:18,555 - INFO - Sheet 'SAN ISIDRO': 18 uniform data rows extracted
+2025-10-12 22:51:18,566 - INFO - Sheet 'SAN MIGUEL': 13 people parsed from 52 total lines
+2025-10-12 22:51:18,566 - INFO - Sheet 'SAN MIGUEL': 13 uniform data rows extracted
+2025-10-12 22:51:18,580 - INFO - Sheet 'DOÑA ROSA': 15 people parsed from 57 total lines
+2025-10-12 22:51:18,580 - INFO - Sheet 'DOÑA ROSA': 15 uniform data rows extracted
+2025-10-12 22:51:18,589 - INFO - Sheet 'LARCOMAR': 5 people parsed from 57 total lines
+2025-10-12 22:51:18,589 - INFO - Sheet 'LARCOMAR': 5 uniform data rows extracted
+2025-10-12 22:51:18,600 - INFO - Sheet 'IQUITOS': 45 people parsed from 54 total lines
+2025-10-12 22:51:18,600 - INFO - Sheet 'IQUITOS': 6 uniform data rows extracted
+2025-10-12 22:51:18,601 - INFO - Excel file loaded successfully. 18/18 worksheets parsed, 305 people total.
+2025-10-12 22:55:55,994 - INFO - Application initialized successfully
+2025-10-12 22:56:01,424 - INFO - Loading Excel file: /Users/leonardocandio/Downloads/REQUERIMIENTO DE UNIFORMES OCTUBRE 2025 este es.xlsx
+2025-10-12 22:56:01,563 - INFO - Found 18 worksheets: ['MEGAPLAZA', 'DOMINICANA', 'EL POLO', 'FAUCETT', 'GUARDIA CIVIL', 'ICA PROVINCIA', 'JESUS MARIA', 'LIMA HISTORICO', 'LOS OLIVOS', 'MAGDALENA', 'LA MOLINA', 'PURUCHUCO', 'RISSO', 'SAN ISIDRO', 'SAN MIGUEL', 'DOÑA ROSA', 'LARCOMAR', 'IQUITOS']
+2025-10-12 22:56:01,583 - INFO - Sheet 'MEGAPLAZA': 7 people parsed from 57 total lines
+2025-10-12 22:56:01,583 - INFO - Sheet 'MEGAPLAZA': 7 uniform data rows extracted
+2025-10-12 22:56:01,592 - INFO - Sheet 'DOMINICANA': 14 people parsed from 57 total lines
+2025-10-12 22:56:01,592 - INFO - Sheet 'DOMINICANA': 14 uniform data rows extracted
+2025-10-12 22:56:01,600 - INFO - Sheet 'EL POLO': 12 people parsed from 57 total lines
+2025-10-12 22:56:01,600 - INFO - Sheet 'EL POLO': 12 uniform data rows extracted
+2025-10-12 22:56:01,607 - INFO - Sheet 'FAUCETT': 7 people parsed from 57 total lines
+2025-10-12 22:56:01,607 - INFO - Sheet 'FAUCETT': 6 uniform data rows extracted
+2025-10-12 22:56:01,615 - INFO - Sheet 'GUARDIA CIVIL': 10 people parsed from 57 total lines
+2025-10-12 22:56:01,615 - INFO - Sheet 'GUARDIA CIVIL': 10 uniform data rows extracted
+2025-10-12 22:56:01,623 - INFO - Sheet 'ICA PROVINCIA': 44 people parsed from 57 total lines
+2025-10-12 22:56:01,623 - INFO - Sheet 'ICA PROVINCIA': 32 uniform data rows extracted
+2025-10-12 22:56:01,631 - INFO - Sheet 'JESUS MARIA': 18 people parsed from 57 total lines
+2025-10-12 22:56:01,631 - INFO - Sheet 'JESUS MARIA': 18 uniform data rows extracted
+2025-10-12 22:56:01,639 - INFO - Sheet 'LIMA HISTORICO': 22 people parsed from 57 total lines
+2025-10-12 22:56:01,639 - INFO - Sheet 'LIMA HISTORICO': 22 uniform data rows extracted
+2025-10-12 22:56:01,647 - INFO - Sheet 'LOS OLIVOS': 17 people parsed from 57 total lines
+2025-10-12 22:56:01,647 - INFO - Sheet 'LOS OLIVOS': 17 uniform data rows extracted
+2025-10-12 22:56:01,655 - INFO - Sheet 'MAGDALENA': 23 people parsed from 57 total lines
+2025-10-12 22:56:01,655 - INFO - Sheet 'MAGDALENA': 23 uniform data rows extracted
+2025-10-12 22:56:01,663 - INFO - Sheet 'LA MOLINA': 17 people parsed from 57 total lines
+2025-10-12 22:56:01,663 - INFO - Sheet 'LA MOLINA': 17 uniform data rows extracted
+2025-10-12 22:56:01,671 - INFO - Sheet 'PURUCHUCO': 2 people parsed from 57 total lines
+2025-10-12 22:56:01,671 - INFO - Sheet 'PURUCHUCO': 2 uniform data rows extracted
+2025-10-12 22:56:01,679 - INFO - Sheet 'RISSO': 16 people parsed from 57 total lines
+2025-10-12 22:56:01,679 - INFO - Sheet 'RISSO': 16 uniform data rows extracted
+2025-10-12 22:56:01,687 - INFO - Sheet 'SAN ISIDRO': 18 people parsed from 57 total lines
+2025-10-12 22:56:01,687 - INFO - Sheet 'SAN ISIDRO': 18 uniform data rows extracted
+2025-10-12 22:56:01,694 - INFO - Sheet 'SAN MIGUEL': 13 people parsed from 52 total lines
+2025-10-12 22:56:01,694 - INFO - Sheet 'SAN MIGUEL': 13 uniform data rows extracted
+2025-10-12 22:56:01,702 - INFO - Sheet 'DOÑA ROSA': 15 people parsed from 57 total lines
+2025-10-12 22:56:01,702 - INFO - Sheet 'DOÑA ROSA': 15 uniform data rows extracted
+2025-10-12 22:56:01,710 - INFO - Sheet 'LARCOMAR': 5 people parsed from 57 total lines
+2025-10-12 22:56:01,710 - INFO - Sheet 'LARCOMAR': 5 uniform data rows extracted
+2025-10-12 22:56:01,718 - INFO - Sheet 'IQUITOS': 45 people parsed from 54 total lines
+2025-10-12 22:56:01,718 - INFO - Sheet 'IQUITOS': 6 uniform data rows extracted
+2025-10-12 22:56:01,718 - INFO - Excel file loaded successfully. 18/18 worksheets parsed, 305 people total.
+2025-10-12 23:01:17,650 - INFO - Application initialized successfully
+2025-10-12 23:01:31,371 - INFO - Loading Excel file: /Users/leonardocandio/Downloads/REQUERIMIENTO DE UNIFORMES OCTUBRE 2025 este es.xlsx
+2025-10-12 23:01:31,544 - INFO - Found 18 worksheets: ['MEGAPLAZA', 'DOMINICANA', 'EL POLO', 'FAUCETT', 'GUARDIA CIVIL', 'ICA PROVINCIA', 'JESUS MARIA', 'LIMA HISTORICO', 'LOS OLIVOS', 'MAGDALENA', 'LA MOLINA', 'PURUCHUCO', 'RISSO', 'SAN ISIDRO', 'SAN MIGUEL', 'DOÑA ROSA', 'LARCOMAR', 'IQUITOS']
+2025-10-12 23:01:31,564 - INFO - Sheet 'MEGAPLAZA': 7 people parsed from 57 total lines
+2025-10-12 23:01:31,565 - INFO - Sheet 'MEGAPLAZA': 7 uniform data rows extracted
+2025-10-12 23:01:31,575 - INFO - Sheet 'DOMINICANA': 14 people parsed from 57 total lines
+2025-10-12 23:01:31,575 - INFO - Sheet 'DOMINICANA': 14 uniform data rows extracted
+2025-10-12 23:01:31,585 - INFO - Sheet 'EL POLO': 12 people parsed from 57 total lines
+2025-10-12 23:01:31,585 - INFO - Sheet 'EL POLO': 12 uniform data rows extracted
+2025-10-12 23:01:31,594 - INFO - Sheet 'FAUCETT': 7 people parsed from 57 total lines
+2025-10-12 23:01:31,594 - INFO - Sheet 'FAUCETT': 6 uniform data rows extracted
+2025-10-12 23:01:31,603 - INFO - Sheet 'GUARDIA CIVIL': 10 people parsed from 57 total lines
+2025-10-12 23:01:31,603 - INFO - Sheet 'GUARDIA CIVIL': 10 uniform data rows extracted
+2025-10-12 23:01:31,613 - INFO - Sheet 'ICA PROVINCIA': 44 people parsed from 57 total lines
+2025-10-12 23:01:31,614 - INFO - Sheet 'ICA PROVINCIA': 32 uniform data rows extracted
+2025-10-12 23:01:31,623 - INFO - Sheet 'JESUS MARIA': 18 people parsed from 57 total lines
+2025-10-12 23:01:31,623 - INFO - Sheet 'JESUS MARIA': 18 uniform data rows extracted
+2025-10-12 23:01:31,632 - INFO - Sheet 'LIMA HISTORICO': 22 people parsed from 57 total lines
+2025-10-12 23:01:31,633 - INFO - Sheet 'LIMA HISTORICO': 22 uniform data rows extracted
+2025-10-12 23:01:31,641 - INFO - Sheet 'LOS OLIVOS': 17 people parsed from 57 total lines
+2025-10-12 23:01:31,641 - INFO - Sheet 'LOS OLIVOS': 17 uniform data rows extracted
+2025-10-12 23:01:31,650 - INFO - Sheet 'MAGDALENA': 23 people parsed from 57 total lines
+2025-10-12 23:01:31,650 - INFO - Sheet 'MAGDALENA': 23 uniform data rows extracted
+2025-10-12 23:01:31,660 - INFO - Sheet 'LA MOLINA': 17 people parsed from 57 total lines
+2025-10-12 23:01:31,660 - INFO - Sheet 'LA MOLINA': 17 uniform data rows extracted
+2025-10-12 23:01:31,669 - INFO - Sheet 'PURUCHUCO': 2 people parsed from 57 total lines
+2025-10-12 23:01:31,669 - INFO - Sheet 'PURUCHUCO': 2 uniform data rows extracted
+2025-10-12 23:01:31,678 - INFO - Sheet 'RISSO': 16 people parsed from 57 total lines
+2025-10-12 23:01:31,678 - INFO - Sheet 'RISSO': 16 uniform data rows extracted
+2025-10-12 23:01:31,687 - INFO - Sheet 'SAN ISIDRO': 18 people parsed from 57 total lines
+2025-10-12 23:01:31,687 - INFO - Sheet 'SAN ISIDRO': 18 uniform data rows extracted
+2025-10-12 23:01:31,695 - INFO - Sheet 'SAN MIGUEL': 13 people parsed from 52 total lines
+2025-10-12 23:01:31,695 - INFO - Sheet 'SAN MIGUEL': 13 uniform data rows extracted
+2025-10-12 23:01:31,704 - INFO - Sheet 'DOÑA ROSA': 15 people parsed from 57 total lines
+2025-10-12 23:01:31,704 - INFO - Sheet 'DOÑA ROSA': 15 uniform data rows extracted
+2025-10-12 23:01:31,713 - INFO - Sheet 'LARCOMAR': 5 people parsed from 57 total lines
+2025-10-12 23:01:31,713 - INFO - Sheet 'LARCOMAR': 5 uniform data rows extracted
+2025-10-12 23:01:31,723 - INFO - Sheet 'IQUITOS': 45 people parsed from 54 total lines
+2025-10-12 23:01:31,723 - INFO - Sheet 'IQUITOS': 6 uniform data rows extracted
+2025-10-12 23:01:31,723 - INFO - Excel file loaded successfully. 18/18 worksheets parsed, 305 people total.
+2025-10-12 23:01:47,565 - WARNING - ⚠️  OCCUPATION MAPPING: 'PARRILLERO (A)' → 'PRODUCCION' - consider adding 'PARRILLERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:01:47,566 - INFO - Calculated monto for CAJUSOL SANJINEZ WILLY FRANKLIN: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:01:47,566 - WARNING - ⚠️  OCCUPATION MAPPING: 'PARRILLERO (A)' → 'PRODUCCION' - consider adding 'PARRILLERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:01:47,566 - INFO - Calculated monto for CAJUSOL SANJINEZ WILLY FRANKLIN: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:01:47,566 - INFO - Calculated monto for SUAREZ BECERRA MARCOS ELITER: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,567 - INFO - Calculated monto for SUAREZ BECERRA MARCOS ELITER: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,567 - WARNING - ⚠️  OCCUPATION MAPPING: 'PARRILLERO (A)' → 'PRODUCCION' - consider adding 'PARRILLERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:01:47,567 - INFO - Calculated monto for MALLQUI OROPEZA ELIZABETH CATALINA: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:01:47,567 - WARNING - ⚠️  OCCUPATION MAPPING: 'PARRILLERO (A)' → 'PRODUCCION' - consider adding 'PARRILLERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:01:47,567 - INFO - Calculated monto for MALLQUI OROPEZA ELIZABETH CATALINA: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:01:47,567 - WARNING - ⚠️  OCCUPATION MAPPING: 'HORNERO (A)' → 'PRODUCCION' - consider adding 'HORNERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:01:47,568 - INFO - Calculated monto for RAMIREZ CACHIQUE WUALTER ENRIQUE: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:01:47,568 - WARNING - ⚠️  OCCUPATION MAPPING: 'HORNERO (A)' → 'PRODUCCION' - consider adding 'HORNERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:01:47,568 - INFO - Calculated monto for RAMIREZ CACHIQUE WUALTER ENRIQUE: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:01:47,568 - INFO - Calculated monto for ZERON SALAZAR ALBERTO JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,569 - INFO - Calculated monto for ZERON SALAZAR ALBERTO JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,569 - INFO - Calculated monto for LATORRE ZAMORA LUIS ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,569 - INFO - Calculated monto for LATORRE ZAMORA LUIS ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,569 - INFO - Calculated monto for RAMOS AHUANARI DINA GABRIELA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,569 - INFO - Calculated monto for RAMOS AHUANARI DINA GABRIELA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,570 - INFO - Calculated monto for SUAREZ BECERRA RONAN NILO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,570 - INFO - Calculated monto for SUAREZ BECERRA RONAN NILO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,570 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:01:47,570 - INFO - Calculated monto for JIMENEZ RODRIGUEZ ALEX JAVIER: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,571 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:01:47,571 - INFO - Calculated monto for JIMENEZ RODRIGUEZ ALEX JAVIER: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,571 - INFO - Calculated monto for REYES SIFUENTES DANNY RUBEN: Cargo=SEGURIDAD, Local=MAGDALENA, Prendas=2, Total=0.0
+2025-10-12 23:01:47,571 - INFO - Calculated monto for REYES SIFUENTES DANNY RUBEN: Cargo=SEGURIDAD, Local=MAGDALENA, Prendas=2, Total=0.0
+2025-10-12 23:01:47,571 - WARNING - ⚠️  OCCUPATION MAPPING: 'HORNERO (A)' → 'PRODUCCION' - consider adding 'HORNERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:01:47,571 - INFO - Calculated monto for AREVALO  SANGAMA  CARLOS: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:01:47,572 - WARNING - ⚠️  OCCUPATION MAPPING: 'HORNERO (A)' → 'PRODUCCION' - consider adding 'HORNERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:01:47,575 - INFO - Calculated monto for AREVALO  SANGAMA  CARLOS: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:01:47,576 - WARNING - ⚠️  OCCUPATION MAPPING: 'AYUDANTE DE COCINA' → 'PRODUCCION' - consider adding 'AYUDANTE DE COCINA' to synonyms list in Configuration tab
+2025-10-12 23:01:47,576 - INFO - Calculated monto for PURIHUAMAN  CALDERON  CARLOS ENRIQUE: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:01:47,576 - WARNING - ⚠️  OCCUPATION MAPPING: 'AYUDANTE DE COCINA' → 'PRODUCCION' - consider adding 'AYUDANTE DE COCINA' to synonyms list in Configuration tab
+2025-10-12 23:01:47,576 - INFO - Calculated monto for PURIHUAMAN  CALDERON  CARLOS ENRIQUE: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:01:47,576 - WARNING - ⚠️  OCCUPATION MAPPING: 'HORNERO (A)' → 'PRODUCCION' - consider adding 'HORNERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:01:47,576 - INFO - Calculated monto for ZEGARRA RAMIREZ CARLOS MIGUEL: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:01:47,576 - WARNING - ⚠️  OCCUPATION MAPPING: 'HORNERO (A)' → 'PRODUCCION' - consider adding 'HORNERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:01:47,577 - INFO - Calculated monto for ZEGARRA RAMIREZ CARLOS MIGUEL: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:01:47,577 - INFO - Calculated monto for JAIMES  MARIN FERNANDO MARTIN: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,578 - INFO - Calculated monto for JAIMES  MARIN FERNANDO MARTIN: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,578 - WARNING - ⚠️  OCCUPATION MAPPING: 'AYUDANTE DE COCINA' → 'PRODUCCION' - consider adding 'AYUDANTE DE COCINA' to synonyms list in Configuration tab
+2025-10-12 23:01:47,578 - INFO - Calculated monto for AYALA HUAMANI DELIA: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:01:47,578 - WARNING - ⚠️  OCCUPATION MAPPING: 'AYUDANTE DE COCINA' → 'PRODUCCION' - consider adding 'AYUDANTE DE COCINA' to synonyms list in Configuration tab
+2025-10-12 23:01:47,578 - INFO - Calculated monto for AYALA HUAMANI DELIA: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:01:47,578 - INFO - Calculated monto for LUQUE VIZARRETA JUAN JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,578 - INFO - Calculated monto for LUQUE VIZARRETA JUAN JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,579 - INFO - Calculated monto for RAMOS BUCLES ANGEL GABRIEL: Cargo=AYUDANTE DE BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,579 - INFO - Calculated monto for RAMOS BUCLES ANGEL GABRIEL: Cargo=AYUDANTE DE BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,579 - INFO - Calculated monto for MEGO ALVAREZ VICTOR ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,579 - INFO - Calculated monto for MEGO ALVAREZ VICTOR ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,579 - WARNING - ⚠️  OCCUPATION MAPPING: 'ANFITRION (A)' → 'ANFITRION' - consider adding 'ANFITRION (A)' to synonyms list in Configuration tab
+2025-10-12 23:01:47,579 - INFO - Calculated monto for VELASQUEZ CHAMARRO ALEJANDRA VALERIA: Cargo=ANFITRION, Local=MAGDALENA, Prendas=2, Total=0.0
+2025-10-12 23:01:47,580 - WARNING - ⚠️  OCCUPATION MAPPING: 'ANFITRION (A)' → 'ANFITRION' - consider adding 'ANFITRION (A)' to synonyms list in Configuration tab
+2025-10-12 23:01:47,580 - INFO - Calculated monto for VELASQUEZ CHAMARRO ALEJANDRA VALERIA: Cargo=ANFITRION, Local=MAGDALENA, Prendas=2, Total=0.0
+2025-10-12 23:01:47,580 - INFO - Calculated monto for CHUQUICONDOR YANGUA ANELISA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,580 - INFO - Calculated monto for CHUQUICONDOR YANGUA ANELISA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,580 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:01:47,580 - INFO - Calculated monto for JULON JULCA DERIAN ARON: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,580 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:01:47,581 - INFO - Calculated monto for JULON JULCA DERIAN ARON: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,581 - WARNING - ⚠️  OCCUPATION MAPPING: 'AYUDANTE DE COCINA' → 'PRODUCCION' - consider adding 'AYUDANTE DE COCINA' to synonyms list in Configuration tab
+2025-10-12 23:01:47,581 - INFO - Calculated monto for ANGELDONIS ORTIZ JOSE ANTONIO: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:01:47,581 - WARNING - ⚠️  OCCUPATION MAPPING: 'AYUDANTE DE COCINA' → 'PRODUCCION' - consider adding 'AYUDANTE DE COCINA' to synonyms list in Configuration tab
+2025-10-12 23:01:47,581 - INFO - Calculated monto for ANGELDONIS ORTIZ JOSE ANTONIO: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:01:47,581 - INFO - Calculated monto for LOYOLA FERNANDEZ GUIDO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,581 - INFO - Calculated monto for LOYOLA FERNANDEZ GUIDO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:01:47,582 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CAJUSOL_SANJINEZ_WILLY_FRANKLIN/AUTORIZACION_CAJUSOL_SANJINEZ_WILLY_FRANKLIN_PARRILLERO_A.docx
+2025-10-12 23:01:47,651 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CAJUSOL_SANJINEZ_WILLY_FRANKLIN/CARGO_CAJUSOL_SANJINEZ_WILLY_FRANKLIN.docx
+2025-10-12 23:01:47,675 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_MARCOS_ELITER/AUTORIZACION_SUAREZ_BECERRA_MARCOS_ELITER_MOZO.docx
+2025-10-12 23:01:47,722 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_MARCOS_ELITER/CARGO_SUAREZ_BECERRA_MARCOS_ELITER.docx
+2025-10-12 23:01:47,740 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MALLQUI_OROPEZA_ELIZABETH_CATALINA/AUTORIZACION_MALLQUI_OROPEZA_ELIZABETH_CATALINA_PARRILLERO_A.docx
+2025-10-12 23:01:47,784 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MALLQUI_OROPEZA_ELIZABETH_CATALINA/CARGO_MALLQUI_OROPEZA_ELIZABETH_CATALINA.docx
+2025-10-12 23:01:47,802 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMIREZ_CACHIQUE_WUALTER_ENRIQUE/AUTORIZACION_RAMIREZ_CACHIQUE_WUALTER_ENRIQUE_HORNERO_A.docx
+2025-10-12 23:01:47,846 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMIREZ_CACHIQUE_WUALTER_ENRIQUE/CARGO_RAMIREZ_CACHIQUE_WUALTER_ENRIQUE.docx
+2025-10-12 23:01:47,864 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZERON_SALAZAR_ALBERTO_JOSE/AUTORIZACION_ZERON_SALAZAR_ALBERTO_JOSE_MOZO.docx
+2025-10-12 23:01:47,909 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZERON_SALAZAR_ALBERTO_JOSE/CARGO_ZERON_SALAZAR_ALBERTO_JOSE.docx
+2025-10-12 23:01:47,926 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LATORRE_ZAMORA_LUIS_ALBERTO/AUTORIZACION_LATORRE_ZAMORA_LUIS_ALBERTO_MOZO.docx
+2025-10-12 23:01:47,969 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LATORRE_ZAMORA_LUIS_ALBERTO/CARGO_LATORRE_ZAMORA_LUIS_ALBERTO.docx
+2025-10-12 23:01:47,985 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_AHUANARI_DINA_GABRIELA/AUTORIZACION_RAMOS_AHUANARI_DINA_GABRIELA_AZAFATA.docx
+2025-10-12 23:01:48,028 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_AHUANARI_DINA_GABRIELA/CARGO_RAMOS_AHUANARI_DINA_GABRIELA.docx
+2025-10-12 23:01:48,046 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_RONAN_NILO/AUTORIZACION_SUAREZ_BECERRA_RONAN_NILO_MOZO.docx
+2025-10-12 23:01:48,090 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_RONAN_NILO/CARGO_SUAREZ_BECERRA_RONAN_NILO.docx
+2025-10-12 23:01:48,107 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JIMENEZ_RODRIGUEZ_ALEX_JAVIER/AUTORIZACION_JIMENEZ_RODRIGUEZ_ALEX_JAVIER_BARTENDER.docx
+2025-10-12 23:01:48,153 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JIMENEZ_RODRIGUEZ_ALEX_JAVIER/CARGO_JIMENEZ_RODRIGUEZ_ALEX_JAVIER.docx
+2025-10-12 23:01:48,170 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/REYES_SIFUENTES_DANNY_RUBEN/AUTORIZACION_REYES_SIFUENTES_DANNY_RUBEN_SEGURIDAD.docx
+2025-10-12 23:01:48,214 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/REYES_SIFUENTES_DANNY_RUBEN/CARGO_REYES_SIFUENTES_DANNY_RUBEN.docx
+2025-10-12 23:01:48,231 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AREVALO__SANGAMA__CARLOS/AUTORIZACION_AREVALO__SANGAMA__CARLOS_HORNERO_A.docx
+2025-10-12 23:01:48,277 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AREVALO__SANGAMA__CARLOS/CARGO_AREVALO__SANGAMA__CARLOS.docx
+2025-10-12 23:01:48,295 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/PURIHUAMAN__CALDERON__CARLOS_ENRIQUE/AUTORIZACION_PURIHUAMAN__CALDERON__CARLOS_ENRIQUE_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:01:48,339 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/PURIHUAMAN__CALDERON__CARLOS_ENRIQUE/CARGO_PURIHUAMAN__CALDERON__CARLOS_ENRIQUE.docx
+2025-10-12 23:01:48,356 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZEGARRA_RAMIREZ_CARLOS_MIGUEL/AUTORIZACION_ZEGARRA_RAMIREZ_CARLOS_MIGUEL_HORNERO_A.docx
+2025-10-12 23:01:48,401 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZEGARRA_RAMIREZ_CARLOS_MIGUEL/CARGO_ZEGARRA_RAMIREZ_CARLOS_MIGUEL.docx
+2025-10-12 23:01:48,418 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JAIMES__MARIN_FERNANDO_MARTIN/AUTORIZACION_JAIMES__MARIN_FERNANDO_MARTIN_MOZO.docx
+2025-10-12 23:01:48,462 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JAIMES__MARIN_FERNANDO_MARTIN/CARGO_JAIMES__MARIN_FERNANDO_MARTIN.docx
+2025-10-12 23:01:48,479 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AYALA_HUAMANI_DELIA/AUTORIZACION_AYALA_HUAMANI_DELIA_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:01:48,522 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AYALA_HUAMANI_DELIA/CARGO_AYALA_HUAMANI_DELIA.docx
+2025-10-12 23:01:48,540 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LUQUE_VIZARRETA_JUAN_JOSE/AUTORIZACION_LUQUE_VIZARRETA_JUAN_JOSE_MOZO.docx
+2025-10-12 23:01:48,584 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LUQUE_VIZARRETA_JUAN_JOSE/CARGO_LUQUE_VIZARRETA_JUAN_JOSE.docx
+2025-10-12 23:01:48,602 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_BUCLES_ANGEL_GABRIEL/AUTORIZACION_RAMOS_BUCLES_ANGEL_GABRIEL_AYUDANTE_DE_BAR.docx
+2025-10-12 23:01:48,644 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_BUCLES_ANGEL_GABRIEL/CARGO_RAMOS_BUCLES_ANGEL_GABRIEL.docx
+2025-10-12 23:01:48,663 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MEGO_ALVAREZ_VICTOR_ALBERTO/AUTORIZACION_MEGO_ALVAREZ_VICTOR_ALBERTO_MOZO.docx
+2025-10-12 23:01:48,707 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MEGO_ALVAREZ_VICTOR_ALBERTO/CARGO_MEGO_ALVAREZ_VICTOR_ALBERTO.docx
+2025-10-12 23:01:48,723 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA/AUTORIZACION_VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA_ANFITRION_A.docx
+2025-10-12 23:01:48,767 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA/CARGO_VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA.docx
+2025-10-12 23:01:48,783 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CHUQUICONDOR_YANGUA_ANELISA/AUTORIZACION_CHUQUICONDOR_YANGUA_ANELISA_AZAFATA.docx
+2025-10-12 23:01:48,826 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CHUQUICONDOR_YANGUA_ANELISA/CARGO_CHUQUICONDOR_YANGUA_ANELISA.docx
+2025-10-12 23:01:48,843 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JULON_JULCA_DERIAN_ARON/AUTORIZACION_JULON_JULCA_DERIAN_ARON_BARTENDER.docx
+2025-10-12 23:01:48,885 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JULON_JULCA_DERIAN_ARON/CARGO_JULON_JULCA_DERIAN_ARON.docx
+2025-10-12 23:01:48,903 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ANGELDONIS_ORTIZ_JOSE_ANTONIO/AUTORIZACION_ANGELDONIS_ORTIZ_JOSE_ANTONIO_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:01:48,946 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ANGELDONIS_ORTIZ_JOSE_ANTONIO/CARGO_ANGELDONIS_ORTIZ_JOSE_ANTONIO.docx
+2025-10-12 23:01:48,963 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LOYOLA_FERNANDEZ_GUIDO/AUTORIZACION_LOYOLA_FERNANDEZ_GUIDO_MOZO.docx
+2025-10-12 23:01:49,006 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LOYOLA_FERNANDEZ_GUIDO/CARGO_LOYOLA_FERNANDEZ_GUIDO.docx
+2025-10-12 23:01:49,202 - INFO - Created combined document using docxcompose: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AUTORIZACION_COMBINED_MAGDALENA.docx
+2025-10-12 23:01:49,321 - INFO - Created combined document using docxcompose: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CARGO_COMBINED_MAGDALENA.docx
+2025-10-12 23:01:49,321 - INFO - Generated AUTORIZACION, CARGO documents for 23 people across 1 locales
+2025-10-12 23:18:24,064 - INFO - Application initialized successfully
+2025-10-12 23:18:30,144 - INFO - Loading Excel file: /Users/leonardocandio/Downloads/REQUERIMIENTO DE UNIFORMES OCTUBRE 2025 este es.xlsx
+2025-10-12 23:18:30,302 - INFO - Found 18 worksheets: ['MEGAPLAZA', 'DOMINICANA', 'EL POLO', 'FAUCETT', 'GUARDIA CIVIL', 'ICA PROVINCIA', 'JESUS MARIA', 'LIMA HISTORICO', 'LOS OLIVOS', 'MAGDALENA', 'LA MOLINA', 'PURUCHUCO', 'RISSO', 'SAN ISIDRO', 'SAN MIGUEL', 'DOÑA ROSA', 'LARCOMAR', 'IQUITOS']
+2025-10-12 23:18:30,335 - INFO - Sheet 'MEGAPLAZA': 7 people parsed from 57 total lines
+2025-10-12 23:18:30,335 - INFO - Sheet 'MEGAPLAZA': 7 uniform data rows extracted
+2025-10-12 23:18:30,345 - INFO - Sheet 'DOMINICANA': 14 people parsed from 57 total lines
+2025-10-12 23:18:30,345 - INFO - Sheet 'DOMINICANA': 14 uniform data rows extracted
+2025-10-12 23:18:30,354 - INFO - Sheet 'EL POLO': 12 people parsed from 57 total lines
+2025-10-12 23:18:30,354 - INFO - Sheet 'EL POLO': 12 uniform data rows extracted
+2025-10-12 23:18:30,363 - INFO - Sheet 'FAUCETT': 7 people parsed from 57 total lines
+2025-10-12 23:18:30,363 - INFO - Sheet 'FAUCETT': 6 uniform data rows extracted
+2025-10-12 23:18:30,372 - INFO - Sheet 'GUARDIA CIVIL': 10 people parsed from 57 total lines
+2025-10-12 23:18:30,372 - INFO - Sheet 'GUARDIA CIVIL': 10 uniform data rows extracted
+2025-10-12 23:18:30,381 - INFO - Sheet 'ICA PROVINCIA': 44 people parsed from 57 total lines
+2025-10-12 23:18:30,381 - INFO - Sheet 'ICA PROVINCIA': 32 uniform data rows extracted
+2025-10-12 23:18:30,390 - INFO - Sheet 'JESUS MARIA': 18 people parsed from 57 total lines
+2025-10-12 23:18:30,390 - INFO - Sheet 'JESUS MARIA': 18 uniform data rows extracted
+2025-10-12 23:18:30,399 - INFO - Sheet 'LIMA HISTORICO': 22 people parsed from 57 total lines
+2025-10-12 23:18:30,399 - INFO - Sheet 'LIMA HISTORICO': 22 uniform data rows extracted
+2025-10-12 23:18:30,407 - INFO - Sheet 'LOS OLIVOS': 17 people parsed from 57 total lines
+2025-10-12 23:18:30,408 - INFO - Sheet 'LOS OLIVOS': 17 uniform data rows extracted
+2025-10-12 23:18:30,417 - INFO - Sheet 'MAGDALENA': 23 people parsed from 57 total lines
+2025-10-12 23:18:30,417 - INFO - Sheet 'MAGDALENA': 23 uniform data rows extracted
+2025-10-12 23:18:30,425 - INFO - Sheet 'LA MOLINA': 17 people parsed from 57 total lines
+2025-10-12 23:18:30,425 - INFO - Sheet 'LA MOLINA': 17 uniform data rows extracted
+2025-10-12 23:18:30,435 - INFO - Sheet 'PURUCHUCO': 2 people parsed from 57 total lines
+2025-10-12 23:18:30,435 - INFO - Sheet 'PURUCHUCO': 2 uniform data rows extracted
+2025-10-12 23:18:30,444 - INFO - Sheet 'RISSO': 16 people parsed from 57 total lines
+2025-10-12 23:18:30,444 - INFO - Sheet 'RISSO': 16 uniform data rows extracted
+2025-10-12 23:18:30,453 - INFO - Sheet 'SAN ISIDRO': 18 people parsed from 57 total lines
+2025-10-12 23:18:30,453 - INFO - Sheet 'SAN ISIDRO': 18 uniform data rows extracted
+2025-10-12 23:18:30,460 - INFO - Sheet 'SAN MIGUEL': 13 people parsed from 52 total lines
+2025-10-12 23:18:30,460 - INFO - Sheet 'SAN MIGUEL': 13 uniform data rows extracted
+2025-10-12 23:18:30,469 - INFO - Sheet 'DOÑA ROSA': 15 people parsed from 57 total lines
+2025-10-12 23:18:30,470 - INFO - Sheet 'DOÑA ROSA': 15 uniform data rows extracted
+2025-10-12 23:18:30,477 - INFO - Sheet 'LARCOMAR': 5 people parsed from 57 total lines
+2025-10-12 23:18:30,478 - INFO - Sheet 'LARCOMAR': 5 uniform data rows extracted
+2025-10-12 23:18:30,486 - INFO - Sheet 'IQUITOS': 45 people parsed from 54 total lines
+2025-10-12 23:18:30,486 - INFO - Sheet 'IQUITOS': 6 uniform data rows extracted
+2025-10-12 23:18:30,486 - INFO - Excel file loaded successfully. 18/18 worksheets parsed, 305 people total.
+2025-10-12 23:19:09,461 - WARNING - ⚠️  OCCUPATION MAPPING: 'PARRILLERO (A)' → 'PRODUCCION' - consider adding 'PARRILLERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:19:09,463 - INFO - Calculated monto for CAJUSOL SANJINEZ WILLY FRANKLIN: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=244.0
+2025-10-12 23:19:09,464 - WARNING - ⚠️  OCCUPATION MAPPING: 'PARRILLERO (A)' → 'PRODUCCION' - consider adding 'PARRILLERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:19:09,465 - INFO - Calculated monto for CAJUSOL SANJINEZ WILLY FRANKLIN: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=244.0
+2025-10-12 23:19:09,465 - INFO - Calculated monto for SUAREZ BECERRA MARCOS ELITER: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,465 - INFO - Calculated monto for SUAREZ BECERRA MARCOS ELITER: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,466 - WARNING - ⚠️  OCCUPATION MAPPING: 'PARRILLERO (A)' → 'PRODUCCION' - consider adding 'PARRILLERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:19:09,466 - INFO - Calculated monto for MALLQUI OROPEZA ELIZABETH CATALINA: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=244.0
+2025-10-12 23:19:09,466 - WARNING - ⚠️  OCCUPATION MAPPING: 'PARRILLERO (A)' → 'PRODUCCION' - consider adding 'PARRILLERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:19:09,466 - INFO - Calculated monto for MALLQUI OROPEZA ELIZABETH CATALINA: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=244.0
+2025-10-12 23:19:09,466 - WARNING - ⚠️  OCCUPATION MAPPING: 'HORNERO (A)' → 'PRODUCCION' - consider adding 'HORNERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:19:09,467 - INFO - Calculated monto for RAMIREZ CACHIQUE WUALTER ENRIQUE: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=244.0
+2025-10-12 23:19:09,467 - WARNING - ⚠️  OCCUPATION MAPPING: 'HORNERO (A)' → 'PRODUCCION' - consider adding 'HORNERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:19:09,467 - INFO - Calculated monto for RAMIREZ CACHIQUE WUALTER ENRIQUE: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=244.0
+2025-10-12 23:19:09,467 - INFO - Calculated monto for ZERON SALAZAR ALBERTO JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,467 - INFO - Calculated monto for ZERON SALAZAR ALBERTO JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,468 - INFO - Calculated monto for LATORRE ZAMORA LUIS ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,468 - INFO - Calculated monto for LATORRE ZAMORA LUIS ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,468 - INFO - Calculated monto for RAMOS AHUANARI DINA GABRIELA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,468 - INFO - Calculated monto for RAMOS AHUANARI DINA GABRIELA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,468 - INFO - Calculated monto for SUAREZ BECERRA RONAN NILO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,469 - INFO - Calculated monto for SUAREZ BECERRA RONAN NILO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,469 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:19:09,469 - INFO - Calculated monto for JIMENEZ RODRIGUEZ ALEX JAVIER: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=140.0
+2025-10-12 23:19:09,469 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:19:09,469 - INFO - Calculated monto for JIMENEZ RODRIGUEZ ALEX JAVIER: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=140.0
+2025-10-12 23:19:09,469 - INFO - Calculated monto for REYES SIFUENTES DANNY RUBEN: Cargo=SEGURIDAD, Local=MAGDALENA, Prendas=2, Total=117.0
+2025-10-12 23:19:09,470 - INFO - Calculated monto for REYES SIFUENTES DANNY RUBEN: Cargo=SEGURIDAD, Local=MAGDALENA, Prendas=2, Total=117.0
+2025-10-12 23:19:09,470 - WARNING - ⚠️  OCCUPATION MAPPING: 'HORNERO (A)' → 'PRODUCCION' - consider adding 'HORNERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:19:09,470 - INFO - Calculated monto for AREVALO  SANGAMA  CARLOS: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=244.0
+2025-10-12 23:19:09,470 - WARNING - ⚠️  OCCUPATION MAPPING: 'HORNERO (A)' → 'PRODUCCION' - consider adding 'HORNERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:19:09,470 - INFO - Calculated monto for AREVALO  SANGAMA  CARLOS: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=244.0
+2025-10-12 23:19:09,470 - WARNING - ⚠️  OCCUPATION MAPPING: 'AYUDANTE DE COCINA' → 'PRODUCCION' - consider adding 'AYUDANTE DE COCINA' to synonyms list in Configuration tab
+2025-10-12 23:19:09,471 - INFO - Calculated monto for PURIHUAMAN  CALDERON  CARLOS ENRIQUE: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=4, Total=160.0
+2025-10-12 23:19:09,471 - WARNING - ⚠️  OCCUPATION MAPPING: 'AYUDANTE DE COCINA' → 'PRODUCCION' - consider adding 'AYUDANTE DE COCINA' to synonyms list in Configuration tab
+2025-10-12 23:19:09,471 - INFO - Calculated monto for PURIHUAMAN  CALDERON  CARLOS ENRIQUE: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=4, Total=160.0
+2025-10-12 23:19:09,471 - WARNING - ⚠️  OCCUPATION MAPPING: 'HORNERO (A)' → 'PRODUCCION' - consider adding 'HORNERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:19:09,471 - INFO - Calculated monto for ZEGARRA RAMIREZ CARLOS MIGUEL: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=4, Total=160.0
+2025-10-12 23:19:09,471 - WARNING - ⚠️  OCCUPATION MAPPING: 'HORNERO (A)' → 'PRODUCCION' - consider adding 'HORNERO (A)' to synonyms list in Configuration tab
+2025-10-12 23:19:09,471 - INFO - Calculated monto for ZEGARRA RAMIREZ CARLOS MIGUEL: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=4, Total=160.0
+2025-10-12 23:19:09,472 - INFO - Calculated monto for JAIMES  MARIN FERNANDO MARTIN: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,472 - INFO - Calculated monto for JAIMES  MARIN FERNANDO MARTIN: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,472 - WARNING - ⚠️  OCCUPATION MAPPING: 'AYUDANTE DE COCINA' → 'PRODUCCION' - consider adding 'AYUDANTE DE COCINA' to synonyms list in Configuration tab
+2025-10-12 23:19:09,472 - INFO - Calculated monto for AYALA HUAMANI DELIA: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=244.0
+2025-10-12 23:19:09,472 - WARNING - ⚠️  OCCUPATION MAPPING: 'AYUDANTE DE COCINA' → 'PRODUCCION' - consider adding 'AYUDANTE DE COCINA' to synonyms list in Configuration tab
+2025-10-12 23:19:09,473 - INFO - Calculated monto for AYALA HUAMANI DELIA: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=244.0
+2025-10-12 23:19:09,473 - INFO - Calculated monto for LUQUE VIZARRETA JUAN JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,473 - INFO - Calculated monto for LUQUE VIZARRETA JUAN JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,473 - INFO - Calculated monto for RAMOS BUCLES ANGEL GABRIEL: Cargo=AYUDANTE DE BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:19:09,473 - INFO - Calculated monto for RAMOS BUCLES ANGEL GABRIEL: Cargo=AYUDANTE DE BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:19:09,474 - INFO - Calculated monto for MEGO ALVAREZ VICTOR ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,474 - INFO - Calculated monto for MEGO ALVAREZ VICTOR ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,474 - WARNING - ⚠️  OCCUPATION MAPPING: 'ANFITRION (A)' → 'ANFITRION' - consider adding 'ANFITRION (A)' to synonyms list in Configuration tab
+2025-10-12 23:19:09,475 - INFO - Calculated monto for VELASQUEZ CHAMARRO ALEJANDRA VALERIA: Cargo=ANFITRION, Local=MAGDALENA, Prendas=2, Total=117.0
+2025-10-12 23:19:09,475 - WARNING - ⚠️  OCCUPATION MAPPING: 'ANFITRION (A)' → 'ANFITRION' - consider adding 'ANFITRION (A)' to synonyms list in Configuration tab
+2025-10-12 23:19:09,475 - INFO - Calculated monto for VELASQUEZ CHAMARRO ALEJANDRA VALERIA: Cargo=ANFITRION, Local=MAGDALENA, Prendas=2, Total=117.0
+2025-10-12 23:19:09,475 - INFO - Calculated monto for CHUQUICONDOR YANGUA ANELISA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,476 - INFO - Calculated monto for CHUQUICONDOR YANGUA ANELISA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,476 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:19:09,476 - INFO - Calculated monto for JULON JULCA DERIAN ARON: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=140.0
+2025-10-12 23:19:09,476 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:19:09,476 - INFO - Calculated monto for JULON JULCA DERIAN ARON: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=140.0
+2025-10-12 23:19:09,476 - WARNING - ⚠️  OCCUPATION MAPPING: 'AYUDANTE DE COCINA' → 'PRODUCCION' - consider adding 'AYUDANTE DE COCINA' to synonyms list in Configuration tab
+2025-10-12 23:19:09,476 - INFO - Calculated monto for ANGELDONIS ORTIZ JOSE ANTONIO: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=256.0
+2025-10-12 23:19:09,477 - WARNING - ⚠️  OCCUPATION MAPPING: 'AYUDANTE DE COCINA' → 'PRODUCCION' - consider adding 'AYUDANTE DE COCINA' to synonyms list in Configuration tab
+2025-10-12 23:19:09,477 - INFO - Calculated monto for ANGELDONIS ORTIZ JOSE ANTONIO: Cargo=PRODUCCION, Local=MAGDALENA, Prendas=5, Total=256.0
+2025-10-12 23:19:09,477 - INFO - Calculated monto for LOYOLA FERNANDEZ GUIDO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,478 - INFO - Calculated monto for LOYOLA FERNANDEZ GUIDO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:19:09,478 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CAJUSOL_SANJINEZ_WILLY_FRANKLIN/AUTORIZACION_CAJUSOL_SANJINEZ_WILLY_FRANKLIN_PARRILLERO_A.docx
+2025-10-12 23:19:09,553 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CAJUSOL_SANJINEZ_WILLY_FRANKLIN/CARGO_CAJUSOL_SANJINEZ_WILLY_FRANKLIN.docx
+2025-10-12 23:19:09,579 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_MARCOS_ELITER/AUTORIZACION_SUAREZ_BECERRA_MARCOS_ELITER_MOZO.docx
+2025-10-12 23:19:09,627 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_MARCOS_ELITER/CARGO_SUAREZ_BECERRA_MARCOS_ELITER.docx
+2025-10-12 23:19:09,645 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MALLQUI_OROPEZA_ELIZABETH_CATALINA/AUTORIZACION_MALLQUI_OROPEZA_ELIZABETH_CATALINA_PARRILLERO_A.docx
+2025-10-12 23:19:09,690 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MALLQUI_OROPEZA_ELIZABETH_CATALINA/CARGO_MALLQUI_OROPEZA_ELIZABETH_CATALINA.docx
+2025-10-12 23:19:09,708 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMIREZ_CACHIQUE_WUALTER_ENRIQUE/AUTORIZACION_RAMIREZ_CACHIQUE_WUALTER_ENRIQUE_HORNERO_A.docx
+2025-10-12 23:19:09,753 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMIREZ_CACHIQUE_WUALTER_ENRIQUE/CARGO_RAMIREZ_CACHIQUE_WUALTER_ENRIQUE.docx
+2025-10-12 23:19:09,772 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZERON_SALAZAR_ALBERTO_JOSE/AUTORIZACION_ZERON_SALAZAR_ALBERTO_JOSE_MOZO.docx
+2025-10-12 23:19:09,821 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZERON_SALAZAR_ALBERTO_JOSE/CARGO_ZERON_SALAZAR_ALBERTO_JOSE.docx
+2025-10-12 23:19:09,838 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LATORRE_ZAMORA_LUIS_ALBERTO/AUTORIZACION_LATORRE_ZAMORA_LUIS_ALBERTO_MOZO.docx
+2025-10-12 23:19:09,882 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LATORRE_ZAMORA_LUIS_ALBERTO/CARGO_LATORRE_ZAMORA_LUIS_ALBERTO.docx
+2025-10-12 23:19:09,903 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_AHUANARI_DINA_GABRIELA/AUTORIZACION_RAMOS_AHUANARI_DINA_GABRIELA_AZAFATA.docx
+2025-10-12 23:19:09,948 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_AHUANARI_DINA_GABRIELA/CARGO_RAMOS_AHUANARI_DINA_GABRIELA.docx
+2025-10-12 23:19:09,966 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_RONAN_NILO/AUTORIZACION_SUAREZ_BECERRA_RONAN_NILO_MOZO.docx
+2025-10-12 23:19:10,012 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_RONAN_NILO/CARGO_SUAREZ_BECERRA_RONAN_NILO.docx
+2025-10-12 23:19:10,029 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JIMENEZ_RODRIGUEZ_ALEX_JAVIER/AUTORIZACION_JIMENEZ_RODRIGUEZ_ALEX_JAVIER_BARTENDER.docx
+2025-10-12 23:19:10,076 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JIMENEZ_RODRIGUEZ_ALEX_JAVIER/CARGO_JIMENEZ_RODRIGUEZ_ALEX_JAVIER.docx
+2025-10-12 23:19:10,093 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/REYES_SIFUENTES_DANNY_RUBEN/AUTORIZACION_REYES_SIFUENTES_DANNY_RUBEN_SEGURIDAD.docx
+2025-10-12 23:19:10,136 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/REYES_SIFUENTES_DANNY_RUBEN/CARGO_REYES_SIFUENTES_DANNY_RUBEN.docx
+2025-10-12 23:19:10,153 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AREVALO__SANGAMA__CARLOS/AUTORIZACION_AREVALO__SANGAMA__CARLOS_HORNERO_A.docx
+2025-10-12 23:19:10,197 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AREVALO__SANGAMA__CARLOS/CARGO_AREVALO__SANGAMA__CARLOS.docx
+2025-10-12 23:19:10,215 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/PURIHUAMAN__CALDERON__CARLOS_ENRIQUE/AUTORIZACION_PURIHUAMAN__CALDERON__CARLOS_ENRIQUE_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:19:10,258 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/PURIHUAMAN__CALDERON__CARLOS_ENRIQUE/CARGO_PURIHUAMAN__CALDERON__CARLOS_ENRIQUE.docx
+2025-10-12 23:19:10,274 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZEGARRA_RAMIREZ_CARLOS_MIGUEL/AUTORIZACION_ZEGARRA_RAMIREZ_CARLOS_MIGUEL_HORNERO_A.docx
+2025-10-12 23:19:10,319 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZEGARRA_RAMIREZ_CARLOS_MIGUEL/CARGO_ZEGARRA_RAMIREZ_CARLOS_MIGUEL.docx
+2025-10-12 23:19:10,336 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JAIMES__MARIN_FERNANDO_MARTIN/AUTORIZACION_JAIMES__MARIN_FERNANDO_MARTIN_MOZO.docx
+2025-10-12 23:19:10,379 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JAIMES__MARIN_FERNANDO_MARTIN/CARGO_JAIMES__MARIN_FERNANDO_MARTIN.docx
+2025-10-12 23:19:10,396 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AYALA_HUAMANI_DELIA/AUTORIZACION_AYALA_HUAMANI_DELIA_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:19:10,440 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AYALA_HUAMANI_DELIA/CARGO_AYALA_HUAMANI_DELIA.docx
+2025-10-12 23:19:10,458 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LUQUE_VIZARRETA_JUAN_JOSE/AUTORIZACION_LUQUE_VIZARRETA_JUAN_JOSE_MOZO.docx
+2025-10-12 23:19:10,502 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LUQUE_VIZARRETA_JUAN_JOSE/CARGO_LUQUE_VIZARRETA_JUAN_JOSE.docx
+2025-10-12 23:19:10,519 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_BUCLES_ANGEL_GABRIEL/AUTORIZACION_RAMOS_BUCLES_ANGEL_GABRIEL_AYUDANTE_DE_BAR.docx
+2025-10-12 23:19:10,563 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_BUCLES_ANGEL_GABRIEL/CARGO_RAMOS_BUCLES_ANGEL_GABRIEL.docx
+2025-10-12 23:19:10,582 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MEGO_ALVAREZ_VICTOR_ALBERTO/AUTORIZACION_MEGO_ALVAREZ_VICTOR_ALBERTO_MOZO.docx
+2025-10-12 23:19:10,625 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MEGO_ALVAREZ_VICTOR_ALBERTO/CARGO_MEGO_ALVAREZ_VICTOR_ALBERTO.docx
+2025-10-12 23:19:10,642 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA/AUTORIZACION_VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA_ANFITRION_A.docx
+2025-10-12 23:19:10,685 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA/CARGO_VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA.docx
+2025-10-12 23:19:10,702 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CHUQUICONDOR_YANGUA_ANELISA/AUTORIZACION_CHUQUICONDOR_YANGUA_ANELISA_AZAFATA.docx
+2025-10-12 23:19:10,744 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CHUQUICONDOR_YANGUA_ANELISA/CARGO_CHUQUICONDOR_YANGUA_ANELISA.docx
+2025-10-12 23:19:10,761 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JULON_JULCA_DERIAN_ARON/AUTORIZACION_JULON_JULCA_DERIAN_ARON_BARTENDER.docx
+2025-10-12 23:19:10,803 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JULON_JULCA_DERIAN_ARON/CARGO_JULON_JULCA_DERIAN_ARON.docx
+2025-10-12 23:19:10,821 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ANGELDONIS_ORTIZ_JOSE_ANTONIO/AUTORIZACION_ANGELDONIS_ORTIZ_JOSE_ANTONIO_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:19:10,865 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ANGELDONIS_ORTIZ_JOSE_ANTONIO/CARGO_ANGELDONIS_ORTIZ_JOSE_ANTONIO.docx
+2025-10-12 23:19:10,882 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LOYOLA_FERNANDEZ_GUIDO/AUTORIZACION_LOYOLA_FERNANDEZ_GUIDO_MOZO.docx
+2025-10-12 23:19:10,925 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LOYOLA_FERNANDEZ_GUIDO/CARGO_LOYOLA_FERNANDEZ_GUIDO.docx
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_MARCOS_ELITER/AUTORIZACION_SUAREZ_BECERRA_MARCOS_ELITER_MOZO.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MALLQUI_OROPEZA_ELIZABETH_CATALINA/AUTORIZACION_MALLQUI_OROPEZA_ELIZABETH_CATALINA_PARRILLERO_A.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMIREZ_CACHIQUE_WUALTER_ENRIQUE/AUTORIZACION_RAMIREZ_CACHIQUE_WUALTER_ENRIQUE_HORNERO_A.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZERON_SALAZAR_ALBERTO_JOSE/AUTORIZACION_ZERON_SALAZAR_ALBERTO_JOSE_MOZO.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LATORRE_ZAMORA_LUIS_ALBERTO/AUTORIZACION_LATORRE_ZAMORA_LUIS_ALBERTO_MOZO.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_AHUANARI_DINA_GABRIELA/AUTORIZACION_RAMOS_AHUANARI_DINA_GABRIELA_AZAFATA.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_RONAN_NILO/AUTORIZACION_SUAREZ_BECERRA_RONAN_NILO_MOZO.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JIMENEZ_RODRIGUEZ_ALEX_JAVIER/AUTORIZACION_JIMENEZ_RODRIGUEZ_ALEX_JAVIER_BARTENDER.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/REYES_SIFUENTES_DANNY_RUBEN/AUTORIZACION_REYES_SIFUENTES_DANNY_RUBEN_SEGURIDAD.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AREVALO__SANGAMA__CARLOS/AUTORIZACION_AREVALO__SANGAMA__CARLOS_HORNERO_A.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/PURIHUAMAN__CALDERON__CARLOS_ENRIQUE/AUTORIZACION_PURIHUAMAN__CALDERON__CARLOS_ENRIQUE_AYUDANTE_DE_COCINA.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZEGARRA_RAMIREZ_CARLOS_MIGUEL/AUTORIZACION_ZEGARRA_RAMIREZ_CARLOS_MIGUEL_HORNERO_A.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JAIMES__MARIN_FERNANDO_MARTIN/AUTORIZACION_JAIMES__MARIN_FERNANDO_MARTIN_MOZO.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AYALA_HUAMANI_DELIA/AUTORIZACION_AYALA_HUAMANI_DELIA_AYUDANTE_DE_COCINA.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LUQUE_VIZARRETA_JUAN_JOSE/AUTORIZACION_LUQUE_VIZARRETA_JUAN_JOSE_MOZO.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_BUCLES_ANGEL_GABRIEL/AUTORIZACION_RAMOS_BUCLES_ANGEL_GABRIEL_AYUDANTE_DE_BAR.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MEGO_ALVAREZ_VICTOR_ALBERTO/AUTORIZACION_MEGO_ALVAREZ_VICTOR_ALBERTO_MOZO.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA/AUTORIZACION_VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA_ANFITRION_A.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CHUQUICONDOR_YANGUA_ANELISA/AUTORIZACION_CHUQUICONDOR_YANGUA_ANELISA_AZAFATA.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JULON_JULCA_DERIAN_ARON/AUTORIZACION_JULON_JULCA_DERIAN_ARON_BARTENDER.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ANGELDONIS_ORTIZ_JOSE_ANTONIO/AUTORIZACION_ANGELDONIS_ORTIZ_JOSE_ANTONIO_AYUDANTE_DE_COCINA.docx: 6
+2025-10-12 23:19:10,946 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LOYOLA_FERNANDEZ_GUIDO/AUTORIZACION_LOYOLA_FERNANDEZ_GUIDO_MOZO.docx: 6
+2025-10-12 23:19:10,976 - INFO - Created combined document with page breaks using docxcompose: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AUTORIZACION_COMBINED_MAGDALENA.docx
+2025-10-12 23:19:10,978 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_MARCOS_ELITER/CARGO_SUAREZ_BECERRA_MARCOS_ELITER.docx: 6
+2025-10-12 23:19:10,978 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MALLQUI_OROPEZA_ELIZABETH_CATALINA/CARGO_MALLQUI_OROPEZA_ELIZABETH_CATALINA.docx: 6
+2025-10-12 23:19:10,978 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMIREZ_CACHIQUE_WUALTER_ENRIQUE/CARGO_RAMIREZ_CACHIQUE_WUALTER_ENRIQUE.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZERON_SALAZAR_ALBERTO_JOSE/CARGO_ZERON_SALAZAR_ALBERTO_JOSE.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LATORRE_ZAMORA_LUIS_ALBERTO/CARGO_LATORRE_ZAMORA_LUIS_ALBERTO.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_AHUANARI_DINA_GABRIELA/CARGO_RAMOS_AHUANARI_DINA_GABRIELA.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_RONAN_NILO/CARGO_SUAREZ_BECERRA_RONAN_NILO.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JIMENEZ_RODRIGUEZ_ALEX_JAVIER/CARGO_JIMENEZ_RODRIGUEZ_ALEX_JAVIER.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/REYES_SIFUENTES_DANNY_RUBEN/CARGO_REYES_SIFUENTES_DANNY_RUBEN.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AREVALO__SANGAMA__CARLOS/CARGO_AREVALO__SANGAMA__CARLOS.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/PURIHUAMAN__CALDERON__CARLOS_ENRIQUE/CARGO_PURIHUAMAN__CALDERON__CARLOS_ENRIQUE.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZEGARRA_RAMIREZ_CARLOS_MIGUEL/CARGO_ZEGARRA_RAMIREZ_CARLOS_MIGUEL.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JAIMES__MARIN_FERNANDO_MARTIN/CARGO_JAIMES__MARIN_FERNANDO_MARTIN.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AYALA_HUAMANI_DELIA/CARGO_AYALA_HUAMANI_DELIA.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LUQUE_VIZARRETA_JUAN_JOSE/CARGO_LUQUE_VIZARRETA_JUAN_JOSE.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_BUCLES_ANGEL_GABRIEL/CARGO_RAMOS_BUCLES_ANGEL_GABRIEL.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MEGO_ALVAREZ_VICTOR_ALBERTO/CARGO_MEGO_ALVAREZ_VICTOR_ALBERTO.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA/CARGO_VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CHUQUICONDOR_YANGUA_ANELISA/CARGO_CHUQUICONDOR_YANGUA_ANELISA.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JULON_JULCA_DERIAN_ARON/CARGO_JULON_JULCA_DERIAN_ARON.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ANGELDONIS_ORTIZ_JOSE_ANTONIO/CARGO_ANGELDONIS_ORTIZ_JOSE_ANTONIO.docx: 6
+2025-10-12 23:19:10,979 - WARNING - Failed to append document /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LOYOLA_FERNANDEZ_GUIDO/CARGO_LOYOLA_FERNANDEZ_GUIDO.docx: 6
+2025-10-12 23:19:10,983 - INFO - Created combined document with page breaks using docxcompose: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CARGO_COMBINED_MAGDALENA.docx
+2025-10-12 23:19:10,983 - INFO - Generated AUTORIZACION, CARGO documents for 23 people across 1 locales
+2025-10-12 23:32:21,922 - ERROR - Failed to read config file 'config.json': 'list' object has no attribute 'setdefault'
+2025-10-12 23:32:21,923 - ERROR - Failed to read config file 'config.json': 'list' object has no attribute 'setdefault'
+2025-10-12 23:32:22,043 - ERROR - Failed to read config file 'config.json': 'list' object has no attribute 'setdefault'
+2025-10-12 23:32:22,043 - ERROR - Failed to read config file 'config.json': 'list' object has no attribute 'setdefault'
+2025-10-12 23:32:22,045 - INFO - Application initialized successfully
+2025-10-12 23:32:39,833 - INFO - Loading Excel file: /Users/leonardocandio/Downloads/REQUERIMIENTO DE UNIFORMES OCTUBRE 2025 este es.xlsx
+2025-10-12 23:32:40,015 - INFO - Found 18 worksheets: ['MEGAPLAZA', 'DOMINICANA', 'EL POLO', 'FAUCETT', 'GUARDIA CIVIL', 'ICA PROVINCIA', 'JESUS MARIA', 'LIMA HISTORICO', 'LOS OLIVOS', 'MAGDALENA', 'LA MOLINA', 'PURUCHUCO', 'RISSO', 'SAN ISIDRO', 'SAN MIGUEL', 'DOÑA ROSA', 'LARCOMAR', 'IQUITOS']
+2025-10-12 23:32:40,044 - INFO - Sheet 'MEGAPLAZA': 7 people parsed from 57 total lines
+2025-10-12 23:32:40,044 - INFO - Sheet 'MEGAPLAZA': 7 uniform data rows extracted
+2025-10-12 23:32:40,055 - INFO - Sheet 'DOMINICANA': 14 people parsed from 57 total lines
+2025-10-12 23:32:40,055 - INFO - Sheet 'DOMINICANA': 14 uniform data rows extracted
+2025-10-12 23:32:40,063 - INFO - Sheet 'EL POLO': 12 people parsed from 57 total lines
+2025-10-12 23:32:40,063 - INFO - Sheet 'EL POLO': 12 uniform data rows extracted
+2025-10-12 23:32:40,072 - INFO - Sheet 'FAUCETT': 7 people parsed from 57 total lines
+2025-10-12 23:32:40,072 - INFO - Sheet 'FAUCETT': 6 uniform data rows extracted
+2025-10-12 23:32:40,080 - INFO - Sheet 'GUARDIA CIVIL': 10 people parsed from 57 total lines
+2025-10-12 23:32:40,081 - INFO - Sheet 'GUARDIA CIVIL': 10 uniform data rows extracted
+2025-10-12 23:32:40,090 - INFO - Sheet 'ICA PROVINCIA': 44 people parsed from 57 total lines
+2025-10-12 23:32:40,090 - INFO - Sheet 'ICA PROVINCIA': 32 uniform data rows extracted
+2025-10-12 23:32:40,099 - INFO - Sheet 'JESUS MARIA': 18 people parsed from 57 total lines
+2025-10-12 23:32:40,099 - INFO - Sheet 'JESUS MARIA': 18 uniform data rows extracted
+2025-10-12 23:32:40,107 - INFO - Sheet 'LIMA HISTORICO': 22 people parsed from 57 total lines
+2025-10-12 23:32:40,107 - INFO - Sheet 'LIMA HISTORICO': 22 uniform data rows extracted
+2025-10-12 23:32:40,116 - INFO - Sheet 'LOS OLIVOS': 17 people parsed from 57 total lines
+2025-10-12 23:32:40,116 - INFO - Sheet 'LOS OLIVOS': 17 uniform data rows extracted
+2025-10-12 23:32:40,125 - INFO - Sheet 'MAGDALENA': 23 people parsed from 57 total lines
+2025-10-12 23:32:40,125 - INFO - Sheet 'MAGDALENA': 23 uniform data rows extracted
+2025-10-12 23:32:40,133 - INFO - Sheet 'LA MOLINA': 17 people parsed from 57 total lines
+2025-10-12 23:32:40,133 - INFO - Sheet 'LA MOLINA': 17 uniform data rows extracted
+2025-10-12 23:32:40,141 - INFO - Sheet 'PURUCHUCO': 2 people parsed from 57 total lines
+2025-10-12 23:32:40,142 - INFO - Sheet 'PURUCHUCO': 2 uniform data rows extracted
+2025-10-12 23:32:40,150 - INFO - Sheet 'RISSO': 16 people parsed from 57 total lines
+2025-10-12 23:32:40,150 - INFO - Sheet 'RISSO': 16 uniform data rows extracted
+2025-10-12 23:32:40,159 - INFO - Sheet 'SAN ISIDRO': 18 people parsed from 57 total lines
+2025-10-12 23:32:40,159 - INFO - Sheet 'SAN ISIDRO': 18 uniform data rows extracted
+2025-10-12 23:32:40,168 - INFO - Sheet 'SAN MIGUEL': 13 people parsed from 52 total lines
+2025-10-12 23:32:40,168 - INFO - Sheet 'SAN MIGUEL': 13 uniform data rows extracted
+2025-10-12 23:32:40,178 - INFO - Sheet 'DOÑA ROSA': 15 people parsed from 57 total lines
+2025-10-12 23:32:40,179 - INFO - Sheet 'DOÑA ROSA': 15 uniform data rows extracted
+2025-10-12 23:32:40,187 - INFO - Sheet 'LARCOMAR': 5 people parsed from 57 total lines
+2025-10-12 23:32:40,187 - INFO - Sheet 'LARCOMAR': 5 uniform data rows extracted
+2025-10-12 23:32:40,196 - INFO - Sheet 'IQUITOS': 45 people parsed from 54 total lines
+2025-10-12 23:32:40,196 - INFO - Sheet 'IQUITOS': 6 uniform data rows extracted
+2025-10-12 23:32:40,196 - INFO - Excel file loaded successfully. 18/18 worksheets parsed, 305 people total.
+2025-10-12 23:32:46,839 - INFO - Configuration saved successfully
+2025-10-12 23:33:00,078 - INFO - Calculated monto for CAJUSOL SANJINEZ WILLY FRANKLIN: Cargo=PARRILLERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:33:00,079 - INFO - Calculated monto for CAJUSOL SANJINEZ WILLY FRANKLIN: Cargo=PARRILLERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:33:00,079 - INFO - Calculated monto for SUAREZ BECERRA MARCOS ELITER: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,079 - INFO - Calculated monto for SUAREZ BECERRA MARCOS ELITER: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,079 - INFO - Calculated monto for MALLQUI OROPEZA ELIZABETH CATALINA: Cargo=PARRILLERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:33:00,080 - INFO - Calculated monto for MALLQUI OROPEZA ELIZABETH CATALINA: Cargo=PARRILLERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:33:00,080 - INFO - Calculated monto for RAMIREZ CACHIQUE WUALTER ENRIQUE: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:33:00,081 - INFO - Calculated monto for RAMIREZ CACHIQUE WUALTER ENRIQUE: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:33:00,081 - INFO - Calculated monto for ZERON SALAZAR ALBERTO JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,081 - INFO - Calculated monto for ZERON SALAZAR ALBERTO JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,081 - INFO - Calculated monto for LATORRE ZAMORA LUIS ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,081 - INFO - Calculated monto for LATORRE ZAMORA LUIS ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,082 - INFO - Calculated monto for RAMOS AHUANARI DINA GABRIELA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,082 - INFO - Calculated monto for RAMOS AHUANARI DINA GABRIELA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,082 - INFO - Calculated monto for SUAREZ BECERRA RONAN NILO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,082 - INFO - Calculated monto for SUAREZ BECERRA RONAN NILO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,083 - INFO - Calculated monto for JIMENEZ RODRIGUEZ ALEX JAVIER: Cargo=BARTENDER, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,083 - INFO - Calculated monto for JIMENEZ RODRIGUEZ ALEX JAVIER: Cargo=BARTENDER, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,083 - INFO - Calculated monto for REYES SIFUENTES DANNY RUBEN: Cargo=SEGURIDAD, Local=MAGDALENA, Prendas=2, Total=0.0
+2025-10-12 23:33:00,083 - INFO - Calculated monto for REYES SIFUENTES DANNY RUBEN: Cargo=SEGURIDAD, Local=MAGDALENA, Prendas=2, Total=0.0
+2025-10-12 23:33:00,083 - INFO - Calculated monto for AREVALO  SANGAMA  CARLOS: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:33:00,084 - INFO - Calculated monto for AREVALO  SANGAMA  CARLOS: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:33:00,084 - INFO - Calculated monto for PURIHUAMAN  CALDERON  CARLOS ENRIQUE: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:33:00,084 - INFO - Calculated monto for PURIHUAMAN  CALDERON  CARLOS ENRIQUE: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:33:00,084 - INFO - Calculated monto for ZEGARRA RAMIREZ CARLOS MIGUEL: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:33:00,085 - INFO - Calculated monto for ZEGARRA RAMIREZ CARLOS MIGUEL: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:33:00,085 - INFO - Calculated monto for JAIMES  MARIN FERNANDO MARTIN: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,085 - INFO - Calculated monto for JAIMES  MARIN FERNANDO MARTIN: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,085 - INFO - Calculated monto for AYALA HUAMANI DELIA: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:33:00,086 - INFO - Calculated monto for AYALA HUAMANI DELIA: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:33:00,086 - INFO - Calculated monto for LUQUE VIZARRETA JUAN JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,086 - INFO - Calculated monto for LUQUE VIZARRETA JUAN JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,086 - INFO - Calculated monto for RAMOS BUCLES ANGEL GABRIEL: Cargo=AYUDANTE DE BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,086 - INFO - Calculated monto for RAMOS BUCLES ANGEL GABRIEL: Cargo=AYUDANTE DE BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,087 - INFO - Calculated monto for MEGO ALVAREZ VICTOR ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,087 - INFO - Calculated monto for MEGO ALVAREZ VICTOR ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,087 - INFO - Calculated monto for VELASQUEZ CHAMARRO ALEJANDRA VALERIA: Cargo=ANFITRION (A), Local=MAGDALENA, Prendas=2, Total=0.0
+2025-10-12 23:33:00,087 - INFO - Calculated monto for VELASQUEZ CHAMARRO ALEJANDRA VALERIA: Cargo=ANFITRION (A), Local=MAGDALENA, Prendas=2, Total=0.0
+2025-10-12 23:33:00,087 - INFO - Calculated monto for CHUQUICONDOR YANGUA ANELISA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,088 - INFO - Calculated monto for CHUQUICONDOR YANGUA ANELISA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,088 - INFO - Calculated monto for JULON JULCA DERIAN ARON: Cargo=BARTENDER, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,088 - INFO - Calculated monto for JULON JULCA DERIAN ARON: Cargo=BARTENDER, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,088 - INFO - Calculated monto for ANGELDONIS ORTIZ JOSE ANTONIO: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:33:00,089 - INFO - Calculated monto for ANGELDONIS ORTIZ JOSE ANTONIO: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:33:00,089 - INFO - Calculated monto for LOYOLA FERNANDEZ GUIDO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,089 - INFO - Calculated monto for LOYOLA FERNANDEZ GUIDO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:33:00,089 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CAJUSOL_SANJINEZ_WILLY_FRANKLIN/AUTORIZACION_CAJUSOL_SANJINEZ_WILLY_FRANKLIN_PARRILLERO_A.docx
+2025-10-12 23:33:00,143 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CAJUSOL_SANJINEZ_WILLY_FRANKLIN/CARGO_CAJUSOL_SANJINEZ_WILLY_FRANKLIN.docx
+2025-10-12 23:33:00,162 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_MARCOS_ELITER/AUTORIZACION_SUAREZ_BECERRA_MARCOS_ELITER_MOZO.docx
+2025-10-12 23:33:00,205 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_MARCOS_ELITER/CARGO_SUAREZ_BECERRA_MARCOS_ELITER.docx
+2025-10-12 23:33:00,222 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MALLQUI_OROPEZA_ELIZABETH_CATALINA/AUTORIZACION_MALLQUI_OROPEZA_ELIZABETH_CATALINA_PARRILLERO_A.docx
+2025-10-12 23:33:00,264 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MALLQUI_OROPEZA_ELIZABETH_CATALINA/CARGO_MALLQUI_OROPEZA_ELIZABETH_CATALINA.docx
+2025-10-12 23:33:00,281 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMIREZ_CACHIQUE_WUALTER_ENRIQUE/AUTORIZACION_RAMIREZ_CACHIQUE_WUALTER_ENRIQUE_HORNERO_A.docx
+2025-10-12 23:33:00,324 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMIREZ_CACHIQUE_WUALTER_ENRIQUE/CARGO_RAMIREZ_CACHIQUE_WUALTER_ENRIQUE.docx
+2025-10-12 23:33:00,341 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZERON_SALAZAR_ALBERTO_JOSE/AUTORIZACION_ZERON_SALAZAR_ALBERTO_JOSE_MOZO.docx
+2025-10-12 23:33:00,385 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZERON_SALAZAR_ALBERTO_JOSE/CARGO_ZERON_SALAZAR_ALBERTO_JOSE.docx
+2025-10-12 23:33:00,401 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LATORRE_ZAMORA_LUIS_ALBERTO/AUTORIZACION_LATORRE_ZAMORA_LUIS_ALBERTO_MOZO.docx
+2025-10-12 23:33:00,443 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LATORRE_ZAMORA_LUIS_ALBERTO/CARGO_LATORRE_ZAMORA_LUIS_ALBERTO.docx
+2025-10-12 23:33:00,460 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_AHUANARI_DINA_GABRIELA/AUTORIZACION_RAMOS_AHUANARI_DINA_GABRIELA_AZAFATA.docx
+2025-10-12 23:33:00,502 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_AHUANARI_DINA_GABRIELA/CARGO_RAMOS_AHUANARI_DINA_GABRIELA.docx
+2025-10-12 23:33:00,521 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_RONAN_NILO/AUTORIZACION_SUAREZ_BECERRA_RONAN_NILO_MOZO.docx
+2025-10-12 23:33:00,565 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_RONAN_NILO/CARGO_SUAREZ_BECERRA_RONAN_NILO.docx
+2025-10-12 23:33:00,582 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JIMENEZ_RODRIGUEZ_ALEX_JAVIER/AUTORIZACION_JIMENEZ_RODRIGUEZ_ALEX_JAVIER_BARTENDER.docx
+2025-10-12 23:33:00,632 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JIMENEZ_RODRIGUEZ_ALEX_JAVIER/CARGO_JIMENEZ_RODRIGUEZ_ALEX_JAVIER.docx
+2025-10-12 23:33:00,649 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/REYES_SIFUENTES_DANNY_RUBEN/AUTORIZACION_REYES_SIFUENTES_DANNY_RUBEN_SEGURIDAD.docx
+2025-10-12 23:33:00,692 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/REYES_SIFUENTES_DANNY_RUBEN/CARGO_REYES_SIFUENTES_DANNY_RUBEN.docx
+2025-10-12 23:33:00,709 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AREVALO__SANGAMA__CARLOS/AUTORIZACION_AREVALO__SANGAMA__CARLOS_HORNERO_A.docx
+2025-10-12 23:33:00,752 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AREVALO__SANGAMA__CARLOS/CARGO_AREVALO__SANGAMA__CARLOS.docx
+2025-10-12 23:33:00,769 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/PURIHUAMAN__CALDERON__CARLOS_ENRIQUE/AUTORIZACION_PURIHUAMAN__CALDERON__CARLOS_ENRIQUE_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:33:00,814 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/PURIHUAMAN__CALDERON__CARLOS_ENRIQUE/CARGO_PURIHUAMAN__CALDERON__CARLOS_ENRIQUE.docx
+2025-10-12 23:33:00,830 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZEGARRA_RAMIREZ_CARLOS_MIGUEL/AUTORIZACION_ZEGARRA_RAMIREZ_CARLOS_MIGUEL_HORNERO_A.docx
+2025-10-12 23:33:00,876 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZEGARRA_RAMIREZ_CARLOS_MIGUEL/CARGO_ZEGARRA_RAMIREZ_CARLOS_MIGUEL.docx
+2025-10-12 23:33:00,893 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JAIMES__MARIN_FERNANDO_MARTIN/AUTORIZACION_JAIMES__MARIN_FERNANDO_MARTIN_MOZO.docx
+2025-10-12 23:33:00,936 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JAIMES__MARIN_FERNANDO_MARTIN/CARGO_JAIMES__MARIN_FERNANDO_MARTIN.docx
+2025-10-12 23:33:00,954 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AYALA_HUAMANI_DELIA/AUTORIZACION_AYALA_HUAMANI_DELIA_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:33:01,000 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AYALA_HUAMANI_DELIA/CARGO_AYALA_HUAMANI_DELIA.docx
+2025-10-12 23:33:01,016 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LUQUE_VIZARRETA_JUAN_JOSE/AUTORIZACION_LUQUE_VIZARRETA_JUAN_JOSE_MOZO.docx
+2025-10-12 23:33:01,060 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LUQUE_VIZARRETA_JUAN_JOSE/CARGO_LUQUE_VIZARRETA_JUAN_JOSE.docx
+2025-10-12 23:33:01,077 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_BUCLES_ANGEL_GABRIEL/AUTORIZACION_RAMOS_BUCLES_ANGEL_GABRIEL_AYUDANTE_DE_BAR.docx
+2025-10-12 23:33:01,122 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_BUCLES_ANGEL_GABRIEL/CARGO_RAMOS_BUCLES_ANGEL_GABRIEL.docx
+2025-10-12 23:33:01,142 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MEGO_ALVAREZ_VICTOR_ALBERTO/AUTORIZACION_MEGO_ALVAREZ_VICTOR_ALBERTO_MOZO.docx
+2025-10-12 23:33:01,185 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MEGO_ALVAREZ_VICTOR_ALBERTO/CARGO_MEGO_ALVAREZ_VICTOR_ALBERTO.docx
+2025-10-12 23:33:01,202 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA/AUTORIZACION_VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA_ANFITRION_A.docx
+2025-10-12 23:33:01,247 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA/CARGO_VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA.docx
+2025-10-12 23:33:01,263 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CHUQUICONDOR_YANGUA_ANELISA/AUTORIZACION_CHUQUICONDOR_YANGUA_ANELISA_AZAFATA.docx
+2025-10-12 23:33:01,308 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CHUQUICONDOR_YANGUA_ANELISA/CARGO_CHUQUICONDOR_YANGUA_ANELISA.docx
+2025-10-12 23:33:01,325 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JULON_JULCA_DERIAN_ARON/AUTORIZACION_JULON_JULCA_DERIAN_ARON_BARTENDER.docx
+2025-10-12 23:33:01,369 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JULON_JULCA_DERIAN_ARON/CARGO_JULON_JULCA_DERIAN_ARON.docx
+2025-10-12 23:33:01,388 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ANGELDONIS_ORTIZ_JOSE_ANTONIO/AUTORIZACION_ANGELDONIS_ORTIZ_JOSE_ANTONIO_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:33:01,431 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ANGELDONIS_ORTIZ_JOSE_ANTONIO/CARGO_ANGELDONIS_ORTIZ_JOSE_ANTONIO.docx
+2025-10-12 23:33:01,448 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LOYOLA_FERNANDEZ_GUIDO/AUTORIZACION_LOYOLA_FERNANDEZ_GUIDO_MOZO.docx
+2025-10-12 23:33:01,491 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LOYOLA_FERNANDEZ_GUIDO/CARGO_LOYOLA_FERNANDEZ_GUIDO.docx
+2025-10-12 23:33:01,636 - INFO - Created combined document with page breaks: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AUTORIZACION_COMBINED_MAGDALENA.docx
+2025-10-12 23:33:01,692 - INFO - Created combined document with page breaks: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CARGO_COMBINED_MAGDALENA.docx
+2025-10-12 23:33:01,693 - INFO - Generated AUTORIZACION, CARGO documents for 23 people across 1 locales
+2025-10-12 23:49:09,973 - INFO - Application initialized successfully
+2025-10-12 23:49:43,233 - INFO - Configuration saved successfully
+2025-10-12 23:49:48,680 - INFO - Loading Excel file: /Users/leonardocandio/Downloads/REQUERIMIENTO DE UNIFORMES OCTUBRE 2025 este es.xlsx
+2025-10-12 23:49:48,840 - INFO - Found 18 worksheets: ['MEGAPLAZA', 'DOMINICANA', 'EL POLO', 'FAUCETT', 'GUARDIA CIVIL', 'ICA PROVINCIA', 'JESUS MARIA', 'LIMA HISTORICO', 'LOS OLIVOS', 'MAGDALENA', 'LA MOLINA', 'PURUCHUCO', 'RISSO', 'SAN ISIDRO', 'SAN MIGUEL', 'DOÑA ROSA', 'LARCOMAR', 'IQUITOS']
+2025-10-12 23:49:48,870 - INFO - Sheet 'MEGAPLAZA': 7 people parsed from 57 total lines
+2025-10-12 23:49:48,870 - INFO - Sheet 'MEGAPLAZA': 7 uniform data rows extracted
+2025-10-12 23:49:48,880 - INFO - Sheet 'DOMINICANA': 14 people parsed from 57 total lines
+2025-10-12 23:49:48,880 - INFO - Sheet 'DOMINICANA': 14 uniform data rows extracted
+2025-10-12 23:49:48,888 - INFO - Sheet 'EL POLO': 12 people parsed from 57 total lines
+2025-10-12 23:49:48,888 - INFO - Sheet 'EL POLO': 12 uniform data rows extracted
+2025-10-12 23:49:48,896 - INFO - Sheet 'FAUCETT': 7 people parsed from 57 total lines
+2025-10-12 23:49:48,896 - INFO - Sheet 'FAUCETT': 6 uniform data rows extracted
+2025-10-12 23:49:48,903 - INFO - Sheet 'GUARDIA CIVIL': 10 people parsed from 57 total lines
+2025-10-12 23:49:48,903 - INFO - Sheet 'GUARDIA CIVIL': 10 uniform data rows extracted
+2025-10-12 23:49:48,912 - INFO - Sheet 'ICA PROVINCIA': 44 people parsed from 57 total lines
+2025-10-12 23:49:48,912 - INFO - Sheet 'ICA PROVINCIA': 32 uniform data rows extracted
+2025-10-12 23:49:48,919 - INFO - Sheet 'JESUS MARIA': 18 people parsed from 57 total lines
+2025-10-12 23:49:48,920 - INFO - Sheet 'JESUS MARIA': 18 uniform data rows extracted
+2025-10-12 23:49:48,928 - INFO - Sheet 'LIMA HISTORICO': 22 people parsed from 57 total lines
+2025-10-12 23:49:48,928 - INFO - Sheet 'LIMA HISTORICO': 22 uniform data rows extracted
+2025-10-12 23:49:48,935 - INFO - Sheet 'LOS OLIVOS': 17 people parsed from 57 total lines
+2025-10-12 23:49:48,935 - INFO - Sheet 'LOS OLIVOS': 17 uniform data rows extracted
+2025-10-12 23:49:48,943 - INFO - Sheet 'MAGDALENA': 23 people parsed from 57 total lines
+2025-10-12 23:49:48,943 - INFO - Sheet 'MAGDALENA': 23 uniform data rows extracted
+2025-10-12 23:49:48,951 - INFO - Sheet 'LA MOLINA': 17 people parsed from 57 total lines
+2025-10-12 23:49:48,951 - INFO - Sheet 'LA MOLINA': 17 uniform data rows extracted
+2025-10-12 23:49:48,959 - INFO - Sheet 'PURUCHUCO': 2 people parsed from 57 total lines
+2025-10-12 23:49:48,959 - INFO - Sheet 'PURUCHUCO': 2 uniform data rows extracted
+2025-10-12 23:49:48,967 - INFO - Sheet 'RISSO': 16 people parsed from 57 total lines
+2025-10-12 23:49:48,967 - INFO - Sheet 'RISSO': 16 uniform data rows extracted
+2025-10-12 23:49:48,975 - INFO - Sheet 'SAN ISIDRO': 18 people parsed from 57 total lines
+2025-10-12 23:49:48,975 - INFO - Sheet 'SAN ISIDRO': 18 uniform data rows extracted
+2025-10-12 23:49:48,982 - INFO - Sheet 'SAN MIGUEL': 13 people parsed from 52 total lines
+2025-10-12 23:49:48,982 - INFO - Sheet 'SAN MIGUEL': 13 uniform data rows extracted
+2025-10-12 23:49:48,989 - INFO - Sheet 'DOÑA ROSA': 15 people parsed from 57 total lines
+2025-10-12 23:49:48,989 - INFO - Sheet 'DOÑA ROSA': 15 uniform data rows extracted
+2025-10-12 23:49:48,997 - INFO - Sheet 'LARCOMAR': 5 people parsed from 57 total lines
+2025-10-12 23:49:48,997 - INFO - Sheet 'LARCOMAR': 5 uniform data rows extracted
+2025-10-12 23:49:49,006 - INFO - Sheet 'IQUITOS': 45 people parsed from 54 total lines
+2025-10-12 23:49:49,006 - INFO - Sheet 'IQUITOS': 6 uniform data rows extracted
+2025-10-12 23:49:49,006 - INFO - Excel file loaded successfully. 18/18 worksheets parsed, 305 people total.
+2025-10-12 23:50:03,005 - INFO - Calculated monto for CAJUSOL SANJINEZ WILLY FRANKLIN: Cargo=PARRILLERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:03,006 - INFO - Calculated monto for CAJUSOL SANJINEZ WILLY FRANKLIN: Cargo=PARRILLERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:03,006 - INFO - Calculated monto for SUAREZ BECERRA MARCOS ELITER: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,006 - INFO - Calculated monto for SUAREZ BECERRA MARCOS ELITER: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,006 - INFO - Calculated monto for MALLQUI OROPEZA ELIZABETH CATALINA: Cargo=PARRILLERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:03,007 - INFO - Calculated monto for MALLQUI OROPEZA ELIZABETH CATALINA: Cargo=PARRILLERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:03,007 - INFO - Calculated monto for RAMIREZ CACHIQUE WUALTER ENRIQUE: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:03,007 - INFO - Calculated monto for RAMIREZ CACHIQUE WUALTER ENRIQUE: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:03,007 - INFO - Calculated monto for ZERON SALAZAR ALBERTO JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,008 - INFO - Calculated monto for ZERON SALAZAR ALBERTO JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,008 - INFO - Calculated monto for LATORRE ZAMORA LUIS ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,008 - INFO - Calculated monto for LATORRE ZAMORA LUIS ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,008 - INFO - Calculated monto for RAMOS AHUANARI DINA GABRIELA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,008 - INFO - Calculated monto for RAMOS AHUANARI DINA GABRIELA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,009 - INFO - Calculated monto for SUAREZ BECERRA RONAN NILO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,009 - INFO - Calculated monto for SUAREZ BECERRA RONAN NILO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,009 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:50:03,009 - INFO - Calculated monto for JIMENEZ RODRIGUEZ ALEX JAVIER: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=87.0
+2025-10-12 23:50:03,009 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:50:03,009 - INFO - Calculated monto for JIMENEZ RODRIGUEZ ALEX JAVIER: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=87.0
+2025-10-12 23:50:03,009 - INFO - Calculated monto for REYES SIFUENTES DANNY RUBEN: Cargo=SEGURIDAD, Local=MAGDALENA, Prendas=2, Total=75.0
+2025-10-12 23:50:03,010 - INFO - Calculated monto for REYES SIFUENTES DANNY RUBEN: Cargo=SEGURIDAD, Local=MAGDALENA, Prendas=2, Total=75.0
+2025-10-12 23:50:03,010 - INFO - Calculated monto for AREVALO  SANGAMA  CARLOS: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:03,010 - INFO - Calculated monto for AREVALO  SANGAMA  CARLOS: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:03,010 - INFO - Calculated monto for PURIHUAMAN  CALDERON  CARLOS ENRIQUE: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:50:03,011 - INFO - Calculated monto for PURIHUAMAN  CALDERON  CARLOS ENRIQUE: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:50:03,011 - INFO - Calculated monto for ZEGARRA RAMIREZ CARLOS MIGUEL: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:50:03,011 - INFO - Calculated monto for ZEGARRA RAMIREZ CARLOS MIGUEL: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:50:03,011 - INFO - Calculated monto for JAIMES  MARIN FERNANDO MARTIN: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,011 - INFO - Calculated monto for JAIMES  MARIN FERNANDO MARTIN: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,012 - INFO - Calculated monto for AYALA HUAMANI DELIA: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:03,012 - INFO - Calculated monto for AYALA HUAMANI DELIA: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:03,012 - INFO - Calculated monto for LUQUE VIZARRETA JUAN JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,012 - INFO - Calculated monto for LUQUE VIZARRETA JUAN JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,012 - INFO - Calculated monto for RAMOS BUCLES ANGEL GABRIEL: Cargo=AYUDANTE DE BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:50:03,013 - INFO - Calculated monto for RAMOS BUCLES ANGEL GABRIEL: Cargo=AYUDANTE DE BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:50:03,013 - INFO - Calculated monto for MEGO ALVAREZ VICTOR ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,013 - INFO - Calculated monto for MEGO ALVAREZ VICTOR ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,013 - INFO - Calculated monto for VELASQUEZ CHAMARRO ALEJANDRA VALERIA: Cargo=ANFITRION (A), Local=MAGDALENA, Prendas=2, Total=0.0
+2025-10-12 23:50:03,013 - INFO - Calculated monto for VELASQUEZ CHAMARRO ALEJANDRA VALERIA: Cargo=ANFITRION (A), Local=MAGDALENA, Prendas=2, Total=0.0
+2025-10-12 23:50:03,014 - INFO - Calculated monto for CHUQUICONDOR YANGUA ANELISA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,014 - INFO - Calculated monto for CHUQUICONDOR YANGUA ANELISA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,014 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:50:03,014 - INFO - Calculated monto for JULON JULCA DERIAN ARON: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=87.0
+2025-10-12 23:50:03,014 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:50:03,014 - INFO - Calculated monto for JULON JULCA DERIAN ARON: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=87.0
+2025-10-12 23:50:03,015 - INFO - Calculated monto for ANGELDONIS ORTIZ JOSE ANTONIO: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:03,015 - INFO - Calculated monto for ANGELDONIS ORTIZ JOSE ANTONIO: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:03,015 - INFO - Calculated monto for LOYOLA FERNANDEZ GUIDO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,015 - INFO - Calculated monto for LOYOLA FERNANDEZ GUIDO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:03,015 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CAJUSOL_SANJINEZ_WILLY_FRANKLIN/AUTORIZACION_CAJUSOL_SANJINEZ_WILLY_FRANKLIN_PARRILLERO_A.docx
+2025-10-12 23:50:03,070 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CAJUSOL_SANJINEZ_WILLY_FRANKLIN/CARGO_CAJUSOL_SANJINEZ_WILLY_FRANKLIN.docx
+2025-10-12 23:50:03,087 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_MARCOS_ELITER/AUTORIZACION_SUAREZ_BECERRA_MARCOS_ELITER_MOZO.docx
+2025-10-12 23:50:03,129 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_MARCOS_ELITER/CARGO_SUAREZ_BECERRA_MARCOS_ELITER.docx
+2025-10-12 23:50:03,145 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MALLQUI_OROPEZA_ELIZABETH_CATALINA/AUTORIZACION_MALLQUI_OROPEZA_ELIZABETH_CATALINA_PARRILLERO_A.docx
+2025-10-12 23:50:03,186 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MALLQUI_OROPEZA_ELIZABETH_CATALINA/CARGO_MALLQUI_OROPEZA_ELIZABETH_CATALINA.docx
+2025-10-12 23:50:03,203 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMIREZ_CACHIQUE_WUALTER_ENRIQUE/AUTORIZACION_RAMIREZ_CACHIQUE_WUALTER_ENRIQUE_HORNERO_A.docx
+2025-10-12 23:50:03,246 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMIREZ_CACHIQUE_WUALTER_ENRIQUE/CARGO_RAMIREZ_CACHIQUE_WUALTER_ENRIQUE.docx
+2025-10-12 23:50:03,263 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZERON_SALAZAR_ALBERTO_JOSE/AUTORIZACION_ZERON_SALAZAR_ALBERTO_JOSE_MOZO.docx
+2025-10-12 23:50:03,306 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZERON_SALAZAR_ALBERTO_JOSE/CARGO_ZERON_SALAZAR_ALBERTO_JOSE.docx
+2025-10-12 23:50:03,323 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LATORRE_ZAMORA_LUIS_ALBERTO/AUTORIZACION_LATORRE_ZAMORA_LUIS_ALBERTO_MOZO.docx
+2025-10-12 23:50:03,363 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LATORRE_ZAMORA_LUIS_ALBERTO/CARGO_LATORRE_ZAMORA_LUIS_ALBERTO.docx
+2025-10-12 23:50:03,379 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_AHUANARI_DINA_GABRIELA/AUTORIZACION_RAMOS_AHUANARI_DINA_GABRIELA_AZAFATA.docx
+2025-10-12 23:50:03,421 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_AHUANARI_DINA_GABRIELA/CARGO_RAMOS_AHUANARI_DINA_GABRIELA.docx
+2025-10-12 23:50:03,437 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_RONAN_NILO/AUTORIZACION_SUAREZ_BECERRA_RONAN_NILO_MOZO.docx
+2025-10-12 23:50:03,479 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_RONAN_NILO/CARGO_SUAREZ_BECERRA_RONAN_NILO.docx
+2025-10-12 23:50:03,495 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JIMENEZ_RODRIGUEZ_ALEX_JAVIER/AUTORIZACION_JIMENEZ_RODRIGUEZ_ALEX_JAVIER_BARTENDER.docx
+2025-10-12 23:50:03,540 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JIMENEZ_RODRIGUEZ_ALEX_JAVIER/CARGO_JIMENEZ_RODRIGUEZ_ALEX_JAVIER.docx
+2025-10-12 23:50:03,557 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/REYES_SIFUENTES_DANNY_RUBEN/AUTORIZACION_REYES_SIFUENTES_DANNY_RUBEN_SEGURIDAD.docx
+2025-10-12 23:50:03,598 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/REYES_SIFUENTES_DANNY_RUBEN/CARGO_REYES_SIFUENTES_DANNY_RUBEN.docx
+2025-10-12 23:50:03,613 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AREVALO__SANGAMA__CARLOS/AUTORIZACION_AREVALO__SANGAMA__CARLOS_HORNERO_A.docx
+2025-10-12 23:50:03,655 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AREVALO__SANGAMA__CARLOS/CARGO_AREVALO__SANGAMA__CARLOS.docx
+2025-10-12 23:50:03,671 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/PURIHUAMAN__CALDERON__CARLOS_ENRIQUE/AUTORIZACION_PURIHUAMAN__CALDERON__CARLOS_ENRIQUE_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:50:03,713 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/PURIHUAMAN__CALDERON__CARLOS_ENRIQUE/CARGO_PURIHUAMAN__CALDERON__CARLOS_ENRIQUE.docx
+2025-10-12 23:50:03,729 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZEGARRA_RAMIREZ_CARLOS_MIGUEL/AUTORIZACION_ZEGARRA_RAMIREZ_CARLOS_MIGUEL_HORNERO_A.docx
+2025-10-12 23:50:03,772 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZEGARRA_RAMIREZ_CARLOS_MIGUEL/CARGO_ZEGARRA_RAMIREZ_CARLOS_MIGUEL.docx
+2025-10-12 23:50:03,788 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JAIMES__MARIN_FERNANDO_MARTIN/AUTORIZACION_JAIMES__MARIN_FERNANDO_MARTIN_MOZO.docx
+2025-10-12 23:50:03,830 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JAIMES__MARIN_FERNANDO_MARTIN/CARGO_JAIMES__MARIN_FERNANDO_MARTIN.docx
+2025-10-12 23:50:03,846 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AYALA_HUAMANI_DELIA/AUTORIZACION_AYALA_HUAMANI_DELIA_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:50:03,888 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AYALA_HUAMANI_DELIA/CARGO_AYALA_HUAMANI_DELIA.docx
+2025-10-12 23:50:03,904 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LUQUE_VIZARRETA_JUAN_JOSE/AUTORIZACION_LUQUE_VIZARRETA_JUAN_JOSE_MOZO.docx
+2025-10-12 23:50:03,945 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LUQUE_VIZARRETA_JUAN_JOSE/CARGO_LUQUE_VIZARRETA_JUAN_JOSE.docx
+2025-10-12 23:50:03,961 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_BUCLES_ANGEL_GABRIEL/AUTORIZACION_RAMOS_BUCLES_ANGEL_GABRIEL_AYUDANTE_DE_BAR.docx
+2025-10-12 23:50:04,002 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_BUCLES_ANGEL_GABRIEL/CARGO_RAMOS_BUCLES_ANGEL_GABRIEL.docx
+2025-10-12 23:50:04,020 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MEGO_ALVAREZ_VICTOR_ALBERTO/AUTORIZACION_MEGO_ALVAREZ_VICTOR_ALBERTO_MOZO.docx
+2025-10-12 23:50:04,061 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MEGO_ALVAREZ_VICTOR_ALBERTO/CARGO_MEGO_ALVAREZ_VICTOR_ALBERTO.docx
+2025-10-12 23:50:04,077 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA/AUTORIZACION_VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA_ANFITRION_A.docx
+2025-10-12 23:50:04,119 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA/CARGO_VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA.docx
+2025-10-12 23:50:04,134 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CHUQUICONDOR_YANGUA_ANELISA/AUTORIZACION_CHUQUICONDOR_YANGUA_ANELISA_AZAFATA.docx
+2025-10-12 23:50:04,176 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CHUQUICONDOR_YANGUA_ANELISA/CARGO_CHUQUICONDOR_YANGUA_ANELISA.docx
+2025-10-12 23:50:04,192 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JULON_JULCA_DERIAN_ARON/AUTORIZACION_JULON_JULCA_DERIAN_ARON_BARTENDER.docx
+2025-10-12 23:50:04,233 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JULON_JULCA_DERIAN_ARON/CARGO_JULON_JULCA_DERIAN_ARON.docx
+2025-10-12 23:50:04,251 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ANGELDONIS_ORTIZ_JOSE_ANTONIO/AUTORIZACION_ANGELDONIS_ORTIZ_JOSE_ANTONIO_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:50:04,294 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ANGELDONIS_ORTIZ_JOSE_ANTONIO/CARGO_ANGELDONIS_ORTIZ_JOSE_ANTONIO.docx
+2025-10-12 23:50:04,310 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LOYOLA_FERNANDEZ_GUIDO/AUTORIZACION_LOYOLA_FERNANDEZ_GUIDO_MOZO.docx
+2025-10-12 23:50:04,353 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LOYOLA_FERNANDEZ_GUIDO/CARGO_LOYOLA_FERNANDEZ_GUIDO.docx
+2025-10-12 23:50:04,369 - INFO - Generated AUTORIZACION, CARGO documents for 23 people across 1 locales
+2025-10-12 23:50:24,158 - INFO - Calculated monto for CAJUSOL SANJINEZ WILLY FRANKLIN: Cargo=PARRILLERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:24,161 - INFO - Calculated monto for CAJUSOL SANJINEZ WILLY FRANKLIN: Cargo=PARRILLERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:24,161 - INFO - Calculated monto for SUAREZ BECERRA MARCOS ELITER: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,161 - INFO - Calculated monto for SUAREZ BECERRA MARCOS ELITER: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,162 - INFO - Calculated monto for MALLQUI OROPEZA ELIZABETH CATALINA: Cargo=PARRILLERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:24,163 - INFO - Calculated monto for MALLQUI OROPEZA ELIZABETH CATALINA: Cargo=PARRILLERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:24,163 - INFO - Calculated monto for RAMIREZ CACHIQUE WUALTER ENRIQUE: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:24,164 - INFO - Calculated monto for RAMIREZ CACHIQUE WUALTER ENRIQUE: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:24,164 - INFO - Calculated monto for ZERON SALAZAR ALBERTO JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,164 - INFO - Calculated monto for ZERON SALAZAR ALBERTO JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,165 - INFO - Calculated monto for LATORRE ZAMORA LUIS ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,165 - INFO - Calculated monto for LATORRE ZAMORA LUIS ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,166 - INFO - Calculated monto for RAMOS AHUANARI DINA GABRIELA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,166 - INFO - Calculated monto for RAMOS AHUANARI DINA GABRIELA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,167 - INFO - Calculated monto for SUAREZ BECERRA RONAN NILO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,167 - INFO - Calculated monto for SUAREZ BECERRA RONAN NILO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,167 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:50:24,168 - INFO - Calculated monto for JIMENEZ RODRIGUEZ ALEX JAVIER: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=87.0
+2025-10-12 23:50:24,168 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:50:24,168 - INFO - Calculated monto for JIMENEZ RODRIGUEZ ALEX JAVIER: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=87.0
+2025-10-12 23:50:24,168 - INFO - Calculated monto for REYES SIFUENTES DANNY RUBEN: Cargo=SEGURIDAD, Local=MAGDALENA, Prendas=2, Total=75.0
+2025-10-12 23:50:24,169 - INFO - Calculated monto for REYES SIFUENTES DANNY RUBEN: Cargo=SEGURIDAD, Local=MAGDALENA, Prendas=2, Total=75.0
+2025-10-12 23:50:24,169 - INFO - Calculated monto for AREVALO  SANGAMA  CARLOS: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:24,170 - INFO - Calculated monto for AREVALO  SANGAMA  CARLOS: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:24,170 - INFO - Calculated monto for PURIHUAMAN  CALDERON  CARLOS ENRIQUE: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:50:24,170 - INFO - Calculated monto for PURIHUAMAN  CALDERON  CARLOS ENRIQUE: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:50:24,171 - INFO - Calculated monto for ZEGARRA RAMIREZ CARLOS MIGUEL: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:50:24,171 - INFO - Calculated monto for ZEGARRA RAMIREZ CARLOS MIGUEL: Cargo=HORNERO (A), Local=MAGDALENA, Prendas=4, Total=0.0
+2025-10-12 23:50:24,172 - INFO - Calculated monto for JAIMES  MARIN FERNANDO MARTIN: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,172 - INFO - Calculated monto for JAIMES  MARIN FERNANDO MARTIN: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,172 - INFO - Calculated monto for AYALA HUAMANI DELIA: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:24,173 - INFO - Calculated monto for AYALA HUAMANI DELIA: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:24,173 - INFO - Calculated monto for LUQUE VIZARRETA JUAN JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,174 - INFO - Calculated monto for LUQUE VIZARRETA JUAN JOSE: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,174 - INFO - Calculated monto for RAMOS BUCLES ANGEL GABRIEL: Cargo=AYUDANTE DE BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:50:24,174 - INFO - Calculated monto for RAMOS BUCLES ANGEL GABRIEL: Cargo=AYUDANTE DE BAR, Local=MAGDALENA, Prendas=3, Total=0.0
+2025-10-12 23:50:24,175 - INFO - Calculated monto for MEGO ALVAREZ VICTOR ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,175 - INFO - Calculated monto for MEGO ALVAREZ VICTOR ALBERTO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,175 - INFO - Calculated monto for VELASQUEZ CHAMARRO ALEJANDRA VALERIA: Cargo=ANFITRION (A), Local=MAGDALENA, Prendas=2, Total=0.0
+2025-10-12 23:50:24,176 - INFO - Calculated monto for VELASQUEZ CHAMARRO ALEJANDRA VALERIA: Cargo=ANFITRION (A), Local=MAGDALENA, Prendas=2, Total=0.0
+2025-10-12 23:50:24,176 - INFO - Calculated monto for CHUQUICONDOR YANGUA ANELISA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,176 - INFO - Calculated monto for CHUQUICONDOR YANGUA ANELISA: Cargo=AZAFATA, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,176 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:50:24,177 - INFO - Calculated monto for JULON JULCA DERIAN ARON: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=87.0
+2025-10-12 23:50:24,177 - WARNING - ⚠️  OCCUPATION MAPPING: 'BARTENDER' → 'BAR' - consider adding 'BARTENDER' to synonyms list in Configuration tab
+2025-10-12 23:50:24,177 - INFO - Calculated monto for JULON JULCA DERIAN ARON: Cargo=BAR, Local=MAGDALENA, Prendas=3, Total=87.0
+2025-10-12 23:50:24,177 - INFO - Calculated monto for ANGELDONIS ORTIZ JOSE ANTONIO: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:24,178 - INFO - Calculated monto for ANGELDONIS ORTIZ JOSE ANTONIO: Cargo=AYUDANTE DE COCINA, Local=MAGDALENA, Prendas=5, Total=0.0
+2025-10-12 23:50:24,178 - INFO - Calculated monto for LOYOLA FERNANDEZ GUIDO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,178 - INFO - Calculated monto for LOYOLA FERNANDEZ GUIDO: Cargo=MOZO, Local=MAGDALENA, Prendas=3, Total=54.5
+2025-10-12 23:50:24,179 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CAJUSOL_SANJINEZ_WILLY_FRANKLIN/AUTORIZACION_CAJUSOL_SANJINEZ_WILLY_FRANKLIN_PARRILLERO_A.docx
+2025-10-12 23:50:24,243 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CAJUSOL_SANJINEZ_WILLY_FRANKLIN/CARGO_CAJUSOL_SANJINEZ_WILLY_FRANKLIN.docx
+2025-10-12 23:50:24,262 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_MARCOS_ELITER/AUTORIZACION_SUAREZ_BECERRA_MARCOS_ELITER_MOZO.docx
+2025-10-12 23:50:24,303 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_MARCOS_ELITER/CARGO_SUAREZ_BECERRA_MARCOS_ELITER.docx
+2025-10-12 23:50:24,320 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MALLQUI_OROPEZA_ELIZABETH_CATALINA/AUTORIZACION_MALLQUI_OROPEZA_ELIZABETH_CATALINA_PARRILLERO_A.docx
+2025-10-12 23:50:24,365 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MALLQUI_OROPEZA_ELIZABETH_CATALINA/CARGO_MALLQUI_OROPEZA_ELIZABETH_CATALINA.docx
+2025-10-12 23:50:24,381 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMIREZ_CACHIQUE_WUALTER_ENRIQUE/AUTORIZACION_RAMIREZ_CACHIQUE_WUALTER_ENRIQUE_HORNERO_A.docx
+2025-10-12 23:50:24,422 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMIREZ_CACHIQUE_WUALTER_ENRIQUE/CARGO_RAMIREZ_CACHIQUE_WUALTER_ENRIQUE.docx
+2025-10-12 23:50:24,438 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZERON_SALAZAR_ALBERTO_JOSE/AUTORIZACION_ZERON_SALAZAR_ALBERTO_JOSE_MOZO.docx
+2025-10-12 23:50:24,479 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZERON_SALAZAR_ALBERTO_JOSE/CARGO_ZERON_SALAZAR_ALBERTO_JOSE.docx
+2025-10-12 23:50:24,495 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LATORRE_ZAMORA_LUIS_ALBERTO/AUTORIZACION_LATORRE_ZAMORA_LUIS_ALBERTO_MOZO.docx
+2025-10-12 23:50:24,536 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LATORRE_ZAMORA_LUIS_ALBERTO/CARGO_LATORRE_ZAMORA_LUIS_ALBERTO.docx
+2025-10-12 23:50:24,552 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_AHUANARI_DINA_GABRIELA/AUTORIZACION_RAMOS_AHUANARI_DINA_GABRIELA_AZAFATA.docx
+2025-10-12 23:50:24,593 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_AHUANARI_DINA_GABRIELA/CARGO_RAMOS_AHUANARI_DINA_GABRIELA.docx
+2025-10-12 23:50:24,611 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_RONAN_NILO/AUTORIZACION_SUAREZ_BECERRA_RONAN_NILO_MOZO.docx
+2025-10-12 23:50:24,652 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/SUAREZ_BECERRA_RONAN_NILO/CARGO_SUAREZ_BECERRA_RONAN_NILO.docx
+2025-10-12 23:50:24,668 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JIMENEZ_RODRIGUEZ_ALEX_JAVIER/AUTORIZACION_JIMENEZ_RODRIGUEZ_ALEX_JAVIER_BARTENDER.docx
+2025-10-12 23:50:24,711 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JIMENEZ_RODRIGUEZ_ALEX_JAVIER/CARGO_JIMENEZ_RODRIGUEZ_ALEX_JAVIER.docx
+2025-10-12 23:50:24,728 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/REYES_SIFUENTES_DANNY_RUBEN/AUTORIZACION_REYES_SIFUENTES_DANNY_RUBEN_SEGURIDAD.docx
+2025-10-12 23:50:24,770 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/REYES_SIFUENTES_DANNY_RUBEN/CARGO_REYES_SIFUENTES_DANNY_RUBEN.docx
+2025-10-12 23:50:24,786 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AREVALO__SANGAMA__CARLOS/AUTORIZACION_AREVALO__SANGAMA__CARLOS_HORNERO_A.docx
+2025-10-12 23:50:24,828 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AREVALO__SANGAMA__CARLOS/CARGO_AREVALO__SANGAMA__CARLOS.docx
+2025-10-12 23:50:24,849 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/PURIHUAMAN__CALDERON__CARLOS_ENRIQUE/AUTORIZACION_PURIHUAMAN__CALDERON__CARLOS_ENRIQUE_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:50:24,891 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/PURIHUAMAN__CALDERON__CARLOS_ENRIQUE/CARGO_PURIHUAMAN__CALDERON__CARLOS_ENRIQUE.docx
+2025-10-12 23:50:24,907 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZEGARRA_RAMIREZ_CARLOS_MIGUEL/AUTORIZACION_ZEGARRA_RAMIREZ_CARLOS_MIGUEL_HORNERO_A.docx
+2025-10-12 23:50:24,948 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ZEGARRA_RAMIREZ_CARLOS_MIGUEL/CARGO_ZEGARRA_RAMIREZ_CARLOS_MIGUEL.docx
+2025-10-12 23:50:24,964 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JAIMES__MARIN_FERNANDO_MARTIN/AUTORIZACION_JAIMES__MARIN_FERNANDO_MARTIN_MOZO.docx
+2025-10-12 23:50:25,005 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JAIMES__MARIN_FERNANDO_MARTIN/CARGO_JAIMES__MARIN_FERNANDO_MARTIN.docx
+2025-10-12 23:50:25,023 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AYALA_HUAMANI_DELIA/AUTORIZACION_AYALA_HUAMANI_DELIA_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:50:25,065 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AYALA_HUAMANI_DELIA/CARGO_AYALA_HUAMANI_DELIA.docx
+2025-10-12 23:50:25,083 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LUQUE_VIZARRETA_JUAN_JOSE/AUTORIZACION_LUQUE_VIZARRETA_JUAN_JOSE_MOZO.docx
+2025-10-12 23:50:25,124 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LUQUE_VIZARRETA_JUAN_JOSE/CARGO_LUQUE_VIZARRETA_JUAN_JOSE.docx
+2025-10-12 23:50:25,140 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_BUCLES_ANGEL_GABRIEL/AUTORIZACION_RAMOS_BUCLES_ANGEL_GABRIEL_AYUDANTE_DE_BAR.docx
+2025-10-12 23:50:25,182 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/RAMOS_BUCLES_ANGEL_GABRIEL/CARGO_RAMOS_BUCLES_ANGEL_GABRIEL.docx
+2025-10-12 23:50:25,198 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MEGO_ALVAREZ_VICTOR_ALBERTO/AUTORIZACION_MEGO_ALVAREZ_VICTOR_ALBERTO_MOZO.docx
+2025-10-12 23:50:25,241 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/MEGO_ALVAREZ_VICTOR_ALBERTO/CARGO_MEGO_ALVAREZ_VICTOR_ALBERTO.docx
+2025-10-12 23:50:25,257 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA/AUTORIZACION_VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA_ANFITRION_A.docx
+2025-10-12 23:50:25,301 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA/CARGO_VELASQUEZ_CHAMARRO_ALEJANDRA_VALERIA.docx
+2025-10-12 23:50:25,317 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CHUQUICONDOR_YANGUA_ANELISA/AUTORIZACION_CHUQUICONDOR_YANGUA_ANELISA_AZAFATA.docx
+2025-10-12 23:50:25,359 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CHUQUICONDOR_YANGUA_ANELISA/CARGO_CHUQUICONDOR_YANGUA_ANELISA.docx
+2025-10-12 23:50:25,375 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JULON_JULCA_DERIAN_ARON/AUTORIZACION_JULON_JULCA_DERIAN_ARON_BARTENDER.docx
+2025-10-12 23:50:25,417 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/JULON_JULCA_DERIAN_ARON/CARGO_JULON_JULCA_DERIAN_ARON.docx
+2025-10-12 23:50:25,433 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ANGELDONIS_ORTIZ_JOSE_ANTONIO/AUTORIZACION_ANGELDONIS_ORTIZ_JOSE_ANTONIO_AYUDANTE_DE_COCINA.docx
+2025-10-12 23:50:25,474 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/ANGELDONIS_ORTIZ_JOSE_ANTONIO/CARGO_ANGELDONIS_ORTIZ_JOSE_ANTONIO.docx
+2025-10-12 23:50:25,490 - INFO - Generating AUTORIZACION document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LOYOLA_FERNANDEZ_GUIDO/AUTORIZACION_LOYOLA_FERNANDEZ_GUIDO_MOZO.docx
+2025-10-12 23:50:25,531 - INFO - Generating CARGO document: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/LOYOLA_FERNANDEZ_GUIDO/CARGO_LOYOLA_FERNANDEZ_GUIDO.docx
+2025-10-12 23:50:25,731 - INFO - Created combined document with page breaks: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/AUTORIZACION_COMBINED_MAGDALENA.docx
+2025-10-12 23:50:25,831 - INFO - Created combined document with page breaks: /Users/leonardocandio/Desktop/cargos de nico/MAGDALENA/CARGO_COMBINED_MAGDALENA.docx
+2025-10-12 23:50:25,831 - INFO - Generated AUTORIZACION, CARGO documents for 23 people across 1 locales
