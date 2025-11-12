@@ -1126,27 +1126,105 @@ class CargosTab:
         checkbox_frame_container = ttk.Frame(left_frame)
         checkbox_frame_container.pack(fill="both", expand=True, pady=(0, 10))
         
-        canvas = tk.Canvas(checkbox_frame_container, height=GENERATION_DIALOG_CANVAS_HEIGHT)
+        # Create canvas with scrollbar
+        canvas = tk.Canvas(checkbox_frame_container, highlightthickness=0)
         scrollbar = ttk.Scrollbar(checkbox_frame_container, orient="vertical", command=canvas.yview)
         scrollable_frame = ttk.Frame(canvas)
         
-        scrollable_frame.bind(
-            "<Configure>",
-            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-        )
+        # Create canvas window for scrollable frame
+        canvas_window = canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
         
-        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        def _update_scroll_region(event=None):
+            """Update the scroll region of the canvas based on scrollable frame size."""
+            canvas.update_idletasks()
+            # Update the canvas scroll region to match the scrollable frame size
+            canvas.configure(scrollregion=canvas.bbox("all"))
+            # Update scrollable frame width to match canvas
+            canvas_width = canvas.winfo_width()
+            if canvas_width > 1:  # Only update if canvas has been rendered
+                canvas.itemconfig(canvas_window, width=canvas_width)
+        
+        def _on_canvas_configure(event):
+            """Update scrollable frame width when canvas is resized."""
+            # Set scrollable frame width to match canvas width (minus scrollbar if visible)
+            canvas_width = event.width
+            canvas.itemconfig(canvas_window, width=canvas_width)
+            # Update scroll region
+            canvas.after_idle(_update_scroll_region)
+        
+        def _on_frame_configure(event):
+            """Update canvas scroll region when scrollable frame is configured."""
+            # Update the canvas scroll region
+            canvas.configure(scrollregion=canvas.bbox("all"))
+        
+        def _on_mousewheel(event):
+            """Handle mouse wheel scrolling (Windows/Mac)."""
+            # Windows and Mac use delta
+            if hasattr(event, 'delta') and event.delta:
+                # Windows: delta is in multiples of 120
+                # Mac: delta can be fractional
+                delta = -1 * (event.delta / 120) if abs(event.delta) >= 120 else -1 * event.delta
+                canvas.yview_scroll(int(delta), "units")
+        
+        def _on_linux_mousewheel(event):
+            """Handle mouse wheel when over frame (Linux)."""
+            if event.num == 4:
+                canvas.yview_scroll(-1, "units")
+            elif event.num == 5:
+                canvas.yview_scroll(1, "units")
+        
+        # Bind scrollable frame configuration to update scroll region
+        scrollable_frame.bind("<Configure>", _on_frame_configure)
+        
+        # Bind canvas resize to update scrollable frame width
+        canvas.bind("<Configure>", _on_canvas_configure)
+        
+        # Function to bind mouse wheel to a widget and propagate to children
+        def _bind_mousewheel(widget):
+            """Bind mouse wheel events to widget and all its children recursively."""
+            # Windows/Mac
+            widget.bind("<MouseWheel>", _on_mousewheel)
+            # Linux
+            widget.bind("<Button-4>", _on_linux_mousewheel)
+            widget.bind("<Button-5>", _on_linux_mousewheel)
+            # Recursively bind to children
+            for child in widget.winfo_children():
+                try:
+                    _bind_mousewheel(child)
+                except:
+                    pass
+        
+        # Configure scrollbar
         canvas.configure(yscrollcommand=scrollbar.set)
         
+        # Pack canvas and scrollbar
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
+        
+        # Bind mouse wheel to canvas and scrollable frame
+        _bind_mousewheel(canvas)
+        _bind_mousewheel(scrollable_frame)
         
         # Create checkboxes for each locale
         locale_vars = {}
         for locale in locales:
             var = tk.BooleanVar(value=True)  # Default all selected
             locale_vars[locale] = var
-            ttk.Checkbutton(scrollable_frame, text=locale, variable=var, command=lambda: _update_preview()).pack(anchor="w", pady=1)
+            cb = ttk.Checkbutton(scrollable_frame, text=locale, variable=var, command=lambda: _update_preview())
+            cb.pack(anchor="w", pady=1, padx=2)
+            # Bind mouse wheel to each checkbox
+            _bind_mousewheel(cb)
+        
+        # Update scroll region after all checkboxes are created and dialog is shown
+        def _initial_update():
+            canvas.update_idletasks()
+            _update_scroll_region()
+            # Ensure canvas has proper size
+            canvas.update_idletasks()
+        
+        # Schedule update after dialog is fully rendered
+        dlg.update_idletasks()
+        dlg.after(50, _initial_update)
         
         # Control buttons
         btn_frame = ttk.Frame(left_frame)
