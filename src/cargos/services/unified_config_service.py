@@ -44,6 +44,7 @@ class UnifiedConfigService:
                             garment_type=garment_type,
                             is_required=prenda_data.get("is_required", False),
                             default_quantity=prenda_data.get("default_quantity", 0),
+                            is_primary=prenda_data.get("is_primary", False),
                             price_sml_other=prenda_data.get("price_sml_other", 0.0),
                             price_xl_other=prenda_data.get("price_xl_other", 0.0),
                             price_xxl_other=prenda_data.get("price_xxl_other", 0.0),
@@ -104,6 +105,15 @@ class UnifiedConfigService:
                 if synonym.upper() == name_upper:
                     return occupation
         return None
+
+    def get_primary_prenda(self, occupation_name: str) -> Optional[OccupationPrenda]:
+        """Get the primary prenda for an occupation (used for juegos calculation)."""
+        occupation = self.get_occupation(occupation_name)
+        if not occupation:
+            return None
+        # Find the prenda with is_primary=True
+        primary_prenda = next((p for p in occupation.prendas if p.is_primary), None)
+        return primary_prenda
 
     def get_occupation_synonyms(self, occupation_name: str) -> List[str]:
         occupation = self.get_occupation(occupation_name)
@@ -378,6 +388,7 @@ class UnifiedConfigService:
                             "garment_type": p.garment_type,
                             "is_required": p.is_required,
                             "default_quantity": p.default_quantity,
+                            "is_primary": p.is_primary,
                             "price_sml_other": p.price_sml_other,
                             "price_xl_other": p.price_xl_other,
                             "price_xxl_other": p.price_xxl_other,

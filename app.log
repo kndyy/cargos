@@ -12228,3 +12228,12 @@ AttributeError: 'DataPreviewFrame' object has no attribute 'unified_service'
 2025-10-13 00:58:57,997 - INFO - Created combined document with preserved formatting: /Users/leonardocandio/Desktop/cargos de nico/LOS_OLIVOS/AUTORIZACION_COMBINED_LOS_OLIVOS.docx
 2025-10-13 00:58:58,090 - INFO - Created combined document with preserved formatting: /Users/leonardocandio/Desktop/cargos de nico/LOS_OLIVOS/CARGO_COMBINED_LOS_OLIVOS.docx
 2025-10-13 00:58:58,091 - INFO - Generated AUTORIZACION, CARGO documents for 17 people across 1 locales
+2025-10-13 16:41:10,329 - INFO - Application initialized successfully
+2025-11-11 21:38:41,515 - INFO - Application initialized successfully
+2025-11-11 21:52:46,499 - ERROR - Failed to read config file 'config.json': Illegal trailing comma before end of array: line 36 column 25 (char 1036)
+2025-11-11 21:52:46,499 - ERROR - Failed to read config file 'config.json': Illegal trailing comma before end of array: line 36 column 25 (char 1036)
+2025-11-11 21:52:46,613 - ERROR - Failed to read config file 'config.json': Illegal trailing comma before end of array: line 36 column 25 (char 1036)
+2025-11-11 21:52:46,613 - ERROR - Failed to read config file 'config.json': Illegal trailing comma before end of array: line 36 column 25 (char 1036)
+2025-11-11 21:52:46,615 - INFO - Application initialized successfully
+2025-11-11 21:54:06,925 - INFO - Application initialized successfully
+2025-11-11 22:53:17,118 - INFO - Application initialized successfully

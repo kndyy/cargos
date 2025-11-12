@@ -554,8 +554,84 @@ class FileGenerationService:
                 hasattr(ws, 'data') and 
                 len(ws.data) > 0)
     
+    def _calculate_juegos(self, row: pd.Series, metadata: WorksheetMetadata, uniform_row: Optional[pd.Series] = None) -> int:
+        """Calculate the juegos value based on primary prenda or mode of other prendas."""
+        try:
+            # Get cargo and normalize it
+            cargo = self._find_in_row(row, ["cargo"]) or ""
+            if not cargo:
+                self.logger.warning("No cargo found for person, cannot calculate juegos")
+                return 0
+            
+            # Normalize cargo using synonyms
+            normalized_cargo = self.unified_service.normalize_occupation(cargo)
+            
+            # Get primary prenda for this occupation
+            primary_prenda_cfg = self.unified_service.get_primary_prenda(normalized_cargo)
+            if not primary_prenda_cfg:
+                self.logger.debug(f"No primary prenda configured for occupation: {normalized_cargo}")
+                return 0
+            
+            # Build prendas list (same as in _get_monto_for_person)
+            talla_superior = self._extract_talla_superior(row)
+            prendas = self._build_prendas_list(uniform_row if uniform_row is not None else row, talla_superior)
+            
+            if not prendas:
+                self.logger.debug("No prendas found for person, cannot calculate juegos")
+                return 0
+            
+            # Look for primary prenda in the prendas list
+            primary_prenda_type = primary_prenda_cfg.prenda_type.upper().strip()
+            primary_prenda_found = None
+            
+            for prenda in prendas:
+                prenda_type = prenda.get("prenda_type", "").upper().strip()
+                if prenda_type == primary_prenda_type:
+                    primary_prenda_found = prenda
+                    break
+            
+            # If primary prenda found and qty > 0, use that
+            if primary_prenda_found and primary_prenda_found.get("qty", 0) > 0:
+                juegos = primary_prenda_found.get("qty", 0)
+                self.logger.debug(f"Juegos calculated from primary prenda {primary_prenda_type}: {juegos}")
+                return juegos
+            
+            # If primary prenda not found or qty = 0, calculate mode of other prendas
+            other_quantities = []
+            for prenda in prendas:
+                prenda_type = prenda.get("prenda_type", "").upper().strip()
+                qty = prenda.get("qty", 0)
+                # Skip primary prenda and only include prendas with qty > 0
+                if prenda_type != primary_prenda_type and qty > 0:
+                    other_quantities.append(qty)
+            
+            if not other_quantities:
+                self.logger.debug("No other prendas with qty > 0 found, returning 0 for juegos")
+                return 0
+            
+            # Calculate mode (most common value)
+            try:
+                from statistics import mode, StatisticsError
+                juegos = mode(other_quantities)
+            except (ImportError, StatisticsError):
+                # Fallback: manual mode calculation
+                from collections import Counter
+                quantity_counts = Counter(other_quantities)
+                # Get the most common value(s)
+                max_count = max(quantity_counts.values())
+                modes = [qty for qty, count in quantity_counts.items() if count == max_count]
+                # If tie, return the highest value
+                juegos = max(modes) if modes else 0
+            
+            self.logger.debug(f"Juegos calculated from mode of other prendas: {juegos} (from quantities: {other_quantities})")
+            return juegos
+            
+        except Exception as e:
+            self.logger.error(f"Failed to calculate juegos for person: {e}")
+            return 0
+    
     def _build_autorizacion_context(self, row: pd.Series, metadata: WorksheetMetadata, uniform_row: Optional[pd.Series] = None) -> Optional[Dict[str, Any]]:
-        """Build docxtpl context for AUTORIZACION: dia, mes, anho, local, cargo, nombre, identificacion, monto(0)."""
+        """Build docxtpl context for AUTORIZACION: dia, mes, anho, local, cargo, nombre, identificacion, monto, juegos."""
         try:
             # Parse fecha_solicitud using the same flexible parsing as CARGO
             dia, _, anho, fecha_formatted = self._get_system_date()
@@ -577,6 +653,9 @@ class FileGenerationService:
             monto_value = self._get_monto_for_person(row, metadata, uniform_row)
             monto_formatted = f"S/ {monto_value:.2f}"
             
+            # Calculate juegos (based on primary prenda or mode of other prendas)
+            juegos_value = self._calculate_juegos(row, metadata, uniform_row)
+            
             # Debug logging for missing data
             if not person_data["identificacion"]:
                 self.logger.warning(f"No DNI found for person: {person_data['nombre']}. Available columns: {list(row.index)}")
@@ -597,6 +676,7 @@ class FileGenerationService:
                 "nombre": str(person_data["nombre"]),
                 "identificacion": str(person_data["identificacion"]),
                 "monto": monto_formatted,  # Formatted with Sol currency
+                "juegos": juegos_value,  # Number of juegos (calculated from primary prenda or mode)
             }
             return context
         except Exception as e:

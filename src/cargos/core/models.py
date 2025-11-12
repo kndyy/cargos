@@ -143,6 +143,7 @@ class OccupationPrenda:
     garment_type: str = "UPPER"  # "UPPER" for upper body (uses talla superior), "LOWER" for lower body (uses talla inferior)
     is_required: bool = False  # Whether this prenda is required for the occupation
     default_quantity: int = 0  # Default quantity if not specified
+    is_primary: bool = False  # Whether this prenda is the primary one for juegos calculation
     # Pricing for different size groups and local groups
     price_sml_other: float = 0.0  # Price for S/M/L sizes in OTHER local
     price_xl_other: float = 0.0   # Price for XL size in OTHER local
