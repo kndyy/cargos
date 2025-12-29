@@ -811,9 +811,12 @@ class FileGenerationService:
             # Append each subsequent document with a page break before it
             for doc_path in valid_docs[1:]:
                 try:
+                    # Add a page break at the end of the current master document
+                    # This ensures the next document starts on a new page
+                    master_doc.add_page_break()
+                    
                     doc_to_append = Document(str(doc_path))
-                    # Add page break before this document to keep them separate
-                    composer.append(doc_to_append, add_page_break_before=True)
+                    composer.append(doc_to_append)
                     self.logger.debug(f"Successfully appended: {doc_path}")
                 except Exception as e:
                     self.logger.warning(f"Failed to append document {doc_path}: {e}")
