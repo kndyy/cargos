@@ -1346,10 +1346,11 @@ class CargosTab:
 class ConfigurationTab:
     """Unified configuration tab for managing occupations and their integrated pricing."""
     
-    def __init__(self, parent, config: AppConfig, unified_service: UnifiedConfigService):
+    def __init__(self, parent, config: AppConfig, unified_service: UnifiedConfigService, price_service=None):
         self.parent = parent
         self.config = config
         self.unified_service = unified_service
+        self.price_service = price_service  # Optional price service for loading from Excel
         
         # Create main frame
         self.frame = ttk.Frame(parent)
@@ -1379,7 +1380,8 @@ class ConfigurationTab:
         ttk.Button(button_frame, text="Save Configuration", command=self._save_config).pack(side="left", padx=(0, 10))
         ttk.Button(button_frame, text="Reset to Defaults", command=self._reset_to_defaults).pack(side="left", padx=(0, 10))
         ttk.Button(button_frame, text="Add Occupation", command=self._add_occupation).pack(side="left", padx=(0, 10))
-        ttk.Button(button_frame, text="Add Prenda", command=self._add_prenda).pack(side="left")
+        ttk.Button(button_frame, text="Add Prenda", command=self._add_prenda).pack(side="left", padx=(0, 10))
+        ttk.Button(button_frame, text="📁 Reload Prices from Excel", command=self._reload_prices_from_excel).pack(side="left")
     
     def _create_occupations_tab(self):
         """Create the occupations management tab."""
@@ -1493,6 +1495,74 @@ class ConfigurationTab:
             "Reset to defaults is not available. All configuration is loaded from config.json.\n\n"
             "To reset, please edit config.json directly or delete it to start fresh."
         )
+    
+    def _reload_prices_from_excel(self):
+        """Reload prices from Excel file (precios.xlsm)."""
+        # Ask user to select a price file or use default
+        from tkinter import filedialog
+        
+        file_path = filedialog.askopenfilename(
+            title="Select Price Excel File",
+            filetypes=[("Excel files", "*.xlsm *.xlsx"), ("All files", "*.*")],
+            initialdir="sources",
+            initialfile="precios.xlsm"
+        )
+        
+        if not file_path:
+            return  # User cancelled
+        
+        try:
+            if self.price_service is None:
+                # Import and create price service if not provided
+                from cargos.services.price_service import PriceService
+                import logging
+                self.price_service = PriceService(logging.getLogger())
+            
+            # Load prices from Excel
+            if self.price_service.load_prices_from_excel(file_path):
+                summary = self.price_service.get_price_summary()
+                
+                # Generate config updates
+                updates = self.price_service.generate_config_updates()
+                
+                # Show preview dialog
+                preview_msg = (
+                    f"Loaded {summary['total_entries']} price entries:\n"
+                    f"  • Location groups: {summary['location_groups']}\n"
+                    f"  • Occupations: {summary['occupations']}\n"
+                    f"  • Prenda types: {summary['prenda_types']}\n\n"
+                    f"Would you like to update the configuration with these prices?"
+                )
+                
+                if messagebox.askyesno("Prices Loaded", preview_msg):
+                    # Apply updates to unified service
+                    updated_count = 0
+                    for occupation_name, prendas in updates.items():
+                        for prenda_type, prices in prendas.items():
+                            for price_field, price_value in prices.items():
+                                # Parse price field: price_sml_lima_ica -> (sml, lima_ica)
+                                parts = price_field.split("_")
+                                if len(parts) >= 3:
+                                    size_group = parts[1]
+                                    local_group = "_".join(parts[2:])
+                                    
+                                    if self.unified_service.update_prenda_pricing(
+                                        occupation_name, prenda_type, size_group, local_group, price_value
+                                    ):
+                                        updated_count += 1
+                    
+                    # Reload data in the UI
+                    self._load_data()
+                    
+                    messagebox.showinfo(
+                        "Success", 
+                        f"Updated {updated_count} price entries from {file_path}"
+                    )
+            else:
+                messagebox.showerror("Error", f"Failed to load prices from {file_path}")
+                
+        except Exception as e:
+            messagebox.showerror("Error", f"Error loading prices: {str(e)}")
     
     def _add_occupation(self):
         """Add a new occupation."""

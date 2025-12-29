@@ -123,15 +123,26 @@ class UnifiedConfigService:
         occupation = self.get_occupation(cargo)
         return occupation.name if occupation else cargo.upper()
 
-    def calculate_total_price(self, prendas: List[Dict], cargo: str, local: str) -> float:
+    def calculate_total_price(self, prendas: List[Dict], cargo: str, local: str, local_group: Optional[str] = None) -> float:
+        """
+        Calculate total price for a list of prendas.
+        
+        Args:
+            prendas: List of dictionaries with 'prenda_type', 'qty', and 'string'
+            cargo: Occupation name or synonym
+            local: Specific locale/tienda string
+            local_group: Optional location group string from Excel (e.g. "LIMA E ICA PROVINCIA")
+        """
         total = 0.0
         occupation = self.get_occupation(cargo)
         if not occupation:
             self.logger.warning(f"No occupation found for cargo: {cargo}")
             return total
 
-        local = local.upper().strip()
-        self.logger.info(f"Calculating price for {cargo} -> {occupation.name} in {local}")
+        # Determine location group - prefer explicit local_group if provided
+        loc_str = local_group if local_group else local
+        
+        self.logger.info(f"Calculating price for {cargo} -> {occupation.name} in {loc_str}")
         
         for prenda in prendas:
             qty = prenda.get("qty", 0)
@@ -142,35 +153,24 @@ class UnifiedConfigService:
             size = self._extract_size(prenda.get("string", ""))
             prenda_string = prenda.get("string", "")
 
-            prenda_cfg = next((p for p in occupation.prendas if p.prenda_type.upper() == prenda_type), None)
-            if not prenda_cfg:
-                self.logger.warning(f"No prenda config found for {prenda_type} in occupation {occupation.name}")
-                continue
-
-            price = self._resolve_price(prenda_cfg, size, local)
+            # Get the price using the model's logic
+            # Signature: get_price(prenda_type, size, cargo, local)
+            price = self.unified_config.get_price(prenda_type, size, occupation.name, loc_str)
+            
             subtotal = price * qty
             total += subtotal
             
-            self.logger.info(f"  {prenda_string}: {prenda_type} TALLA {size} x{qty} = {price} x {qty} = {subtotal}")
+            if price > 0:
+                self.logger.info(f"  {prenda_string}: {prenda_type} TALLA {size} x{qty} = {price} x {qty} = {subtotal}")
+            else:
+                self.logger.warning(f"  ⚠️ NO PRICE FOUND for {prenda_type} (size {size}) in {occupation.name} at {loc_str}")
             
         self.logger.info(f"Total price for {cargo}: {total}")
         return total
 
-    def _resolve_price(self, prenda: OccupationPrenda, size: str, local: str) -> float:
-        size = size.upper()
-        if size in {"S", "M", "L", "SML"}:
-            size_key = "price_sml"
-        elif size == "XL":
-            size_key = "price_xl"
-        else:
-            size_key = "price_xxl"
-
-        local_norm = "san_isidro" if "SAN" in local else "tarapoto" if "TARAPOTO" in local else "other"
-        attr = f"{size_key}_{local_norm}"
-        price = getattr(prenda, attr, 0.0)
-        
-        self.logger.debug(f"Price resolution: {prenda.prenda_type} size={size} local={local} -> {attr}={price}")
-        return price
+    def _resolve_price(self, prenda_cfg: OccupationPrenda, size: str, local: str) -> float:
+        """Deprecated: use unified_config.get_price instead."""
+        return self.unified_config.get_price("", prenda_cfg.prenda_type, size, local)
 
     def _extract_size(self, name: str) -> str:
         name = name.upper()
@@ -320,6 +320,62 @@ class UnifiedConfigService:
                 return prenda
         
         return None
+
+    def update_prenda_pricing(self, occupation_name: str, prenda_type: str, 
+                               size_group: str, local_group: str, price: float) -> bool:
+        """
+        Update pricing for a specific prenda.
+        
+        Args:
+            occupation_name: Name of the occupation (e.g., "MOZO", "PRODUCCION")
+            prenda_type: Type of prenda (e.g., "POLO", "CAMISA")
+            size_group: Size group (e.g., "sml", "xl", "xxl")
+            local_group: Location group (e.g., "other", "tarapoto", "san_isidro", "lima_ica", "patios_comida")
+            price: New price value
+            
+        Returns:
+            True if price was updated, False otherwise.
+        """
+        prenda = self.get_prenda_from_occupation(occupation_name, prenda_type)
+        if not prenda:
+            # Try to find occupation and add the prenda if it doesn't exist
+            occupation = self.get_occupation(occupation_name)
+            if not occupation:
+                self.logger.warning(f"Occupation {occupation_name} not found for pricing update")
+                return False
+            
+            # Create new prenda with this price
+            new_prenda = OccupationPrenda(prenda_type=prenda_type)
+            occupation.prendas.append(new_prenda)
+            prenda = new_prenda
+            self.logger.info(f"Created new prenda {prenda_type} in {occupation_name}")
+        
+        # Build the price attribute name
+        # Map new location groups to old field names if needed
+        local_mapping = {
+            'lima_ica': 'other',
+            'patios_comida': 'other',
+            'villa_steakhouse': 'san_isidro',
+        }
+        
+        # Use mapped local if available, otherwise use original
+        mapped_local = local_mapping.get(local_group.lower(), local_group.lower())
+        
+        # Normalize size_group
+        size_norm = size_group.lower()
+        if size_norm in ['s', 'm', 'l', 's/m/l']:
+            size_norm = 'sml'
+        
+        price_attr = f"price_{size_norm}_{mapped_local}"
+        
+        # Check if attribute exists
+        if hasattr(prenda, price_attr):
+            setattr(prenda, price_attr, price)
+            self.logger.debug(f"Updated {occupation_name}/{prenda_type} {price_attr} = {price}")
+            return True
+        else:
+            self.logger.warning(f"Price attribute {price_attr} not found on prenda")
+            return False
 
     def validate_occupation(self, occupation: Occupation) -> List[str]:
         """

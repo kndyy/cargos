@@ -158,7 +158,11 @@
         "STAFF ADMINISTRATIVO (HOMBRE) P/T",
         "STAFF ADMINISTRATIVO (HOMBRE) PART TIME",
         "STAFF ADMINISTRATIVO (HOMBRE) F/T",
-        "STAFF ADMINISTRATIVO (HOMBRE) FULL TIME"
+        "STAFF ADMINISTRATIVO (HOMBRE) FULL TIME",
+        "STAFF ADMINISTRATIVO",
+        "ADMINISTRATIVO",
+        "ADMIN",
+        "ADMINISTRADOR"
       ],
       "prendas": [
         {
@@ -227,7 +231,9 @@
         "STAFF ADMINISTRATIVO (MUJER) P/T",
         "STAFF ADMINISTRATIVO (MUJER) PART TIME",
         "STAFF ADMINISTRATIVO (MUJER) F/T",
-        "STAFF ADMINISTRATIVO (MUJER) FULL TIME"
+        "STAFF ADMINISTRATIVO (MUJER) FULL TIME",
+        "ADMINISTRATIVA",
+        "ADMINISTRADORA"
       ],
       "prendas": [
         {
@@ -296,7 +302,9 @@
         "CAJA (HOMBRE) P/T",
         "CAJA (HOMBRE) PART TIME",
         "CAJA (HOMBRE) F/T",
-        "CAJA (HOMBRE) FULL TIME"
+        "CAJA (HOMBRE) FULL TIME",
+        "CAJA",
+        "CAJERO"
       ],
       "prendas": [
         {
@@ -383,7 +391,8 @@
         "CAJA (MUJER) P/T",
         "CAJA (MUJER) PART TIME",
         "CAJA (MUJER) F/T",
-        "CAJA (MUJER) FULL TIME"
+        "CAJA (MUJER) FULL TIME",
+        "CAJERA"
       ],
       "prendas": [
         {
@@ -735,30 +744,7 @@
       "display_name": "Anfitrionaje (Hombre)",
       "synonyms": [
         "ANFITRIONAJE (HOMBRE)",
-        "ANFITRION",
-        "ANFITRIÓN",
-        "ANFITRION(A)",
-        "ANFITRION (A)",
-        "ANFITRIONAJE (HOMBRE) P/T",
-        "ANFITRION P/T",
-        "ANFITRIÓN P/T",
-        "ANFITRION(A) P/T",
-        "ANFITRION (A) P/T",
-        "ANFITRIONAJE (HOMBRE) PART TIME",
-        "ANFITRION PART TIME",
-        "ANFITRIÓN PART TIME",
-        "ANFITRION(A) PART TIME",
-        "ANFITRION (A) PART TIME",
-        "ANFITRIONAJE (HOMBRE) F/T",
-        "ANFITRION F/T",
-        "ANFITRIÓN F/T",
-        "ANFITRION(A) F/T",
-        "ANFITRION (A) F/T",
-        "ANFITRIONAJE (HOMBRE) FULL TIME",
-        "ANFITRION FULL TIME",
-        "ANFITRIÓN FULL TIME",
-        "ANFITRION(A) FULL TIME",
-        "ANFITRION (A) FULL TIME"
+        "ANFITRION"
       ],
       "prendas": [
         {
@@ -824,25 +810,10 @@
       "display_name": "Anfitrionaje (Mujer)",
       "synonyms": [
         "ANFITRIONAJE (MUJER)",
+        "ANFITRIONAJE",
+        "ANFITRION(A)",
         "ANFITRIONA",
-        "ANFITRIONA(A)",
-        "ANFITRIONA (A)",
-        "ANFITRIONA (A) P/T",
-        "ANFITRIONAJE (MUJER) P/T",
-        "ANFITRIONA P/T",
-        "ANFITRIONA(A) P/T",
-        "ANFITRIONAJE (MUJER) PART TIME",
-        "ANFITRIONA PART TIME",
-        "ANFITRIONA(A) PART TIME",
-        "ANFITRIONA (A) PART TIME",
-        "ANFITRIONAJE (MUJER) F/T",
-        "ANFITRIONA F/T",
-        "ANFITRIONA(A) F/T",
-        "ANFITRIONA (A) F/T",
-        "ANFITRIONAJE (MUJER) FULL TIME",
-        "ANFITRIONA FULL TIME",
-        "ANFITRIONA(A) FULL TIME",
-        "ANFITRIONA (A) FULL TIME"
+        "ANFITRION (A)"
       ],
       "prendas": [
         {
@@ -911,7 +882,8 @@
         "LIMPIEZA / MANTENIMIENTO P/T",
         "LIMPIEZA / MANTENIMIENTO PART TIME",
         "LIMPIEZA / MANTENIMIENTO F/T",
-        "LIMPIEZA / MANTENIMIENTO FULL TIME"
+        "LIMPIEZA / MANTENIMIENTO FULL TIME",
+        "MANTENIMIENTO"
       ],
       "prendas": [
         {
@@ -1322,6 +1294,87 @@
       ],
       "is_active": true,
       "description": ""
+    },
+    {
+      "name": "AUDITORIA",
+      "display_name": "Auditoría",
+      "synonyms": [
+        "AUDITORIA",
+        "AUDITORÍA",
+        "AUDITOR",
+        "AUDITORA"
+      ],
+      "prendas": [
+        {
+          "prenda_type": "POLO",
+          "display_name": "Polo",
+          "has_sizes": true,
+          "garment_type": "UPPER",
+          "is_required": false,
+          "default_quantity": 0,
+          "is_primary": true,
+          "price_sml_other": 13.5,
+          "price_xl_other": 13.5,
+          "price_xxl_other": 15.0,
+          "price_sml_tarapoto": 0.0,
+          "price_xl_tarapoto": 0.0,
+          "price_xxl_tarapoto": 0.0,
+          "price_sml_san_isidro": 0.0,
+          "price_xl_san_isidro": 0.0,
+          "price_xxl_san_isidro": 0.0
+        }
+      ],
+      "is_active": true,
+      "description": "Personal de auditoría"
+    },
+    {
+      "name": "COUNTER",
+      "display_name": "Counter",
+      "synonyms": [
+        "COUNTER",
+        "COUNTER F/T",
+        "COUNTER P/T"
+      ],
+      "prendas": [
+        {
+          "prenda_type": "POLO",
+          "display_name": "Polo",
+          "has_sizes": true,
+          "garment_type": "UPPER",
+          "is_required": false,
+          "default_quantity": 0,
+          "is_primary": true,
+          "price_sml_other": 13.5,
+          "price_xl_other": 13.5,
+          "price_xxl_other": 15.0,
+          "price_sml_tarapoto": 0.0,
+          "price_xl_tarapoto": 0.0,
+          "price_xxl_tarapoto": 0.0,
+          "price_sml_san_isidro": 0.0,
+          "price_xl_san_isidro": 0.0,
+          "price_xxl_san_isidro": 0.0
+        },
+        {
+          "prenda_type": "GORRA",
+          "display_name": "Gorra",
+          "has_sizes": false,
+          "garment_type": "UPPER",
+          "is_required": false,
+          "default_quantity": 0,
+          "is_primary": false,
+          "price_sml_other": 5.0,
+          "price_xl_other": 5.0,
+          "price_xxl_other": 5.0,
+          "price_sml_tarapoto": 0.0,
+          "price_xl_tarapoto": 0.0,
+          "price_xxl_tarapoto": 0.0,
+          "price_sml_san_isidro": 0.0,
+          "price_xl_san_isidro": 0.0,
+          "price_xxl_san_isidro": 0.0
+        }
+      ],
+      "is_active": true,
+      "description": "Personal de counter/mostrador"
     }
   ],
   "default_occupation": "MOZO",

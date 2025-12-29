@@ -12,10 +12,13 @@ from cargos.core.constants import (
     METADATA_ROW_FECHA_SOLICITUD, METADATA_COL_FECHA_SOLICITUD,
     METADATA_ROW_TIENDA, METADATA_COL_TIENDA,
     METADATA_ROW_ADMINISTRADOR, METADATA_COL_ADMINISTRADOR,
-    DATA_START_ROW, IGNORE_COLUMN_INDEX, MAIN_DATA_END_COLUMN,
+    LOCATION_ROW, OCCUPATION_ROW,
+    HEADER_ROW, DATA_START_ROW, IGNORE_COLUMN_INDEX, MAIN_DATA_END_COLUMN,
     UNIFORM_DATA_START_ROW, UNIFORM_DATA_START_COLUMN, UNIFORM_DATA_END_COLUMN,
+    UNIFORM_COLUMN_MAPPING, LOCATION_GROUPS,
     SPANISH_MONTHS
 )
+
 
 
 class ExcelService:
@@ -96,7 +99,16 @@ class ExcelService:
                 
                 if len(sheet_data) > METADATA_ROW_ADMINISTRADOR and len(sheet_data.columns) > METADATA_COL_ADMINISTRADOR:
                     metadata.administrador = str(sheet_data.iloc[METADATA_ROW_ADMINISTRADOR, METADATA_COL_ADMINISTRADOR]) if pd.notna(sheet_data.iloc[METADATA_ROW_ADMINISTRADOR, METADATA_COL_ADMINISTRADOR]) else ""
-                    
+                
+                # Extract location group from LOCATION_ROW (row 6 in Excel = index 5)
+                # This is the first non-empty cell in the location row that contains location group info
+                if len(sheet_data) > LOCATION_ROW:
+                    for col_idx in range(UNIFORM_DATA_START_COLUMN, min(UNIFORM_DATA_END_COLUMN + 1, len(sheet_data.columns))):
+                        cell_value = sheet_data.iloc[LOCATION_ROW, col_idx]
+                        if pd.notna(cell_value) and str(cell_value).strip():
+                            metadata.location_group = str(cell_value).strip()
+                            self.logger.info(f"Detected location group: '{metadata.location_group}' in sheet '{sheet_name}'")
+                            break
             except Exception as meta_error:
                 result.errors.append(f"Error extracting metadata: {str(meta_error)}")
                 self.logger.warning(f"Metadata extraction error in sheet '{sheet_name}': {str(meta_error)}")
@@ -104,14 +116,15 @@ class ExcelService:
             # Extract main data (columns B through I) starting from configured row
             try:
                 if len(sheet_data) > DATA_START_ROW:  # Ensure we have data rows
-                    # Read main data: from data start row onwards, columns B through I
-                    main_data_rows = sheet_data.iloc[DATA_START_ROW:, IGNORE_COLUMN_INDEX + 1:MAIN_DATA_END_COLUMN + 1]
+                    # Headers are in HEADER_ROW (row 8 in Excel = index 7)
+                    # Data rows start at DATA_START_ROW (row 9 in Excel = index 8)
+                    headers = sheet_data.iloc[HEADER_ROW, IGNORE_COLUMN_INDEX + 1:MAIN_DATA_END_COLUMN + 1]
                     
-                    # Set the first data row as headers for main data
+                    # Read main data: from DATA_START_ROW onwards, columns B through I
+                    main_data_rows = sheet_data.iloc[DATA_START_ROW:, IGNORE_COLUMN_INDEX + 1:MAIN_DATA_END_COLUMN + 1]
+                    main_data_rows.columns = headers
+                    
                     if len(main_data_rows) > 0:
-                        headers = main_data_rows.iloc[0]  # First row becomes headers
-                        main_data_rows = main_data_rows.iloc[1:]  # Remaining rows are data
-                        main_data_rows.columns = headers
                         
                         # Remove completely empty rows from main data
                         main_data_rows = main_data_rows.dropna(how='all')
@@ -135,12 +148,11 @@ class ExcelService:
                         else:
                             result.warnings.append("No DNI column found - cannot validate DNI completeness")
                         
-                        # Extract uniform data (columns J onward) starting from row 8
+                        # Extract uniform data (columns J onward) - uses UNIFORM_COLUMN_MAPPING constant
+                        # New format: columns J-BT (indices 9-71), 3 location groups
                         uniform_data = None
                         if len(sheet_data) > UNIFORM_DATA_START_ROW:
-                            from cargos.core.constants import UNIFORM_COLUMN_MAPPING
-                            
-                            # Extract uniform data rows (starting from row 8)
+                            # Extract uniform data rows (starting from DATA_START_ROW, same as main data)
                             uniform_data_rows = sheet_data.iloc[UNIFORM_DATA_START_ROW:, UNIFORM_DATA_START_COLUMN:UNIFORM_DATA_END_COLUMN + 1]
 
                             # Use fixed column mapping based on position
@@ -560,28 +572,35 @@ class FileGenerationService:
             # Get cargo and normalize it
             cargo = self._find_in_row(row, ["cargo"]) or ""
             if not cargo:
-                self.logger.warning("No cargo found for person, cannot calculate juegos")
+                person_name = self._extract_name(row)
+                self.logger.warning(f"No cargo found for person {person_name}, cannot calculate juegos")
                 return 0
             
             # Normalize cargo using synonyms
             normalized_cargo = self.unified_service.normalize_occupation(cargo)
+            person_name = self._extract_name(row)
+            self.logger.debug(f"Calculating juegos for {person_name}: cargo='{cargo}' -> normalized='{normalized_cargo}'")
             
             # Get primary prenda for this occupation
             primary_prenda_cfg = self.unified_service.get_primary_prenda(normalized_cargo)
             if not primary_prenda_cfg:
-                self.logger.debug(f"No primary prenda configured for occupation: {normalized_cargo}")
+                self.logger.warning(f"No primary prenda configured for occupation: {normalized_cargo} (person: {person_name})")
                 return 0
+            
+            primary_prenda_type = primary_prenda_cfg.prenda_type.upper().strip()
+            self.logger.debug(f"Primary prenda for {normalized_cargo}: {primary_prenda_type}")
             
             # Build prendas list (same as in _get_monto_for_person)
             talla_superior = self._extract_talla_superior(row)
             prendas = self._build_prendas_list(uniform_row if uniform_row is not None else row, talla_superior)
             
             if not prendas:
-                self.logger.debug("No prendas found for person, cannot calculate juegos")
+                self.logger.warning(f"No prendas found for person {person_name}, cannot calculate juegos")
                 return 0
             
+            self.logger.debug(f"Found {len(prendas)} prendas for {person_name}: {[p.get('prenda_type', '') + ' (qty=' + str(p.get('qty', 0)) + ')' for p in prendas]}")
+            
             # Look for primary prenda in the prendas list
-            primary_prenda_type = primary_prenda_cfg.prenda_type.upper().strip()
             primary_prenda_found = None
             
             for prenda in prendas:
@@ -591,10 +610,16 @@ class FileGenerationService:
                     break
             
             # If primary prenda found and qty > 0, use that
-            if primary_prenda_found and primary_prenda_found.get("qty", 0) > 0:
-                juegos = primary_prenda_found.get("qty", 0)
-                self.logger.debug(f"Juegos calculated from primary prenda {primary_prenda_type}: {juegos}")
-                return juegos
+            if primary_prenda_found:
+                qty = primary_prenda_found.get("qty", 0)
+                if qty > 0:
+                    juegos = int(qty)
+                    self.logger.info(f"Juegos calculated from primary prenda {primary_prenda_type} for {person_name}: {juegos}")
+                    return juegos
+                else:
+                    self.logger.debug(f"Primary prenda {primary_prenda_type} found but qty=0 for {person_name}, calculating mode of other prendas")
+            else:
+                self.logger.debug(f"Primary prenda {primary_prenda_type} not found in prendas list for {person_name}, calculating mode of other prendas")
             
             # If primary prenda not found or qty = 0, calculate mode of other prendas
             other_quantities = []
@@ -603,16 +628,16 @@ class FileGenerationService:
                 qty = prenda.get("qty", 0)
                 # Skip primary prenda and only include prendas with qty > 0
                 if prenda_type != primary_prenda_type and qty > 0:
-                    other_quantities.append(qty)
+                    other_quantities.append(int(qty))
             
             if not other_quantities:
-                self.logger.debug("No other prendas with qty > 0 found, returning 0 for juegos")
+                self.logger.warning(f"No other prendas with qty > 0 found for {person_name}, returning 0 for juegos")
                 return 0
             
             # Calculate mode (most common value)
             try:
                 from statistics import mode, StatisticsError
-                juegos = mode(other_quantities)
+                juegos = int(mode(other_quantities))
             except (ImportError, StatisticsError):
                 # Fallback: manual mode calculation
                 from collections import Counter
@@ -621,13 +646,14 @@ class FileGenerationService:
                 max_count = max(quantity_counts.values())
                 modes = [qty for qty, count in quantity_counts.items() if count == max_count]
                 # If tie, return the highest value
-                juegos = max(modes) if modes else 0
+                juegos = int(max(modes)) if modes else 0
             
-            self.logger.debug(f"Juegos calculated from mode of other prendas: {juegos} (from quantities: {other_quantities})")
+            self.logger.info(f"Juegos calculated from mode of other prendas for {person_name}: {juegos} (from quantities: {other_quantities})")
             return juegos
             
         except Exception as e:
-            self.logger.error(f"Failed to calculate juegos for person: {e}")
+            person_name = self._extract_name(row) if hasattr(self, '_extract_name') else "unknown"
+            self.logger.error(f"Failed to calculate juegos for person {person_name}: {e}", exc_info=True)
             return 0
     
     def _build_autorizacion_context(self, row: pd.Series, metadata: WorksheetMetadata, uniform_row: Optional[pd.Series] = None) -> Optional[Dict[str, Any]]:
@@ -654,7 +680,13 @@ class FileGenerationService:
             monto_formatted = f"S/ {monto_value:.2f}"
             
             # Calculate juegos (based on primary prenda or mode of other prendas)
-            juegos_value = self._calculate_juegos(row, metadata, uniform_row)
+            try:
+                juegos_value = self._calculate_juegos(row, metadata, uniform_row)
+                # Ensure juegos is always an integer (never None)
+                juegos_value = int(juegos_value) if juegos_value is not None else 0
+            except Exception as e:
+                self.logger.error(f"Error calculating juegos: {e}", exc_info=True)
+                juegos_value = 0  # Default to 0 if calculation fails
             
             # Debug logging for missing data
             if not person_data["identificacion"]:
@@ -676,8 +708,14 @@ class FileGenerationService:
                 "nombre": str(person_data["nombre"]),
                 "identificacion": str(person_data["identificacion"]),
                 "monto": monto_formatted,  # Formatted with Sol currency
-                "juegos": juegos_value,  # Number of juegos (calculated from primary prenda or mode)
+                "juegos": juegos_value,  # Number of juegos (calculated from primary prenda or mode) - always an integer
             }
+            
+            # Log the context to verify juegos is included
+            self.logger.info(f"AUTORIZACION context for {person_data['nombre']}: juegos={juegos_value} (type: {type(juegos_value).__name__}), cargo={person_data['cargo']}, local={metadata.tienda}")
+            self.logger.debug(f"Full AUTORIZACION context keys: {list(context.keys())}")
+            self.logger.debug(f"Full AUTORIZACION context: {context}")
+            
             return context
         except Exception as e:
             self.logger.error(f"Error building context: {e}")
@@ -704,6 +742,15 @@ class FileGenerationService:
             monto_value = self._get_monto_for_person(row, metadata, uniform_row)
             monto_formatted = f"S/ {monto_value:.2f}"
             
+            # Calculate juegos (based on primary prenda or mode of other prendas)
+            try:
+                juegos_value = self._calculate_juegos(row, metadata, uniform_row)
+                # Ensure juegos is always an integer (never None)
+                juegos_value = int(juegos_value) if juegos_value is not None else 0
+            except Exception as e:
+                self.logger.error(f"Error calculating juegos: {e}", exc_info=True)
+                juegos_value = 0  # Default to 0 if calculation fails
+            
             context = {
                 "dia": dia,
                 "mes_string": mes_string,
@@ -711,7 +758,8 @@ class FileGenerationService:
                 "fecha": fecha_string,
                 "nombre": str(person_data["nombre"]),
                 "prendas": prendas,
-                "monto": monto_formatted  # Add pricing information
+                "monto": monto_formatted,  # Add pricing information
+                "juegos": juegos_value,  # Number of juegos (calculated from primary prenda or mode) - always an integer
             }
             
             return context
@@ -730,6 +778,12 @@ class FileGenerationService:
     def _render_document(self, template_path: str, context: Dict[str, Any], output_docx: Path) -> None:
         """Generic document rendering method."""
         from docxtpl import DocxTemplate
+        # Log context before rendering to verify all variables are present
+        self.logger.debug(f"Rendering document {output_docx.name} with context keys: {list(context.keys())}")
+        if "juegos" in context:
+            self.logger.info(f"Context includes 'juegos' = {context['juegos']} (type: {type(context['juegos'])})")
+        else:
+            self.logger.warning(f"Context does NOT include 'juegos'! Available keys: {list(context.keys())})")
         tpl = DocxTemplate(template_path)
         tpl.render(context)
         tpl.save(str(output_docx))
@@ -754,11 +808,12 @@ class FileGenerationService:
             master_doc = Document(str(valid_docs[0]))
             composer = Composer(master_doc)
             
-            # Append each subsequent document
+            # Append each subsequent document with a page break before it
             for doc_path in valid_docs[1:]:
                 try:
                     doc_to_append = Document(str(doc_path))
-                    composer.append(doc_to_append)
+                    # Add page break before this document to keep them separate
+                    composer.append(doc_to_append, add_page_break_before=True)
                     self.logger.debug(f"Successfully appended: {doc_path}")
                 except Exception as e:
                     self.logger.warning(f"Failed to append document {doc_path}: {e}")
@@ -815,9 +870,27 @@ class FileGenerationService:
             # Normalize cargo using synonyms
             normalized_cargo = self.unified_service.normalize_occupation(cargo)
             
-            # Check if occupation was properly mapped
+            # Check if occupation was properly mapped - show detailed info for gendered occupations
             if normalized_cargo != cargo.upper():
-                self.logger.warning(f"⚠️  OCCUPATION MAPPING: '{cargo}' → '{normalized_cargo}' - consider adding '{cargo}' to synonyms list in Configuration tab")
+                # Get a sample price for the mapped occupation to show user
+                occupation_obj = self.unified_service.get_occupation(normalized_cargo)
+                sample_price = ""
+                if occupation_obj and occupation_obj.prendas:
+                    first_prenda = occupation_obj.prendas[0]
+                    sample_price = f" (sample: {first_prenda.display_name} S/{first_prenda.price_sml_other})"
+                
+                # Show clear alert for gendered mappings (ANFITRIONAJE, CAJA, STAFF, etc.)
+                if "(HOMBRE)" in normalized_cargo or "(MUJER)" in normalized_cargo:
+                    gender = "👨 MALE" if "(HOMBRE)" in normalized_cargo else "👩 FEMALE"
+                    self.logger.info(f"🔔 GENDER SELECTION: '{cargo}' → '{normalized_cargo}' [{gender}]{sample_price}")
+                else:
+                    self.logger.warning(f"⚠️  OCCUPATION MAPPING: '{cargo}' → '{normalized_cargo}'{sample_price} - consider adding '{cargo}' to synonyms")
+            else:
+                # Direct match - still log for visibility
+                occupation_obj = self.unified_service.get_occupation(normalized_cargo)
+                if occupation_obj and occupation_obj.prendas:
+                    first_prenda = occupation_obj.prendas[0]
+                    self.logger.info(f"✓ Occupation: '{normalized_cargo}' (sample: {first_prenda.display_name} S/{first_prenda.price_sml_other})")
             
             # Get local/tienda
             local = metadata.tienda or "OTHER"
@@ -843,7 +916,9 @@ class FileGenerationService:
                     self.logger.info(f"    {i+1}. {prenda}")
             
             # Calculate total price
-            total_price = self.unified_service.calculate_total_price(prendas, normalized_cargo, local)
+            total_price = self.unified_service.calculate_total_price(
+                prendas, normalized_cargo, local, local_group=metadata.location_group
+            )
             
             self.logger.info(f"Calculated monto for {person_name}: "
                            f"Cargo={normalized_cargo}, Local={local}, Prendas={len(prendas)}, Total={total_price}")
@@ -977,31 +1052,84 @@ class FileGenerationService:
         return uniform_columns
     
     def _is_prenda_column(self, column_name: str) -> bool:
-        """Check if a column name represents a prenda type."""
+        """Check if a column name represents a prenda type.
+        
+        Supports both old format (OCCUPATION_PRENDA) and new format (LOCATION_OCCUPATION_PRENDA).
+        """
+        # Location group prefixes (new format)
+        location_indicators = ['lima_ica', 'patios_comida', 'villa_steakhouse']
+        
+        # Occupation indicators (both old and new format)
+        occupation_indicators = [
+            'salon', 'delivery', 'packer', 'bar', 'seguridad', 'produccion', 
+            'anfitrion', 'anfitrionaje', 'caja', 'mantenimiento', 'administracion',
+            'auditoria', 'counter', 'corredor'
+        ]
+        
+        # Prenda type indicators
         prenda_indicators = [
             'camisa', 'blusa', 'polo', 'casaca', 'gorra', 'mandilon', 'andarin',
             'pechera', 'saco', 'pantalon', 'garibaldi', 'chaqueta', 'gorro',
-            'delivery', 'packer', 'bar', 'seguridad', 'produccion', 'anfitrion'
+            'chaleco', 'saco_h', 'saco_m', 'polo_manga_corta'
         ]
         
         column_lower = column_name.lower()
-        return any(indicator in column_lower for indicator in prenda_indicators)
+        
+        # Check if column has a location prefix (new format)
+        has_location = any(loc in column_lower for loc in location_indicators)
+        
+        # Check for occupation or prenda indicator
+        has_occupation = any(occ in column_lower for occ in occupation_indicators)
+        has_prenda = any(prenda in column_lower for prenda in prenda_indicators)
+        
+        # New format: must have location prefix AND (occupation OR prenda)
+        if has_location:
+            return has_occupation or has_prenda
+        
+        # Old format: just needs occupation or prenda indicator
+        return has_occupation or has_prenda
     
     def _normalize_prenda_type(self, column_name: str) -> str:
         """
         Normalize column name to standard prenda type.
-        Column names come in format: "OCCUPATION_PRENDA" (e.g., "DELIVERY_POLO")
-        Returns just the prenda part (e.g., "POLO") for pricing lookup.
+        
+        Handles both old format (OCCUPATION_PRENDA) and new format (LOCATION_OCCUPATION_PRENDA).
+        Also handles compound prenda names like SACO_H, POLO_MANGA_CORTA.
+        
+        Examples:
+            - "DELIVERY_POLO" -> "POLO"
+            - "LIMA_ICA_DELIVERY_POLO" -> "POLO"  
+            - "LIMA_ICA_ANFITRIONAJE_SACO_H" -> "SACO"
+            - "PATIOS_COMIDA_PRODUCCION_POLO_MANGA_CORTA" -> "POLO"
         """
         col_upper = str(column_name).upper().strip()
         
-        # If in OCCUPATION_PRENDA format, extract just the prenda part
-        if '_' in col_upper:
-            # Split by underscore and take the last part (the prenda name)
-            parts = col_upper.split('_')
-            return parts[-1]  # Return just the prenda part (e.g., "POLO" from "DELIVERY_POLO")
+        # List of known prenda types to extract
+        known_prendas = [
+            'CAMISA', 'BLUSA', 'POLO', 'CASACA', 'GORRA', 'MANDILON', 'ANDARIN',
+            'PECHERA', 'SACO', 'PANTALON', 'GARIBALDI', 'CHAQUETA', 'GORRO', 'CHALECO'
+        ]
         
-        # Fallback for legacy format
+        # Check if any known prenda type is in the column name
+        for prenda in known_prendas:
+            if prenda in col_upper:
+                return prenda
+        
+        # Fallback: For new format, try splitting and looking for known parts
+        if '_' in col_upper:
+            parts = col_upper.split('_')
+            # Search from the end for a known prenda
+            for part in reversed(parts):
+                if part in known_prendas:
+                    return part
+            # If no known prenda found, return the last meaningful part
+            # Skip suffix modifiers like H, M, CORTA, etc.
+            skip_suffixes = {'H', 'M', 'CORTA', 'MANGA'}
+            for part in reversed(parts):
+                if part and part not in skip_suffixes:
+                    return part
+        
+        # Fallback for legacy format - try mapping
         col_lower = col_upper.lower()
         mapping = {
             'camisa': 'CAMISA',

@@ -27,6 +27,7 @@ class WorksheetMetadata:
     fecha_solicitud: str = ""
     tienda: str = ""
     administrador: str = ""
+    location_group: str = ""  # New field for hierarchical location groups (e.g., "LIMA E ICA PROVINCIA")
     
     @property
     def identifier(self) -> str:
@@ -144,7 +145,8 @@ class OccupationPrenda:
     is_required: bool = False  # Whether this prenda is required for the occupation
     default_quantity: int = 0  # Default quantity if not specified
     is_primary: bool = False  # Whether this prenda is the primary one for juegos calculation
-    # Pricing for different size groups and local groups
+    
+    # === OLD PRICING (kept for backward compatibility) ===
     price_sml_other: float = 0.0  # Price for S/M/L sizes in OTHER local
     price_xl_other: float = 0.0   # Price for XL size in OTHER local
     price_xxl_other: float = 0.0  # Price for XXL size in OTHER local
@@ -154,6 +156,17 @@ class OccupationPrenda:
     price_sml_san_isidro: float = 0.0  # Price for S/M/L sizes in SAN_ISIDRO local
     price_xl_san_isidro: float = 0.0   # Price for XL size in SAN_ISIDRO local
     price_xxl_san_isidro: float = 0.0  # Price for XXL size in SAN_ISIDRO local
+    
+    # === NEW PRICING (location-based groups from new Excel format) ===
+    price_sml_lima_ica: float = 0.0  # Price for S/M/L in LIMA E ICA PROVINCIA
+    price_xl_lima_ica: float = 0.0   # Price for XL in LIMA E ICA PROVINCIA
+    price_xxl_lima_ica: float = 0.0  # Price for XXL in LIMA E ICA PROVINCIA
+    price_sml_patios_comida: float = 0.0  # Price for S/M/L in PATIOS DE COMIDA
+    price_xl_patios_comida: float = 0.0   # Price for XL in PATIOS DE COMIDA
+    price_xxl_patios_comida: float = 0.0  # Price for XXL in PATIOS DE COMIDA
+    price_sml_villa_steakhouse: float = 0.0  # Price for S/M/L in VILLA STEAKHOUSE
+    price_xl_villa_steakhouse: float = 0.0   # Price for XL in VILLA STEAKHOUSE
+    price_xxl_villa_steakhouse: float = 0.0  # Price for XXL in VILLA STEAKHOUSE
 
 
 @dataclass
@@ -175,9 +188,27 @@ class UnifiedConfig:
     default_local_group: str = "OTHER"
     
     def _determine_local_group(self, local: str) -> str:
-        """Determine local group with sanitization for TARAPOTO and SAN ISIDRO."""
+        """Determine local group with sanitization for all location types.
+        
+        Supports both old format (OTHER, TARAPOTO, SAN_ISIDRO) and new format
+        (LIMA_ICA, PATIOS_COMIDA, VILLA_STEAKHOUSE).
+        """
         local_upper = local.upper().strip()
         
+        # === NEW FORMAT location groups ===
+        # LIMA E ICA PROVINCIA
+        if "LIMA" in local_upper or "ICA" in local_upper:
+            return "lima_ica"
+        
+        # PATIOS DE COMIDA (Larcomar, Puruchuco, Iquitos)
+        if any(x in local_upper for x in ["PATIO", "LARCOMAR", "PURUCHUCO", "IQUITOS"]):
+            return "patios_comida"
+        
+        # VILLA STEAKHOUSE (San Isidro)
+        if "VILLA" in local_upper or "STEAKHOUSE" in local_upper:
+            return "villa_steakhouse"
+        
+        # === OLD FORMAT location groups (kept for backward compatibility) ===
         # Check for TARAPOTO (exact match or contains "TARAPOTO")
         if local_upper == "TARAPOTO" or "TARAPOTO" in local_upper:
             return "tarapoto"
@@ -187,8 +218,31 @@ class UnifiedConfig:
             "SAN ISIDRO" in local_upper or "SAN_ISIDRO" in local_upper):
             return "san_isidro"
         
-        # Default to other
+        # Default to other (which maps to lima_ica for new prices)
         return "other"
+    
+    def _get_price_for_local_group(self, prenda: 'OccupationPrenda', size_group: str, local_group: str) -> float:
+        """Get price for a prenda, trying new location groups first, then falling back to old ones."""
+        # Try new format first
+        new_price_attr = f"price_{size_group}_{local_group}"
+        price = getattr(prenda, new_price_attr, 0.0)
+        
+        if price > 0:
+            return price
+        
+        # Fallback mapping: new -> old
+        fallback_map = {
+            "lima_ica": "other",
+            "patios_comida": "other",
+            "villa_steakhouse": "san_isidro",
+        }
+        
+        if local_group in fallback_map:
+            old_price_attr = f"price_{size_group}_{fallback_map[local_group]}"
+            return getattr(prenda, old_price_attr, 0.0)
+        
+        # Try the attribute directly (for old format groups like 'other', 'tarapoto', 'san_isidro')
+        return getattr(prenda, new_price_attr, 0.0)
     
     def get_occupation(self, name: str) -> Optional[Occupation]:
         """Get occupation by name (case-insensitive)."""
@@ -246,8 +300,7 @@ class UnifiedConfig:
                 # Determine local group with sanitization
                 local_group = self._determine_local_group(local)
                 
-                # Get price based on size and local group
-                price_attr = f"price_{size_group}_{local_group}"
-                return getattr(prenda, price_attr, 0.0)
+                # Get price using helper method (handles fallback between old and new formats)
+                return self._get_price_for_local_group(prenda, size_group, local_group)
         
         return 0.0  # No price found
