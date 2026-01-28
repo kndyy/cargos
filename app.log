@@ -17354,3 +17354,10 @@ ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.i
 2025-12-29 19:53:41,280 - INFO - Created combined document with preserved formatting: /Users/leonardocandio/Desktop/cargos de nico/TARAPOTO/AUTORIZACION_COMBINED_TARAPOTO.docx
 2025-12-29 19:53:41,446 - INFO - Created combined document with preserved formatting: /Users/leonardocandio/Desktop/cargos de nico/TARAPOTO/CARGO_COMBINED_TARAPOTO.docx
 2025-12-29 19:53:41,446 - INFO - Generated AUTORIZACION, CARGO documents for 31 people across 1 locales
+2026-01-27 20:08:53,807 - INFO - Loaded 456 prices from cache
+2026-01-27 20:08:53,807 - INFO - Prices loaded from cache
+2026-01-27 20:08:54,020 - INFO - Application initialized successfully
+2026-01-27 20:09:20,581 - INFO - Loading prices from: /Users/leonardocandio/cargos/sources/precios.xlsm
+2026-01-27 20:09:20,786 - INFO - Loaded 561 price entries from Excel
+2026-01-27 20:09:20,787 - INFO - Saved 513 prices to cache: prices_cache.json
+2026-01-27 20:09:20,787 - INFO - Prices reloaded from: /Users/leonardocandio/cargos/sources/precios.xlsm
