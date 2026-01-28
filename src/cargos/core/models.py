@@ -1,9 +1,14 @@
 """
 Data models and configuration classes for the File Generator application.
 """
+
 from dataclasses import dataclass
 from typing import Optional, TYPE_CHECKING, List
-from cargos.core.constants import DEFAULT_OUTPUT_DIR, DEFAULT_LOG_FILE, DEFAULT_PREVIEW_ROWS
+from cargos.core.constants import (
+    DEFAULT_OUTPUT_DIR,
+    DEFAULT_LOG_FILE,
+    DEFAULT_PREVIEW_ROWS,
+)
 
 if TYPE_CHECKING:
     import pandas as pd
@@ -12,10 +17,13 @@ if TYPE_CHECKING:
 @dataclass
 class AppConfig:
     """Application configuration settings."""
+
     destination_path: str = f"{DEFAULT_OUTPUT_DIR}/"
     excel_file_path: str = ""
     cargo_template_path: str = "templates/CARGO UNIFORMES.docx"
-    autorizacion_template_path: str = "templates/50% - AUTORIZACIÓN DESCUENTO DE UNIFORMES (02).docx"
+    autorizacion_template_path: str = (
+        "templates/50% - AUTORIZACIÓN DESCUENTO DE UNIFORMES (02).docx"
+    )
     log_file: str = DEFAULT_LOG_FILE
     preview_rows_limit: int = DEFAULT_PREVIEW_ROWS
 
@@ -23,12 +31,15 @@ class AppConfig:
 @dataclass
 class WorksheetMetadata:
     """Metadata extracted from a worksheet."""
+
     sheet_name: str
     fecha_solicitud: str = ""
     tienda: str = ""
     administrador: str = ""
-    location_group: str = ""  # New field for hierarchical location groups (e.g., "LIMA E ICA PROVINCIA")
-    
+    location_group: str = (
+        ""  # New field for hierarchical location groups (e.g., "LIMA E ICA PROVINCIA")
+    )
+
     @property
     def identifier(self) -> str:
         """Get worksheet identifier."""
@@ -38,14 +49,15 @@ class WorksheetMetadata:
 @dataclass
 class WorksheetParsingResult:
     """Result of parsing a single worksheet."""
+
     metadata: WorksheetMetadata
-    data: Optional['pd.DataFrame'] = None  # Main data (columns B through I)
-    uniform_data: Optional['pd.DataFrame'] = None  # Uniform data (columns J through R)
+    data: Optional["pd.DataFrame"] = None  # Main data (columns B through I)
+    uniform_data: Optional["pd.DataFrame"] = None  # Uniform data (columns J through R)
     total_lines: int = 0
     people_parsed: int = 0
     errors: list = None
     warnings: list = None
-    
+
     def __post_init__(self):
         if self.errors is None:
             self.errors = []
@@ -57,33 +69,38 @@ class WorksheetParsingResult:
 @dataclass
 class ExcelData:
     """Container for Excel file data and metadata."""
+
     file_path: str = ""
     worksheets: list = None  # List[WorksheetParsingResult]
     total_worksheets: int = 0
     successful_worksheets: int = 0
-    
+
     def __post_init__(self):
         if self.worksheets is None:
             self.worksheets = []
         self.total_worksheets = len(self.worksheets)
-        self.successful_worksheets = len([w for w in self.worksheets if w.data is not None])
-    
+        self.successful_worksheets = len(
+            [w for w in self.worksheets if w.data is not None]
+        )
+
     @property
     def is_loaded(self) -> bool:
         """Check if data is loaded."""
         return len(self.worksheets) > 0 and self.successful_worksheets > 0
-    
+
     @property
     def total_people_parsed(self) -> int:
         """Get total number of people parsed across all worksheets."""
         return sum(w.people_parsed for w in self.worksheets)
-    
+
     @property
     def total_errors(self) -> int:
         """Get total number of errors across all worksheets."""
         return sum(len(w.errors) for w in self.worksheets)
-    
-    def get_worksheet_by_name(self, sheet_name: str) -> Optional['WorksheetParsingResult']:
+
+    def get_worksheet_by_name(
+        self, sheet_name: str
+    ) -> Optional["WorksheetParsingResult"]:
         """Get worksheet by name."""
         for worksheet in self.worksheets:
             if worksheet.metadata.sheet_name == sheet_name:
@@ -94,11 +111,12 @@ class ExcelData:
 @dataclass
 class ExcelValidationResult:
     """Result of Excel file validation."""
+
     is_valid: bool
     errors: list = None
     warnings: list = None
     message: str = ""
-    
+
     def __post_init__(self):
         if self.errors is None:
             self.errors = []
@@ -109,11 +127,12 @@ class ExcelValidationResult:
 @dataclass
 class GenerationResult:
     """Result of file generation process."""
+
     success: bool
     files_generated: int = 0
     errors: list = None
     message: str = ""
-    
+
     def __post_init__(self):
         if self.errors is None:
             self.errors = []
@@ -122,15 +141,19 @@ class GenerationResult:
 @dataclass
 class Prenda:
     """Represents a garment item with its description and quantity."""
+
     string: str  # Formatted string like "CAMISA TALLA M"
-    qty: int     # Quantity of this garment
+    qty: int  # Quantity of this garment
 
 
 @dataclass
 class GenerationOptions:
     """Options for controlling generation behavior and scope."""
+
     selected_locales: List[str]
-    combine_per_local: bool = False  # False: per person only; True: also generate combined DOCX per local
+    combine_per_local: bool = (
+        False  # False: per person only; True: also generate combined DOCX per local
+    )
     cargo_enabled: bool = True  # Generate CARGO documents
     autorizacion_enabled: bool = True  # Generate AUTORIZACION documents
 
@@ -138,40 +161,38 @@ class GenerationOptions:
 @dataclass
 class OccupationPrenda:
     """Represents a prenda that can be assigned to a specific occupation with pricing."""
+
     prenda_type: str  # e.g., "CAMISA", "BLUSA", "MANDILON"
     display_name: str = ""  # Display name for the prenda
     has_sizes: bool = True  # Whether this prenda has different sizes
     garment_type: str = "UPPER"  # "UPPER" for upper body (uses talla superior), "LOWER" for lower body (uses talla inferior)
     is_required: bool = False  # Whether this prenda is required for the occupation
     default_quantity: int = 0  # Default quantity if not specified
-    is_primary: bool = False  # Whether this prenda is the primary one for juegos calculation
-    
-    # === OLD PRICING (kept for backward compatibility) ===
-    price_sml_other: float = 0.0  # Price for S/M/L sizes in OTHER local
-    price_xl_other: float = 0.0   # Price for XL size in OTHER local
-    price_xxl_other: float = 0.0  # Price for XXL size in OTHER local
+    is_primary: bool = (
+        False  # Whether this prenda is the primary one for juegos calculation
+    )
+
+    # === TARAPOTO PRICING (still used for backward compatibility) ===
     price_sml_tarapoto: float = 0.0  # Price for S/M/L sizes in TARAPOTO local
-    price_xl_tarapoto: float = 0.0   # Price for XL size in TARAPOTO local
+    price_xl_tarapoto: float = 0.0  # Price for XL size in TARAPOTO local
     price_xxl_tarapoto: float = 0.0  # Price for XXL size in TARAPOTO local
-    price_sml_san_isidro: float = 0.0  # Price for S/M/L sizes in SAN_ISIDRO local
-    price_xl_san_isidro: float = 0.0   # Price for XL size in SAN_ISIDRO local
-    price_xxl_san_isidro: float = 0.0  # Price for XXL size in SAN_ISIDRO local
-    
+
     # === NEW PRICING (location-based groups from new Excel format) ===
     price_sml_lima_ica: float = 0.0  # Price for S/M/L in LIMA E ICA PROVINCIA
-    price_xl_lima_ica: float = 0.0   # Price for XL in LIMA E ICA PROVINCIA
+    price_xl_lima_ica: float = 0.0  # Price for XL in LIMA E ICA PROVINCIA
     price_xxl_lima_ica: float = 0.0  # Price for XXL in LIMA E ICA PROVINCIA
     price_sml_patios_comida: float = 0.0  # Price for S/M/L in PATIOS DE COMIDA
-    price_xl_patios_comida: float = 0.0   # Price for XL in PATIOS DE COMIDA
+    price_xl_patios_comida: float = 0.0  # Price for XL in PATIOS DE COMIDA
     price_xxl_patios_comida: float = 0.0  # Price for XXL in PATIOS DE COMIDA
     price_sml_villa_steakhouse: float = 0.0  # Price for S/M/L in VILLA STEAKHOUSE
-    price_xl_villa_steakhouse: float = 0.0   # Price for XL in VILLA STEAKHOUSE
+    price_xl_villa_steakhouse: float = 0.0  # Price for XL in VILLA STEAKHOUSE
     price_xxl_villa_steakhouse: float = 0.0  # Price for XXL in VILLA STEAKHOUSE
 
 
 @dataclass
 class Occupation:
     """Represents an occupation with its associated prendas and configuration."""
+
     name: str  # e.g., "MOZO", "AZAFATA", "PACKER"
     display_name: str  # e.g., "Mozo", "Azafata", "Packer"
     synonyms: List[str]  # Alternative names for this occupation
@@ -183,89 +204,75 @@ class Occupation:
 @dataclass
 class UnifiedConfig:
     """Unified configuration combining occupations and their pricing."""
+
     occupations: List[Occupation]
     default_occupation: str = "MOZO"
-    default_local_group: str = "OTHER"
-    
+    default_local_group: str = "lima_ica"
+
     def _determine_local_group(self, local: str) -> str:
         """Determine local group with sanitization for all location types.
-        
-        Supports both old format (OTHER, TARAPOTO, SAN_ISIDRO) and new format
-        (LIMA_ICA, PATIOS_COMIDA, VILLA_STEAKHOUSE).
+
+        Supports 4 location groups: lima_ica, patios_comida, villa_steakhouse, tarapoto.
         """
         local_upper = local.upper().strip()
-        
-        # === NEW FORMAT location groups ===
-        # LIMA E ICA PROVINCIA
+
+        # LIMA E ICA PROVINCIA (default)
         if "LIMA" in local_upper or "ICA" in local_upper:
             return "lima_ica"
-        
+
         # PATIOS DE COMIDA (Larcomar, Puruchuco, Iquitos)
         if any(x in local_upper for x in ["PATIO", "LARCOMAR", "PURUCHUCO", "IQUITOS"]):
             return "patios_comida"
-        
+
         # VILLA STEAKHOUSE (San Isidro) - SAN ISIDRO uses villa_steakhouse pricing
-        if any(x in local_upper for x in ["VILLA", "STEAKHOUSE", "SAN ISIDRO", "SAN_ISIDRO"]):
+        if any(
+            x in local_upper
+            for x in ["VILLA", "STEAKHOUSE", "SAN ISIDRO", "SAN_ISIDRO"]
+        ):
             return "villa_steakhouse"
-        
-        # === OLD FORMAT location groups (kept for backward compatibility) ===
+
         # Check for TARAPOTO (exact match or contains "TARAPOTO")
         if local_upper == "TARAPOTO" or "TARAPOTO" in local_upper:
             return "tarapoto"
-        
-        # Default to other (which maps to lima_ica for new prices)
-        return "other"
-    
-    def _get_price_for_local_group(self, prenda: 'OccupationPrenda', size_group: str, local_group: str) -> float:
-        """Get price for a prenda, trying new location groups first, then falling back to old ones."""
-        # Try new format first
-        new_price_attr = f"price_{size_group}_{local_group}"
-        price = getattr(prenda, new_price_attr, 0.0)
-        
-        if price > 0:
-            return price
-        
-        # Fallback mapping: new -> old
-        fallback_map = {
-            "lima_ica": "other",
-            "patios_comida": "other",
-            "villa_steakhouse": "san_isidro",
-        }
-        
-        if local_group in fallback_map:
-            old_price_attr = f"price_{size_group}_{fallback_map[local_group]}"
-            return getattr(prenda, old_price_attr, 0.0)
-        
-        # Try the attribute directly (for old format groups like 'other', 'tarapoto', 'san_isidro')
-        return getattr(prenda, new_price_attr, 0.0)
-    
+
+        # Default to lima_ica
+        return "lima_ica"
+
+    def _get_price_for_local_group(
+        self, prenda: "OccupationPrenda", size_group: str, local_group: str
+    ) -> float:
+        """Get price for a prenda based on size and location group."""
+        price_attr = f"price_{size_group}_{local_group}"
+        return getattr(prenda, price_attr, 0.0)
+
     def get_occupation(self, name: str) -> Optional[Occupation]:
         """Get occupation by name (case-insensitive)."""
         name_upper = name.upper().strip()
         for occupation in self.occupations:
-            if (occupation.name.upper() == name_upper or 
-                name_upper in [syn.upper() for syn in occupation.synonyms]):
+            if occupation.name.upper() == name_upper or name_upper in [
+                syn.upper() for syn in occupation.synonyms
+            ]:
                 return occupation
         return None
-    
+
     def get_active_occupations(self) -> List[Occupation]:
         """Get all active occupations."""
         return [occ for occ in self.occupations if occ.is_active]
-    
+
     def get_occupation_prendas(self, occupation_name: str) -> List[OccupationPrenda]:
         """Get prendas for a specific occupation."""
         occupation = self.get_occupation(occupation_name)
         return occupation.prendas if occupation else []
-    
+
     def is_valid_occupation(self, name: str) -> bool:
         """Check if an occupation name is valid."""
         return self.get_occupation(name) is not None
-    
+
     def get_occupation_synonyms(self, occupation_name: str) -> List[str]:
         """Get synonyms for an occupation."""
         occupation = self.get_occupation(occupation_name)
         return occupation.synonyms if occupation else [occupation_name]
-    
+
     def get_price(self, prenda_type: str, size: str, cargo: str, local: str) -> float:
         """Get price for a specific combination using unified config."""
         # Normalize inputs
@@ -273,12 +280,12 @@ class UnifiedConfig:
         size = size.upper().strip()
         cargo = cargo.upper().strip()
         local = local.upper().strip()
-        
+
         # Find occupation
         occupation = self.get_occupation(cargo)
         if not occupation:
             return 0.0
-        
+
         # Find prenda in occupation
         for prenda in occupation.prendas:
             if prenda.prenda_type.upper() == prenda_type:
@@ -291,11 +298,11 @@ class UnifiedConfig:
                     size_group = "xxl"
                 else:
                     size_group = "sml"  # Default fallback
-                
+
                 # Determine local group with sanitization
                 local_group = self._determine_local_group(local)
-                
+
                 # Get price using helper method (handles fallback between old and new formats)
                 return self._get_price_for_local_group(prenda, size_group, local_group)
-        
+
         return 0.0  # No price found

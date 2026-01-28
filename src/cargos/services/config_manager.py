@@ -1,6 +1,7 @@
 """
 Configuration persistence manager for saving and loading user settings.
 """
+
 from __future__ import annotations
 
 import json
@@ -9,7 +10,11 @@ from pathlib import Path
 from typing import Any, Dict
 
 from cargos.core.models import AppConfig
-from cargos.core.constants import DEFAULT_OUTPUT_DIR, DEFAULT_TEMPLATES_DIR, DEFAULT_PREVIEW_ROWS
+from cargos.core.constants import (
+    DEFAULT_OUTPUT_DIR,
+    DEFAULT_TEMPLATES_DIR,
+    DEFAULT_PREVIEW_ROWS,
+)
 
 
 class ConfigManager:
@@ -38,7 +43,9 @@ class ConfigManager:
                 content = json.load(f)
             return self._ensure_structure(content)
         except Exception as error:  # pragma: no cover - defensive
-            self.logger.error(f"Failed to read config file '{self.config_file}': {error}")
+            self.logger.error(
+                f"Failed to read config file '{self.config_file}': {error}"
+            )
             return self._ensure_structure({})
 
     def _write_file_data(self, data: Dict[str, Any]) -> bool:
@@ -47,7 +54,9 @@ class ConfigManager:
                 json.dump(data, f, indent=2, ensure_ascii=False)
             return True
         except Exception as error:  # pragma: no cover - defensive
-            self.logger.error(f"Failed to write config file '{self.config_file}': {error}")
+            self.logger.error(
+                f"Failed to write config file '{self.config_file}': {error}"
+            )
             return False
 
     # ------------------------------------------------------------------
@@ -110,15 +119,9 @@ class ConfigManager:
                             "is_required": pr.is_required,
                             "default_quantity": pr.default_quantity,
                             "is_primary": pr.is_primary,
-                            "price_sml_other": pr.price_sml_other,
-                            "price_xl_other": pr.price_xl_other,
-                            "price_xxl_other": pr.price_xxl_other,
                             "price_sml_tarapoto": pr.price_sml_tarapoto,
                             "price_xl_tarapoto": pr.price_xl_tarapoto,
                             "price_xxl_tarapoto": pr.price_xxl_tarapoto,
-                            "price_sml_san_isidro": pr.price_sml_san_isidro,
-                            "price_xl_san_isidro": pr.price_xl_san_isidro,
-                            "price_xxl_san_isidro": pr.price_xxl_san_isidro,
                         }
                         for pr in occ.prendas
                     ],
