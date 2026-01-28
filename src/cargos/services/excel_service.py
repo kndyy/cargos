@@ -42,8 +42,13 @@ from cargos.core.constants import (
 class ExcelService:
     """Service for handling Excel file operations."""
 
-    def __init__(self, logger: logging.Logger):
+    def __init__(
+        self,
+        logger: logging.Logger,
+        unified_config_service: Optional[UnifiedConfigService] = None,
+    ):
         self.logger = logger
+        self.unified_config_service = unified_config_service
         # Callback for prompting user to select gender for ambiguous occupations
         # Signature: callback(person_name: str, cargo: str, male_option: str, female_option: str) -> str ('HOMBRE' or 'MUJER')
         self.gender_prompt_callback: Optional[callable] = None
@@ -281,6 +286,10 @@ class ExcelService:
                             # Final reset of indices for both
                             main_data_rows = main_data_rows.reset_index(drop=True)
                             uniform_data = uniform_data.reset_index(drop=True)
+
+                            main_data_rows = self._assign_prices_to_data(
+                                main_data_rows, uniform_data, metadata
+                            )
                         else:
                             result.warnings.append(
                                 "Insufficient data for uniform columns"
@@ -328,6 +337,158 @@ class ExcelService:
             )
 
         return result
+
+    def _assign_prices_to_data(
+        self,
+        main_data: pd.DataFrame,
+        uniform_data: pd.DataFrame,
+        metadata: WorksheetMetadata,
+    ) -> pd.DataFrame:
+        """
+        Assign total prices to each row based on uniform data.
+
+        This calculates prices during Excel loading so they are available
+        immediately for UI display before document generation.
+
+        Args:
+            main_data: DataFrame with main employee data (has cargo column)
+            uniform_data: DataFrame with uniform quantity columns
+            metadata: Worksheet metadata with location info
+
+        Returns:
+            main_data DataFrame with 'total_price' column added
+        """
+        if self.unified_config_service is None:
+            self.logger.warning(
+                "No unified_config_service available - skipping price assignment"
+            )
+            main_data["total_price"] = 0.0
+            return main_data
+
+        prices = []
+        local = metadata.tienda or "OTHER"
+        location_group = metadata.location_group or ""
+
+        for idx in range(len(main_data)):
+            try:
+                row = main_data.iloc[idx]
+                uniform_row = (
+                    uniform_data.iloc[idx]
+                    if uniform_data is not None and idx < len(uniform_data)
+                    else None
+                )
+
+                cargo = self._get_cargo_from_row(row)
+                if not cargo:
+                    self.logger.warning(
+                        f"Row {idx}: No cargo found, using default price 0.0"
+                    )
+                    prices.append(0.0)
+                    continue
+
+                normalized_cargo = self.unified_config_service.normalize_occupation(
+                    str(cargo)
+                )
+
+                talla = self._get_talla_from_row(row)
+
+                prendas = self._build_prendas_from_uniform_row(uniform_row, talla)
+
+                total_price = self.unified_config_service.calculate_total_price(
+                    prendas, normalized_cargo, local, local_group=location_group
+                )
+
+                prices.append(total_price)
+
+                self.logger.debug(
+                    f"Row {idx}: {cargo} -> {normalized_cargo}, {len(prendas)} prendas, total={total_price}"
+                )
+
+            except Exception as e:
+                self.logger.warning(f"Row {idx}: Failed to calculate price: {e}")
+                prices.append(0.0)
+
+        main_data["total_price"] = prices
+
+        non_zero = sum(1 for p in prices if p > 0)
+        self.logger.info(
+            f"Price assignment complete: {non_zero}/{len(prices)} rows have prices > 0"
+        )
+
+        return main_data
+
+    def _get_cargo_from_row(self, row: pd.Series) -> str:
+        """Extract cargo value from a data row."""
+        for col in row.index:
+            col_lower = str(col).lower()
+            if "cargo" in col_lower:
+                val = row[col]
+                if pd.notna(val) and str(val).strip():
+                    return str(val).strip()
+        return ""
+
+    def _get_talla_from_row(self, row: pd.Series) -> str:
+        """Extract talla prenda superior from a data row."""
+        talla_keys = ["talla prenda superior", "talla superior", "talla", "size"]
+        for col in row.index:
+            col_lower = str(col).lower()
+            if any(key in col_lower for key in talla_keys):
+                val = row[col]
+                if pd.notna(val) and str(val).strip():
+                    return str(val).strip().upper()
+        return "M"
+
+    def _build_prendas_from_uniform_row(
+        self, uniform_row: Optional[pd.Series], talla: str
+    ) -> List[Dict[str, Any]]:
+        """Build prendas list from uniform data row for price calculation."""
+        prendas = []
+        if uniform_row is None:
+            return prendas
+
+        for col_name in uniform_row.index:
+            qty_value = uniform_row[col_name]
+
+            if isinstance(qty_value, pd.Series):
+                qty_value = qty_value.iloc[0] if len(qty_value) > 0 else None
+
+            if (
+                qty_value is not None
+                and pd.notna(qty_value)
+                and str(qty_value).strip() not in ["", "nan", "NaN", "0"]
+            ):
+                try:
+                    qty = int(float(str(qty_value).strip()))
+                    if qty > 0:
+                        prenda_type = self._normalize_prenda_column_name(str(col_name))
+                        prendas.append(
+                            {
+                                "string": f"{prenda_type} TALLA {talla}",
+                                "qty": qty,
+                                "prenda_type": prenda_type,
+                                "garment_type": "UPPER",
+                                "talla": talla,
+                            }
+                        )
+                except (ValueError, TypeError):
+                    continue
+
+        return prendas
+
+    def _normalize_prenda_column_name(self, col_name: str) -> str:
+        """Normalize uniform column name to prenda type."""
+        name = str(col_name).upper().strip()
+        for suffix in [
+            " SALÓN",
+            " DELIVERY",
+            " PACKER",
+            " BAR",
+            " ANFITRIÓN",
+            " SEGURIDAD",
+            " PRODUCCIÓN",
+        ]:
+            name = name.replace(suffix, "")
+        return name.strip()
 
     def validate_excel_data(self, excel_data: ExcelData) -> ExcelValidationResult:
         """
@@ -387,17 +548,20 @@ class ExcelService:
 
             # Check for occupation mapping issues
             occupation_mapping_issues = set()
-            for worksheet in excel_data.worksheets:
-                if worksheet.data is not None and "cargo" in worksheet.data.columns:
-                    for cargo in worksheet.data["cargo"].dropna().unique():
-                        if cargo and str(cargo).strip():
-                            normalized = self.unified_service.normalize_occupation(
-                                str(cargo)
-                            )
-                            if normalized != str(cargo).upper():
-                                occupation_mapping_issues.add(
-                                    f"'{cargo}' → '{normalized}'"
+            if self.unified_config_service:
+                for worksheet in excel_data.worksheets:
+                    if worksheet.data is not None and "cargo" in worksheet.data.columns:
+                        for cargo in worksheet.data["cargo"].dropna().unique():
+                            if cargo and str(cargo).strip():
+                                normalized = (
+                                    self.unified_config_service.normalize_occupation(
+                                        str(cargo)
+                                    )
                                 )
+                                if normalized != str(cargo).upper():
+                                    occupation_mapping_issues.add(
+                                        f"'{cargo}' → '{normalized}'"
+                                    )
 
             # Add occupation mapping warnings
             if occupation_mapping_issues:
@@ -650,6 +814,13 @@ class FileGenerationService:
                 person_name = self._extract_person_name(person_contexts)
                 if not person_name:
                     self.logger.warning("Skipping person with no name")
+                    continue
+
+                has_prendas = any(
+                    context.get("prendas") for context in person_contexts.values()
+                )
+                if not has_prendas:
+                    self.logger.warning(f"Skipping {person_name}: no uniform items")
                     continue
 
                 person_folder = tienda_folder / self._sanitize_name(person_name)
@@ -1074,12 +1245,24 @@ class FileGenerationService:
             master_doc = Document(str(valid_docs[0]))
             composer = Composer(master_doc)
 
-            # Append each subsequent document with a page break before it
             for doc_path in valid_docs[1:]:
                 try:
-                    # Add a page break at the end of the current master document
-                    # This ensures the next document starts on a new page
-                    master_doc.add_page_break()
+                    should_add_break = True
+                    if master_doc.paragraphs:
+                        last_para = master_doc.paragraphs[-1]
+                        for run in last_para.runs:
+                            if (
+                                run._element.xml.find("w:br") != -1
+                                and 'w:type="page"' in run._element.xml
+                            ):
+                                should_add_break = False
+                                self.logger.debug(
+                                    f"Skipping page break - already present before {doc_path.name}"
+                                )
+                                break
+
+                    if should_add_break:
+                        master_doc.add_page_break()
 
                     doc_to_append = Document(str(doc_path))
                     composer.append(doc_to_append)

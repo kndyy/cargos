@@ -56,3 +56,68 @@ LSP reported 11 errors in ui_components.py, but these are unrelated to our chang
 
 **Impact:**
 Codebase is cleaner with 17 fewer files. No functionality broken since price_service was never used (optional parameter never passed by caller).
+
+## Task 5: Fix Empty Pages in Combined Documents
+
+**Date:** 2026-01-28
+
+**Root Cause (from Task 6 audit):**
+Templates are clean - empty pages caused by document merging logic, not templates.
+
+**Changes Made:**
+
+1. `_create_combined_docx()` (lines 1180-1198):
+   - Added check for existing page breaks before adding new ones
+   - Uses `run._element.xml` to detect `w:br` with `w:type="page"` attribute
+   - Logs debug message when skipping redundant page breaks
+
+2. `_generate_documents()` (lines 663-668):
+   - Added validation to skip people with 0 prendas
+   - Checks `any(context.get("prendas") for context in person_contexts.values())`
+   - Logs warning: "Skipping {person_name}: no uniform items"
+
+**Technical Notes:**
+- python-docx page break detection requires XML inspection since there's no direct API
+- The check `run._element.xml.find("w:br") != -1 and 'w:type="page"' in run._element.xml` covers page breaks added via `add_page_break()`
+- docxcompose Composer.append() may itself add section breaks, but the page break check handles the duplicate breaks our code adds
+
+## Task 3: Add Price Calculation to Excel Loading
+
+**Date:** 2026-01-28
+
+**Changes Made:**
+
+1. `ExcelService.__init__()` (lines 45-54):
+   - Added optional `unified_config_service` parameter
+   - Stored as instance variable for price calculation
+
+2. `_assign_prices_to_data()` new method (lines 337-418):
+   - Takes main_data, uniform_data, and metadata
+   - Iterates rows and calculates total_price for each person
+   - Uses unified_config_service.calculate_total_price() for price lookup
+   - Adds 'total_price' column to main_data DataFrame
+   - Handles missing cargo with 0.0 default
+   - Logs summary of rows with prices > 0
+
+3. Helper methods added to ExcelService:
+   - `_get_cargo_from_row()` - extracts cargo from row columns
+   - `_get_talla_from_row()` - extracts talla superior, defaults to "M"
+   - `_build_prendas_from_uniform_row()` - builds prendas list from uniform columns
+   - `_normalize_prenda_column_name()` - strips occupation suffixes from column names
+
+4. `_parse_worksheet()` (lines 290-292):
+   - Integration point: calls _assign_prices_to_data after combined_data split
+   - main_data_rows gets 'total_price' column before being assigned to result.data
+
+5. `main.py` (line 49):
+   - Updated ExcelService instantiation to pass unified_config_service
+
+**Key Decisions:**
+- Helper methods duplicated from FileGenerationService because ExcelService is a separate class
+- Price calculation uses the same flow as FileGenerationService._get_monto_for_person()
+- Original price calculation in FileGenerationService preserved as fallback (per task spec)
+
+**Verification:**
+- Python syntax check passed for excel_service.py and main.py
+- LSP diagnostics show only pre-existing import/type errors
+- No virtual environment available for import test, but syntax is valid

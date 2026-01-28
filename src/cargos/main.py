@@ -4,6 +4,7 @@ File Generator Application - Main Entry Point
 A GUI application for generating PDF files from Excel data using Word templates.
 Follows clean architecture principles with separation of concerns.
 """
+
 import tkinter as tk
 from tkinter import ttk
 import logging
@@ -34,6 +35,7 @@ class FileGeneratorApp:
         self.root.title("Uniformes")
 
         from cargos.core.constants import DEFAULT_WINDOW_SIZE
+
         self.root.geometry(DEFAULT_WINDOW_SIZE)
 
         # Setup logging first (without config dependency)
@@ -44,9 +46,11 @@ class FileGeneratorApp:
         self.config = self.unified_config_service.get_app_config()
 
         # Initialize services with logger
-        self.excel_service = ExcelService(self.logger)
-        self.file_generation_service = FileGenerationService(self.logger, self.unified_config_service)
-        
+        self.excel_service = ExcelService(self.logger, self.unified_config_service)
+        self.file_generation_service = FileGenerationService(
+            self.logger, self.unified_config_service
+        )
+
         # Wire gender prompt callback for ambiguous occupations
         self._setup_gender_prompt_callback()
 
@@ -60,39 +64,49 @@ class FileGeneratorApp:
         self._create_default_directories()
 
         self.logger.info("Application initialized successfully")
-    
+
     def _setup_gender_prompt_callback(self):
         """Setup callback for prompting user to select gender for ambiguous occupations."""
         from cargos.ui.ui_components import show_gender_selection_dialog
-        
-        def prompt_gender(person_name: str, cargo: str, male_option: str, female_option: str) -> str:
+
+        def prompt_gender(
+            person_name: str, cargo: str, male_option: str, female_option: str
+        ) -> str:
             # Get prices for both genders from the price loader
             # Use male_option to get the true base occupation (e.g., "STAFF ADMINISTRATIVO" from "STAFF ADMINISTRATIVO (HOMBRE)")
             # This ensures we look up the correct prices in the system
-            cargo_base = male_option.replace('(HOMBRE)', '').replace('(MUJER)', '').strip()
-            
-            # Get gendered prices from the price loader
-            gendered_prices = self.unified_config_service.price_loader.get_gendered_prices(cargo_base, 'LIMA E ICA')
-            
-            return show_gender_selection_dialog(
-                self.root, person_name, cargo, male_option, female_option,
-                male_prices=gendered_prices.get('HOMBRE', {}),
-                female_prices=gendered_prices.get('MUJER', {})
+            cargo_base = (
+                male_option.replace("(HOMBRE)", "").replace("(MUJER)", "").strip()
             )
-        
+
+            # Get gendered prices from the price loader
+            gendered_prices = (
+                self.unified_config_service.price_loader.get_gendered_prices(
+                    cargo_base, "LIMA E ICA"
+                )
+            )
+
+            return show_gender_selection_dialog(
+                self.root,
+                person_name,
+                cargo,
+                male_option,
+                female_option,
+                male_prices=gendered_prices.get("HOMBRE", {}),
+                female_prices=gendered_prices.get("MUJER", {}),
+            )
+
         self.excel_service.gender_prompt_callback = prompt_gender
         self.file_generation_service.gender_prompt_callback = prompt_gender
 
     def _setup_logging(self) -> logging.Logger:
         """Setup logging configuration."""
         from cargos.core.constants import DEFAULT_LOG_FILE
+
         logging.basicConfig(
             level=logging.INFO,
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            handlers=[
-                logging.FileHandler(DEFAULT_LOG_FILE),
-                logging.StreamHandler()
-            ]
+            format="%(asctime)s - %(levelname)s - %(message)s",
+            handlers=[logging.FileHandler(DEFAULT_LOG_FILE), logging.StreamHandler()],
         )
         return logging.getLogger(__name__)
 
@@ -103,11 +117,15 @@ class FileGeneratorApp:
         self.notebook.pack(fill="both", expand=True, padx=10, pady=10)
 
         # Create Cargos tab
-        self.cargos_tab = CargosTab(self.notebook, self.config, self.unified_config_service)
+        self.cargos_tab = CargosTab(
+            self.notebook, self.config, self.unified_config_service
+        )
         self.notebook.add(self.cargos_tab.frame, text="Cargos")
 
         # Create Configuration tab
-        self.config_tab = ConfigurationTab(self.notebook, self.config, self.unified_config_service)
+        self.config_tab = ConfigurationTab(
+            self.notebook, self.config, self.unified_config_service
+        )
         self.notebook.add(self.config_tab.frame, text="Configuration")
 
         # Create Stock tab (placeholder)
@@ -124,8 +142,7 @@ class FileGeneratorApp:
     def _setup_stock_tab(self):
         """Setup the Stock tab interface (placeholder)."""
         placeholder_label = ttk.Label(
-            self.stock_frame,
-            text="Stock functionality will be implemented later"
+            self.stock_frame, text="Stock functionality will be implemented later"
         )
         placeholder_label.pack(expand=True)
 
@@ -140,6 +157,7 @@ class FileGeneratorApp:
         try:
             Path(self.config.destination_path).mkdir(exist_ok=True)
             from cargos.core.constants import DEFAULT_TEMPLATES_DIR
+
             Path(DEFAULT_TEMPLATES_DIR).mkdir(exist_ok=True)
             self.cargos_tab.log_message("Default directories created/verified")
         except Exception as e:
@@ -157,7 +175,9 @@ class FileGeneratorApp:
             self.cargos_tab.log_message("Loading Excel file...")
 
             # Load Excel data using service
-            self.excel_data = self.excel_service.load_excel_file(self.config.excel_file_path)
+            self.excel_data = self.excel_service.load_excel_file(
+                self.config.excel_file_path
+            )
 
             # Validate Excel data
             validation_result = self.excel_service.validate_excel_data(self.excel_data)
@@ -181,35 +201,55 @@ class FileGeneratorApp:
                 return
 
             from cargos.core.validators import TemplateValidator
+
             config_errors = TemplateValidator.validate_template_files(self.config)
             if config_errors:
-                self.cargos_tab.show_error("Configuration Error", "\n".join(config_errors))
+                self.cargos_tab.show_error(
+                    "Configuration Error", "\n".join(config_errors)
+                )
                 return
 
             from cargos.core.models import GenerationOptions
-            selected_locales = self.cargos_tab.get_selected_locales() if hasattr(self.cargos_tab, 'get_selected_locales') else []
-            combine_per_local = self.cargos_tab.get_combine_per_local() if hasattr(self.cargos_tab, 'get_combine_per_local') else False
-            template_states = self.cargos_tab.get_enabled_template_states() if hasattr(self.cargos_tab, 'get_enabled_template_states') else {"cargo_enabled": True, "autorizacion_enabled": True}
+
+            selected_locales = (
+                self.cargos_tab.get_selected_locales()
+                if hasattr(self.cargos_tab, "get_selected_locales")
+                else []
+            )
+            combine_per_local = (
+                self.cargos_tab.get_combine_per_local()
+                if hasattr(self.cargos_tab, "get_combine_per_local")
+                else False
+            )
+            template_states = (
+                self.cargos_tab.get_enabled_template_states()
+                if hasattr(self.cargos_tab, "get_enabled_template_states")
+                else {"cargo_enabled": True, "autorizacion_enabled": True}
+            )
 
             options = GenerationOptions(
                 selected_locales=selected_locales,
                 combine_per_local=combine_per_local,
                 cargo_enabled=template_states.get("cargo_enabled", True),
-                autorizacion_enabled=template_states.get("autorizacion_enabled", True)
+                autorizacion_enabled=template_states.get("autorizacion_enabled", True),
             )
 
-            result = self.file_generation_service.generate_files(self.excel_data, self.config, options)
+            result = self.file_generation_service.generate_files(
+                self.excel_data, self.config, options
+            )
 
             if result.success:
                 self.cargos_tab.log_message(result.message)
                 if result.files_generated > 0:
                     self.cargos_tab.show_info(
                         "Success",
-                        f"Generated {result.files_generated} files successfully!"
+                        f"Generated {result.files_generated} files successfully!",
                     )
             else:
                 self.cargos_tab.log_message(result.message, "ERROR")
-                err_text = result.message + ("\n\n" + "\n".join(result.errors) if result.errors else "")
+                err_text = result.message + (
+                    "\n\n" + "\n".join(result.errors) if result.errors else ""
+                )
                 self.cargos_tab.show_error("Generation Error", err_text)
 
         except Exception as e:
@@ -230,10 +270,12 @@ class FileGeneratorApp:
         except Exception as e:
             self.logger.error(f"Error saving configuration: {str(e)}")
 
+
 def main():
     root = tk.Tk()
     FileGeneratorApp(root)  # Keep reference to prevent garbage collection
     root.mainloop()
+
 
 if __name__ == "__main__":
     main()

@@ -319,9 +319,9 @@ Final:
 
 **Acceptance Criteria**:
 
-- [ ] After loading Excel, `worksheet.data` DataFrame has `total_price` column
-- [ ] `total_price` values are float, not NaN or None
-- [ ] Manual: Load Excel in app, check console/log for "Assigned prices to N rows" message
+- [x] After loading Excel, `worksheet.data` DataFrame has `total_price` column
+- [x] `total_price` values are float, not NaN or None
+- [x] Manual: Load Excel in app, check console/log for "Assigned prices to N rows" message
 - [ ] Manual: Generate document, verify price matches what would be calculated at generation time
 
 **Commit**: YES
@@ -422,11 +422,11 @@ Final:
 
 **Acceptance Criteria**:
 
-- [ ] Manual: Generate combined document with test data
+- [x] Manual: Generate combined document with test data
 - [ ] Manual: Open in Word, view all pages
 - [ ] Manual: Count pages matches number of people with uniforms
 - [ ] Manual: No blank pages between employee documents
-- [ ] Check logs for "Skipping {name}: no uniform items" messages
+- [x] Check logs for "Skipping {name}: no uniform items" messages
 
 **Commit**: YES
 - Message: `fix(docs): eliminate empty pages in combined documents`
