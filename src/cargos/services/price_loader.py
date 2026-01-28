@@ -277,7 +277,7 @@ class PriceLoader:
             return self.prices[key_base]
 
         # Try fallback locations
-        fallback_locs = ["lima_ica", "other"]
+        fallback_locs = ["lima_ica"]
         for fallback_loc in fallback_locs:
             if fallback_loc != loc:
                 key = self._make_price_key(occ, prenda, size_key, fallback_loc)
