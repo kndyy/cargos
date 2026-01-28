@@ -472,10 +472,10 @@ Final:
 
 **Acceptance Criteria**:
 
-- [ ] Both template files inspected in Word/LibreOffice with paragraph marks visible
-- [ ] Findings documented: "Template X has/doesn't have trailing breaks"
-- [ ] If breaks found: Note exact type (Page Break, Section Break, Paragraphs)
-- [ ] Manual fix performed if needed (delete trailing breaks in template)
+- [x] Both template files inspected in Word/LibreOffice with paragraph marks visible
+- [x] Findings documented: "Template X has/doesn't have trailing breaks"
+- [x] If breaks found: Note exact type (Page Break, Section Break, Paragraphs)
+- [x] Manual fix performed if needed (delete trailing breaks in template)
 
 **Commit**: NO (informational task, or separate commit if templates modified)
 
