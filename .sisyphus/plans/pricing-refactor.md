@@ -512,18 +512,18 @@ Final:
 **Acceptance Criteria**:
 
 **Full Workflow Test**:
-- [ ] `python run.py` launches without errors
-- [ ] Load Excel file -> No errors, prices calculated
-- [ ] Data Preview shows "Total Price" column with correct values
-- [ ] Generate CARGO documents -> Prices shown correctly (not S/ 0.00)
-- [ ] Generate combined document -> No empty pages
-- [ ] SAN ISIDRO location -> Uses VILLA STEAKHOUSE pricing
+- [x] `python run.py` launches without errors
+- [ ] Load Excel file -> No errors, prices calculated (MANUAL VERIFICATION NEEDED)
+- [ ] Data Preview shows "Total Price" column with correct values (MANUAL)
+- [ ] Generate CARGO documents -> Prices shown correctly (not S/ 0.00) (MANUAL)
+- [ ] Generate combined document -> No empty pages (MANUAL)
+- [ ] SAN ISIDRO location -> Uses VILLA STEAKHOUSE pricing (MANUAL)
 
 **Code Verification**:
-- [ ] `grep -r "other" src/cargos/services/price_loader.py` - No 'other' location
-- [ ] `grep -r "price_service" src/` - No references
-- [ ] `ls *.py` in root - Only `run.py` remains
-- [ ] No Python import errors on startup
+- [x] `grep -r "other" src/cargos/services/price_loader.py` - No 'other' location
+- [x] `grep -r "price_service" src/` - No references
+- [x] `ls *.py` in root - Only `run.py` remains
+- [x] No Python import errors on startup
 
 **Commit**: NO (verification only)
 
