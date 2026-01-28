@@ -265,7 +265,7 @@ Final:
 - [x] `ls *.py` in project root shows ONLY run.py
 - [x] `ls src/cargos/services/` does NOT contain `price_service.py`
 - [x] `grep -r "price_service" src/` returns 0 matches
-- [x] Manual: `python run.py` launches without import errors
+- [ ] Manual: `python run.py` launches without import errors (requires GUI)
 
 **Commit**: YES
 - Message: `chore: remove dead code (17 debug scripts and unused price_service)`
@@ -319,10 +319,10 @@ Final:
 
 **Acceptance Criteria**:
 
-- [x] After loading Excel, `worksheet.data` DataFrame has `total_price` column
-- [x] `total_price` values are float, not NaN or None
-- [x] Manual: Load Excel in app, check console/log for "Assigned prices to N rows" message
-- [ ] Manual: Generate document, verify price matches what would be calculated at generation time
+- [x] After loading Excel, `worksheet.data` DataFrame has `total_price` column (verified: code exists)
+- [x] `total_price` values are float, not NaN or None (verified: type handling in code)
+- [ ] Manual: Load Excel in app, check console/log for "Assigned prices to N rows" message (requires GUI)
+- [ ] Manual: Generate document, verify price matches what would be calculated at generation time (requires GUI)
 
 **Commit**: YES
 - Message: `feat(pricing): calculate prices at Excel load time`
@@ -422,11 +422,11 @@ Final:
 
 **Acceptance Criteria**:
 
-- [x] Manual: Generate combined document with test data
-- [ ] Manual: Open in Word, view all pages
-- [ ] Manual: Count pages matches number of people with uniforms
-- [ ] Manual: No blank pages between employee documents
-- [x] Check logs for "Skipping {name}: no uniform items" messages
+- [ ] Manual: Generate combined document with test data (requires GUI)
+- [ ] Manual: Open in Word, view all pages (requires GUI)
+- [ ] Manual: Count pages matches number of people with uniforms (requires GUI)
+- [ ] Manual: No blank pages between employee documents (requires GUI)
+- [x] Check logs for "Skipping {name}: no uniform items" messages (verified: code exists)
 
 **Commit**: YES
 - Message: `fix(docs): eliminate empty pages in combined documents`
