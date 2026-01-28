@@ -46,6 +46,9 @@ class FileGeneratorApp:
         # Initialize services with logger
         self.excel_service = ExcelService(self.logger)
         self.file_generation_service = FileGenerationService(self.logger, self.unified_config_service)
+        
+        # Wire gender prompt callback for ambiguous occupations
+        self._setup_gender_prompt_callback()
 
         # Data storage
         self.excel_data: Optional[ExcelData] = None
@@ -57,6 +60,28 @@ class FileGeneratorApp:
         self._create_default_directories()
 
         self.logger.info("Application initialized successfully")
+    
+    def _setup_gender_prompt_callback(self):
+        """Setup callback for prompting user to select gender for ambiguous occupations."""
+        from cargos.ui.ui_components import show_gender_selection_dialog
+        
+        def prompt_gender(person_name: str, cargo: str, male_option: str, female_option: str) -> str:
+            # Get prices for both genders from the price loader
+            # Use male_option to get the true base occupation (e.g., "STAFF ADMINISTRATIVO" from "STAFF ADMINISTRATIVO (HOMBRE)")
+            # This ensures we look up the correct prices in the system
+            cargo_base = male_option.replace('(HOMBRE)', '').replace('(MUJER)', '').strip()
+            
+            # Get gendered prices from the price loader
+            gendered_prices = self.unified_config_service.price_loader.get_gendered_prices(cargo_base, 'LIMA E ICA')
+            
+            return show_gender_selection_dialog(
+                self.root, person_name, cargo, male_option, female_option,
+                male_prices=gendered_prices.get('HOMBRE', {}),
+                female_prices=gendered_prices.get('MUJER', {})
+            )
+        
+        self.excel_service.gender_prompt_callback = prompt_gender
+        self.file_generation_service.gender_prompt_callback = prompt_gender
 
     def _setup_logging(self) -> logging.Logger:
         """Setup logging configuration."""

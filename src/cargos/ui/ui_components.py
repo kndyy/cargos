@@ -1191,8 +1191,8 @@ class CargosTab:
             for child in widget.winfo_children():
                 try:
                     _bind_mousewheel(child)
-                except:
-                    pass
+                except tk.TclError:
+                    pass  # Some widgets don't support binding
         
         # Configure scrollbar
         canvas.configure(yscrollcommand=scrollbar.set)
@@ -1497,67 +1497,31 @@ class ConfigurationTab:
         )
     
     def _reload_prices_from_excel(self):
-        """Reload prices from Excel file (precios.xlsm)."""
-        # Ask user to select a price file or use default
+        """Reload prices from Excel file (precios.xlsx)."""
         from tkinter import filedialog
         
         file_path = filedialog.askopenfilename(
             title="Select Price Excel File",
             filetypes=[("Excel files", "*.xlsm *.xlsx"), ("All files", "*.*")],
             initialdir="sources",
-            initialfile="precios.xlsm"
+            initialfile="precios.xlsx"
         )
         
         if not file_path:
             return  # User cancelled
         
         try:
-            if self.price_service is None:
-                # Import and create price service if not provided
-                from cargos.services.price_service import PriceService
-                import logging
-                self.price_service = PriceService(logging.getLogger())
-            
-            # Load prices from Excel
-            if self.price_service.load_prices_from_excel(file_path):
-                summary = self.price_service.get_price_summary()
+            # Use the unified service's price loader
+            if self.unified_service.reload_prices_from_excel(file_path):
+                summary = self.unified_service.get_price_summary()
                 
-                # Generate config updates
-                updates = self.price_service.generate_config_updates()
-                
-                # Show preview dialog
-                preview_msg = (
-                    f"Loaded {summary['total_entries']} price entries:\n"
-                    f"  • Location groups: {summary['location_groups']}\n"
-                    f"  • Occupations: {summary['occupations']}\n"
-                    f"  • Prenda types: {summary['prenda_types']}\n\n"
-                    f"Would you like to update the configuration with these prices?"
+                messagebox.showinfo(
+                    "Prices Reloaded", 
+                    f"Loaded {summary['total_entries']} price entries\n"
+                    f"Occupations: {len(summary['occupations'])}\n"
+                    f"Prendas: {len(summary['prendas'])}\n"
+                    f"Locations: {', '.join(summary['locations'])}"
                 )
-                
-                if messagebox.askyesno("Prices Loaded", preview_msg):
-                    # Apply updates to unified service
-                    updated_count = 0
-                    for occupation_name, prendas in updates.items():
-                        for prenda_type, prices in prendas.items():
-                            for price_field, price_value in prices.items():
-                                # Parse price field: price_sml_lima_ica -> (sml, lima_ica)
-                                parts = price_field.split("_")
-                                if len(parts) >= 3:
-                                    size_group = parts[1]
-                                    local_group = "_".join(parts[2:])
-                                    
-                                    if self.unified_service.update_prenda_pricing(
-                                        occupation_name, prenda_type, size_group, local_group, price_value
-                                    ):
-                                        updated_count += 1
-                    
-                    # Reload data in the UI
-                    self._load_data()
-                    
-                    messagebox.showinfo(
-                        "Success", 
-                        f"Updated {updated_count} price entries from {file_path}"
-                    )
             else:
                 messagebox.showerror("Error", f"Failed to load prices from {file_path}")
                 
@@ -1673,12 +1637,18 @@ class ConfigurationTab:
             try:
                 if occupation:
                     if self.unified_service.update_occupation(new_occupation):
+                        # Persist to config.json
+                        if not self.unified_service.save():
+                            messagebox.showwarning("Warning", "Occupation updated but failed to save to file!")
                         self._load_data()
                         dlg.destroy()
                     else:
                         messagebox.showerror("Error", "Failed to update occupation!")
                 else:
                     if self.unified_service.add_occupation(new_occupation):
+                        # Persist to config.json
+                        if not self.unified_service.save():
+                            messagebox.showwarning("Warning", "Occupation added but failed to save to file!")
                         self._load_data()
                         dlg.destroy()
                     else:
@@ -1832,3 +1802,125 @@ class ConfigurationTab:
         
         ttk.Button(button_frame, text="Save", command=save_price).pack(side="left", padx=5)
         ttk.Button(button_frame, text="Cancel", command=dlg.destroy).pack(side="left", padx=5)
+
+
+def show_gender_selection_dialog(root: tk.Tk, person_name: str, cargo: str, 
+                                  male_option: str, female_option: str,
+                                  male_prices: dict = None, female_prices: dict = None) -> str:
+    """Show a dialog for user to select gender for ambiguous occupation.
+    
+    Args:
+        root: The Tk root window
+        person_name: Name of the person
+        cargo: Original cargo from Excel
+        male_option: Male occupation variant name
+        female_option: Female occupation variant name
+        male_prices: Dict of prenda->price for male option (optional)
+        female_prices: Dict of prenda->price for female option (optional)
+    
+    Returns:
+        'HOMBRE' or 'MUJER'
+    """
+    result = ['HOMBRE']  # Default if dialog is closed
+    
+    dlg = tk.Toplevel(root)
+    dlg.title("Seleccionar Género de Uniforme")
+    dlg.transient(root)
+    dlg.grab_set()
+    
+    # Calculate size and position
+    # Increase height if prices are shown
+    height = 500 if (male_prices or female_prices) else 250
+    width = 650
+    
+    # Center on parent
+    try:
+        x = root.winfo_x() + (root.winfo_width() - width) // 2
+        y = root.winfo_y() + (root.winfo_height() - height) // 2
+    except:
+        x = (dlg.winfo_screenwidth() - width) // 2
+        y = (dlg.winfo_screenheight() - height) // 2
+        
+    dlg.geometry(f"{width}x{height}+{x}+{y}")
+    # Allow resizing just in case content doesn't fit
+    dlg.resizable(True, True)
+    
+    # Main container with padding
+    main_frame = ttk.Frame(dlg, padding="20")
+    main_frame.pack(fill="both", expand=True)
+    
+    # Header info
+    info_frame = ttk.Frame(main_frame)
+    info_frame.pack(fill="x", pady=(0, 20))
+    
+    ttk.Label(info_frame, text=f"Empleado: {person_name}", font=("Helvetica", 14, "bold")).pack(anchor="center")
+    ttk.Label(info_frame, text=f"Cargo: {cargo}", font=("Helvetica", 12)).pack(anchor="center", pady=(5, 0))
+    ttk.Label(info_frame, text="Seleccione el tipo de uniforme:", font=("Helvetica", 11)).pack(anchor="center", pady=(15, 0))
+    
+    # Content area (split 50/50)
+    content_frame = ttk.Frame(main_frame)
+    content_frame.pack(fill="both", expand=True)
+    
+    # Configure grid weights to ensure equal width columns
+    content_frame.columnconfigure(0, weight=1)
+    content_frame.columnconfigure(1, weight=1)
+    content_frame.rowconfigure(0, weight=1)
+    
+    # --- Male Option ---
+    male_frame = ttk.LabelFrame(content_frame, text="HOMBRE", padding="15")
+    male_frame.grid(row=0, column=0, sticky="nsew", padx=(0, 10))
+    
+    ttk.Label(male_frame, text=male_option, font=("Helvetica", 11, "bold")).pack(anchor="w", pady=(0, 10))
+    
+    if male_prices:
+        ttk.Label(male_frame, text="Precios Referenciales:", font=("Helvetica", 10, "italic")).pack(anchor="w", pady=(0, 5))
+        price_container = ttk.Frame(male_frame)
+        price_container.pack(fill="both", expand=True)
+        
+        # Scrollable price list if many items (optional improvement, but simple list is usually fine)
+        for i, (prenda, price) in enumerate(sorted(male_prices.items())):
+            price_text = f"• {prenda}: S/{price:.2f}"
+            ttk.Label(price_container, text=price_text, font=("Helvetica", 10)).pack(anchor="w", pady=2)
+    else:
+        ttk.Label(male_frame, text="(Precios no disponibles)", foreground="gray", font=("Helvetica", 10, "italic")).pack(pady=20)
+
+    # --- Female Option ---
+    female_frame = ttk.LabelFrame(content_frame, text="MUJER", padding="15")
+    female_frame.grid(row=0, column=1, sticky="nsew", padx=(10, 0))
+    
+    ttk.Label(female_frame, text=female_option, font=("Helvetica", 11, "bold")).pack(anchor="w", pady=(0, 10))
+    
+    if female_prices:
+        ttk.Label(female_frame, text="Precios Referenciales:", font=("Helvetica", 10, "italic")).pack(anchor="w", pady=(0, 5))
+        price_container_f = ttk.Frame(female_frame)
+        price_container_f.pack(fill="both", expand=True)
+        
+        for i, (prenda, price) in enumerate(sorted(female_prices.items())):
+            price_text = f"• {prenda}: S/{price:.2f}"
+            ttk.Label(price_container_f, text=price_text, font=("Helvetica", 10)).pack(anchor="w", pady=2)
+    else:
+        ttk.Label(female_frame, text="(Precios no disponibles)", foreground="gray", font=("Helvetica", 10, "italic")).pack(pady=20)
+    
+    button_frame = ttk.Frame(main_frame)
+    button_frame.pack(fill="x", pady=(20, 0))
+    
+    def select_male():
+        result[0] = 'HOMBRE'
+        dlg.destroy()
+    
+    def select_female():
+        result[0] = 'MUJER'
+        dlg.destroy()
+    
+    # Buttons
+    # Use larger buttons
+    btn_style = ttk.Style()
+    btn_style.configure("Large.TButton", font=("Helvetica", 11))
+    
+    ttk.Button(button_frame, text="Seleccionar HOMBRE", command=select_male, style="Large.TButton").pack(side="left", fill="x", expand=True, padx=(0, 10), ipady=5)
+    ttk.Button(button_frame, text="Seleccionar MUJER", command=select_female, style="Large.TButton").pack(side="right", fill="x", expand=True, padx=(10, 0), ipady=5)
+    
+    # Wait for dialog to close
+    dlg.wait_window()
+    
+    return result[0]

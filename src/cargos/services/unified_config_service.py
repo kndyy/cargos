@@ -4,10 +4,17 @@ Unified configuration service for managing occupations and pricing.
 from __future__ import annotations
 
 import logging
+from pathlib import Path
 from typing import List, Optional, Dict
 
 from cargos.core.models import UnifiedConfig, Occupation, OccupationPrenda, AppConfig
 from cargos.services.config_manager import ConfigManager
+from cargos.services.price_loader import PriceLoader
+
+
+# Default paths for price files
+DEFAULT_PRICES_EXCEL = "sources/precios.xlsx"
+DEFAULT_PRICES_CACHE = "prices_cache.json"
 
 
 class UnifiedConfigService:
@@ -17,6 +24,10 @@ class UnifiedConfigService:
         self.logger = logger
         self.config_manager = ConfigManager()
         self.unified_config = self._load_config()
+        
+        # Initialize price loader - try cache first, then Excel
+        self.price_loader = PriceLoader(logger)
+        self._load_prices()
 
     def _load_config(self) -> UnifiedConfig:
         data = self.config_manager.load_unified_config_data()
@@ -92,6 +103,36 @@ class UnifiedConfigService:
 
     def get_app_config(self) -> AppConfig:
         return self.config_manager.load_config()
+    
+    def _load_prices(self) -> bool:
+        """Load prices, trying cache first then Excel."""
+        # Try cache first
+        if Path(DEFAULT_PRICES_CACHE).exists():
+            if self.price_loader.load_cache(DEFAULT_PRICES_CACHE):
+                self.logger.info("Prices loaded from cache")
+                return True
+        
+        # Fall back to Excel
+        if Path(DEFAULT_PRICES_EXCEL).exists():
+            if self.price_loader.load_from_excel(DEFAULT_PRICES_EXCEL):
+                self.price_loader.save_cache(DEFAULT_PRICES_CACHE)
+                return True
+        
+        self.logger.warning("No price data available")
+        return False
+    
+    def reload_prices_from_excel(self, excel_path: Optional[str] = None) -> bool:
+        """Reload prices from Excel file (for UI refresh button)."""
+        path = excel_path or DEFAULT_PRICES_EXCEL
+        if self.price_loader.load_from_excel(path):
+            self.price_loader.save_cache(DEFAULT_PRICES_CACHE)
+            self.logger.info(f"Prices reloaded from: {path}")
+            return True
+        return False
+    
+    def get_price_summary(self) -> Dict:
+        """Get summary of loaded prices for UI display."""
+        return self.price_loader.get_price_summary()
 
     # ------------------------------------------------------------------
     # Convenience accessors
@@ -127,6 +168,8 @@ class UnifiedConfigService:
         """
         Calculate total price for a list of prendas.
         
+        Uses Excel-based prices (from price_loader) first, falls back to config.json.
+        
         Args:
             prendas: List of dictionaries with 'prenda_type', 'qty', and 'string'
             cargo: Occupation name or synonym
@@ -153,9 +196,12 @@ class UnifiedConfigService:
             size = self._extract_size(prenda.get("string", ""))
             prenda_string = prenda.get("string", "")
 
-            # Get the price using the model's logic
-            # Signature: get_price(prenda_type, size, cargo, local)
-            price = self.unified_config.get_price(prenda_type, size, occupation.name, loc_str)
+            # Try Excel price first (from price_loader)
+            price = self.price_loader.get_price(occupation.name, prenda_type, size, loc_str)
+            
+            # Fallback to config.json price if Excel returns 0
+            if price == 0.0:
+                price = self.unified_config.get_price(prenda_type, size, occupation.name, loc_str)
             
             subtotal = price * qty
             total += subtotal

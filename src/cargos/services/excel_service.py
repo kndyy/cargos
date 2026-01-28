@@ -26,6 +26,9 @@ class ExcelService:
     
     def __init__(self, logger: logging.Logger):
         self.logger = logger
+        # Callback for prompting user to select gender for ambiguous occupations
+        # Signature: callback(person_name: str, cargo: str, male_option: str, female_option: str) -> str ('HOMBRE' or 'MUJER')
+        self.gender_prompt_callback: Optional[callable] = None
     
     def load_excel_file(self, file_path: str) -> ExcelData:
         """
@@ -148,40 +151,44 @@ class ExcelService:
                         else:
                             result.warnings.append("No DNI column found - cannot validate DNI completeness")
                         
-                        # Extract uniform data (columns J onward) - uses UNIFORM_COLUMN_MAPPING constant
-                        # New format: columns J-BT (indices 9-71), 3 location groups
+                        # Extract uniform data (columns J-BT, indices 9-71)
                         uniform_data = None
                         if len(sheet_data) > UNIFORM_DATA_START_ROW:
-                            # Extract uniform data rows (starting from DATA_START_ROW, same as main data)
-                            uniform_data_rows = sheet_data.iloc[UNIFORM_DATA_START_ROW:, UNIFORM_DATA_START_COLUMN:UNIFORM_DATA_END_COLUMN + 1]
-
-                            # Use fixed column mapping based on position
-                            # Column names now include occupation prefix (e.g., "DELIVERY_POLO")
-                            # This ensures unique names and matches Excel structure exactly
-                            column_names = []
-                            for i, col_idx in enumerate(range(UNIFORM_DATA_START_COLUMN, UNIFORM_DATA_END_COLUMN + 1)):
-                                if col_idx in UNIFORM_COLUMN_MAPPING:
-                                    column_names.append(UNIFORM_COLUMN_MAPPING[col_idx])
-                                else:
-                                    column_names.append(f"PRENDA_{i}")
+                            # Determine actual end column (some sheets may have fewer columns)
+                            actual_end_col = min(UNIFORM_DATA_END_COLUMN + 1, len(sheet_data.columns))
+                            uniform_data_rows = sheet_data.iloc[UNIFORM_DATA_START_ROW:, UNIFORM_DATA_START_COLUMN:actual_end_col]
                             
-                            uniform_data_rows.columns = column_names
-
-                            # Clean uniform data the same way as main data (remove completely empty rows)
-                            uniform_data_rows = uniform_data_rows.dropna(how='all')
-
-                            # Reset index to align with main data
-                            uniform_data_rows = uniform_data_rows.reset_index(drop=True)
-                            main_data_rows = main_data_rows.reset_index(drop=True)
-
-                            # Align row counts
-                            if len(uniform_data_rows) >= len(main_data_rows):
-                                uniform_data = uniform_data_rows.iloc[:len(main_data_rows)].copy()
+                            # Assign unique column names from mapping, matching actual column count
+                            uniform_column_names = []
+                            actual_col_count = len(uniform_data_rows.columns)
+                            for i in range(actual_col_count):
+                                col_idx = UNIFORM_DATA_START_COLUMN + i
+                                if col_idx in UNIFORM_COLUMN_MAPPING:
+                                    uniform_column_names.append(UNIFORM_COLUMN_MAPPING[col_idx])
+                                else:
+                                    uniform_column_names.append(f"PRENDA_{i}")
+                            
+                            uniform_data_rows.columns = uniform_column_names
+                            
+                            # CRITICAL: Join main and uniform data to perform aligned row cleaning
+                            # This prevents uniform data from shifting if an employee has no uniform choices
+                            combined_data = pd.concat([main_data_rows, uniform_data_rows], axis=1)
+                            
+                            # Drop rows where the person's name or logic identifier is missing
+                            # We use APELLIDOS_Y_NOMBRES as it's the most reliable unique identifier for a row
+                            if "APELLIDOS_Y_NOMBRES" in combined_data.columns:
+                                combined_data = combined_data.dropna(subset=["APELLIDOS_Y_NOMBRES"])
                             else:
-                                uniform_data = uniform_data_rows.copy()
-                                result.warnings.append(
-                                    f"Uniform data has fewer rows ({len(uniform_data_rows)}) than main data ({len(main_data_rows)})"
-                                )
+                                # Fallback if columns weren't named correctly for some reason
+                                combined_data = combined_data.dropna(how='all')
+                            
+                            # Split back into main and uniform data
+                            main_data_rows = combined_data.iloc[:, :len(main_data_rows.columns)]
+                            uniform_data = combined_data.iloc[:, len(main_data_rows.columns):]
+                            
+    # Final reset of indices for both
+                            main_data_rows = main_data_rows.reset_index(drop=True)
+                            uniform_data = uniform_data.reset_index(drop=True)
                         else:
                             result.warnings.append("Insufficient data for uniform columns")
                         
@@ -303,6 +310,8 @@ class FileGenerationService:
     def __init__(self, logger: logging.Logger, unified_service: UnifiedConfigService):
         self.logger = logger
         self.unified_service = unified_service
+        # Callback for prompting user to select gender for ambiguous occupations
+        self.gender_prompt_callback: Optional[callable] = None
     
     
     def generate_files(self, excel_data: ExcelData, config: AppConfig, options: Optional[GenerationOptions] = None) -> GenerationResult:
@@ -571,10 +580,18 @@ class FileGenerationService:
         try:
             # Get cargo and normalize it
             cargo = self._find_in_row(row, ["cargo"]) or ""
+            person_name = self._extract_name(row)
+            self._current_person_name = person_name
+            
             if not cargo:
-                person_name = self._extract_name(row)
                 self.logger.warning(f"No cargo found for person {person_name}, cannot calculate juegos")
                 return 0
+            
+            # Handle gendered occupations - detect gender from prenda columns
+            if self._is_gendered_occupation(cargo):
+                data_row = uniform_row if uniform_row is not None else row
+                detected_gender = self._detect_gender_from_row(data_row)
+                cargo = self._resolve_gendered_occupation(cargo, detected_gender)
             
             # Normalize cargo using synonyms
             normalized_cargo = self.unified_service.normalize_occupation(cargo)
@@ -870,6 +887,14 @@ class FileGenerationService:
                 self.logger.warning("No cargo found for person, using default pricing")
                 cargo = "MOZO"  # Default cargo
             
+            # Handle gendered occupations - detect gender from prenda columns
+            if self._is_gendered_occupation(cargo):
+                data_row = uniform_row if uniform_row is not None else row
+                detected_gender = self._detect_gender_from_row(data_row)
+                # Store person name for callback context
+                self._current_person_name = self._extract_name(row)
+                cargo = self._resolve_gendered_occupation(cargo, detected_gender)
+            
             # Normalize cargo using synonyms
             normalized_cargo = self.unified_service.normalize_occupation(cargo)
             
@@ -1033,8 +1058,172 @@ class FileGenerationService:
                     if str(qty_value).strip() not in ['', 'nan', 'NaN']:
                         self.logger.warning(f"Invalid quantity value for {column_name}: {qty_value}")
                     continue
+        prendas = self._apply_business_rules(prendas, row)
         
         return prendas
+    
+    def _apply_business_rules(self, prendas: List[Dict[str, Any]], row: pd.Series) -> List[Dict[str, Any]]:
+        """Apply business rules to prendas list.
+        
+        Rules:
+        1. All male admin (STAFF ADMINISTRATIVO HOMBRE, ADMINISTRADOR) get 2 corbatas
+        2. SACO quantity is always max 1 for any occupation
+        """
+        # Get occupation from row to determine if male admin
+        cargo = self._find_in_row(row, ["cargo"]) or ""
+        cargo_upper = cargo.upper().strip()
+        
+        # Determine if this is a male admin role
+        is_male_admin = any(x in cargo_upper for x in [
+            "STAFF ADMINISTRATIVO (HOMBRE)",
+            "STAFF ADMINISTRATIVO (H)",
+            "ADMINISTRADOR (H)",
+            "ADMINISTRADOR (HOMBRE)",
+        ]) or (
+            "ADMIN" in cargo_upper and 
+            "(M)" not in cargo_upper and 
+            "MUJER" not in cargo_upper and
+            "(F)" not in cargo_upper
+        )
+        
+        # Rule 1: Male admin gets 2 corbatas
+        if is_male_admin:
+            has_corbata = any(p.get('prenda_type', '').upper() == 'CORBATA' for p in prendas)
+            if not has_corbata:
+                # Add corbata
+                prendas.append({
+                    "string": "Corbata",
+                    "qty": 2,
+                    "prenda_type": "CORBATA",
+                    "garment_type": "ACCESSORY",
+                    "talla": ""
+                })
+                self.logger.info(f"Business rule: Added 2 CORBATA for male admin '{cargo}'")
+            else:
+                # Force quantity to 2
+                for p in prendas:
+                    if p.get('prenda_type', '').upper() == 'CORBATA':
+                        if p.get('qty', 0) != 2:
+                            self.logger.info(f"Business rule: Adjusted CORBATA qty from {p.get('qty')} to 2 for '{cargo}'")
+                            p['qty'] = 2
+        
+        # Rule 2: SACO always max 1
+        for p in prendas:
+            if p.get('prenda_type', '').upper() == 'SACO' and p.get('qty', 0) > 1:
+                self.logger.info(f"Business rule: Capped SACO qty from {p.get('qty')} to 1 for '{cargo}'")
+                p['qty'] = 1
+        
+        return prendas
+    
+    def _detect_gender_from_row(self, row: pd.Series) -> Optional[str]:
+        """Detect gender from prenda columns.
+        
+        Returns:
+            'HOMBRE' - if male-specific prendas found (CAMISA, SACO_H)
+            'MUJER' - if female-specific prendas found (BLUSA, SACO_M)
+            None - if gender cannot be determined
+        """
+        # Check for male indicators
+        male_indicators = ['CAMISA', 'SACO_H', 'SACO H']
+        female_indicators = ['BLUSA', 'SACO_M', 'SACO M']
+        
+        has_male = False
+        has_female = False
+        
+        for col in row.index:
+            col_upper = str(col).upper()
+            value = row[col]
+            
+            # Check if column has a positive quantity
+            has_value = False
+            if pd.notna(value):
+                try:
+                    qty = int(float(str(value).strip()))
+                    has_value = qty > 0
+                except (ValueError, TypeError):
+                    pass
+            
+            if has_value:
+                if any(ind in col_upper for ind in male_indicators):
+                    has_male = True
+                elif any(ind in col_upper for ind in female_indicators):
+                    has_female = True
+        
+        if has_male and not has_female:
+            return 'HOMBRE'
+        elif has_female and not has_male:
+            return 'MUJER'
+        return None
+    
+    def _is_gendered_occupation(self, cargo: str) -> bool:
+        """Check if occupation name is ambiguous/gendered (contains (A) or similar)."""
+        cargo_upper = cargo.upper().strip()
+        return any(pattern in cargo_upper for pattern in [
+            '(A)', '(O/A)', '(A/O)', '(O)', '(HOMBRE/MUJER)', '(MUJER/HOMBRE)'
+        ])
+    
+    def _resolve_gendered_occupation(self, cargo: str, detected_gender: Optional[str]) -> str:
+        """Resolve a gendered occupation to its specific variant.
+        
+        Args:
+            cargo: Original cargo from Excel (e.g., "ADMINISTRADOR(A)")
+            detected_gender: 'HOMBRE' or 'MUJER' or None
+        
+        Returns:
+            The resolved occupation name
+        """
+        cargo_upper = cargo.upper().strip()
+        
+        # Common gendered occupation patterns
+        gendered_patterns = {
+            'ADMINISTRADOR(A)': ('STAFF ADMINISTRATIVO (HOMBRE)', 'STAFF ADMINISTRATIVO (MUJER)'),
+            'ADMINISTRADOR (A)': ('STAFF ADMINISTRATIVO (HOMBRE)', 'STAFF ADMINISTRATIVO (MUJER)'),
+            'CAJERO(A)': ('CAJA (HOMBRE)', 'CAJA (MUJER)'),
+            'CAJERO (A)': ('CAJA (HOMBRE)', 'CAJA (MUJER)'),
+            'MOZO(A)': ('MOZO', 'MOZA'),  # If these exist
+        }
+        
+        for pattern, (male_occ, female_occ) in gendered_patterns.items():
+            if pattern in cargo_upper:
+                if detected_gender == 'MUJER':
+                    self.logger.info(f"Resolved gendered occupation: {cargo} -> {female_occ}")
+                    return female_occ
+                elif detected_gender == 'HOMBRE':
+                    self.logger.info(f"Resolved gendered occupation: {cargo} -> {male_occ}")
+                    return male_occ
+                else:
+                    # Gender undetermined - prompt user if callback is set
+                    if self.gender_prompt_callback:
+                        person_name = self._current_person_name if hasattr(self, '_current_person_name') else 'Unknown'
+                        
+                        # Check cache primarily by person_name + cargo to avoid reprompting for same person
+                        cache_key = f"{person_name}|{cargo}"
+                        if not hasattr(self, '_gender_selection_cache'):
+                            self._gender_selection_cache = {}
+                        
+                        if cache_key in self._gender_selection_cache:
+                            selected = self._gender_selection_cache[cache_key]
+                            self.logger.info(f"Using cached gender selection for {person_name}: {selected}")
+                            return female_occ if selected == 'MUJER' else male_occ
+
+                        selected = self.gender_prompt_callback(person_name, cargo, male_occ, female_occ)
+                        
+                        # Cache the selection
+                        self._gender_selection_cache[cache_key] = selected
+                        
+                        if selected == 'MUJER':
+                            self.logger.info(f"User selected MUJER for {cargo} -> {female_occ}")
+                            return female_occ
+                        else:
+                            self.logger.info(f"User selected HOMBRE for {cargo} -> {male_occ}")
+                            return male_occ
+                    else:
+                        # No callback - log warning and default to male (fallback)
+                        self.logger.warning(f"Gender undetermined for '{cargo}' - no prompt callback, defaulting to male")
+                        return male_occ
+        
+        # If no pattern matched, return as-is
+        return cargo
     
     def _get_uniform_columns_from_row(self, row: pd.Series) -> List[str]:
         """Get all uniform-related columns from a row dynamically."""
@@ -1110,7 +1299,8 @@ class FileGenerationService:
         # List of known prenda types to extract
         known_prendas = [
             'CAMISA', 'BLUSA', 'POLO', 'CASACA', 'GORRA', 'MANDILON', 'ANDARIN',
-            'PECHERA', 'SACO', 'PANTALON', 'GARIBALDI', 'CHAQUETA', 'GORRO', 'CHALECO'
+            'PECHERA', 'SACO', 'PANTALON', 'GARIBALDI', 'CHAQUETA', 'GORRO', 'CHALECO',
+            'CORBATA'  # Added CORBATA
         ]
         
         # Check if any known prenda type is in the column name
@@ -1126,10 +1316,10 @@ class FileGenerationService:
                 if part in known_prendas:
                     return part
             # If no known prenda found, return the last meaningful part
-            # Skip suffix modifiers like H, M, CORTA, etc.
-            skip_suffixes = {'H', 'M', 'CORTA', 'MANGA'}
+            # Skip suffix modifiers like H, M, CORTA, numeric suffixes, etc.
+            skip_suffixes = {'H', 'M', 'CORTA', 'MANGA', '1', '2', '3', '4', '5'}
             for part in reversed(parts):
-                if part and part not in skip_suffixes:
+                if part and part not in skip_suffixes and not part.isdigit():
                     return part
         
         # Fallback for legacy format - try mapping
@@ -1238,6 +1428,77 @@ class FileGenerationService:
         if pd.notna(last):
             name = (name + " " + str(last).strip()).strip()
         return name
+
+    def _get_uniform_columns_from_row(self, row: pd.Series) -> List[str]:
+        """
+        Get relevant uniform columns for this row based on occupation group.
+        This prevents 'cross-talk' where an employee in one role gets items from another column group.
+        """
+        all_columns = [col for col in row.index if col not in ['apellidos_y_nombres', 'dni', 'cargo', 'fecha_ingrese', 
+                                                             'talla_zapato', 'talla_pantalon', 'talla_prenda_superior']]
+        
+        # Get cargo from row
+        cargo = self._find_in_row(row, ["cargo"]) or ""
+        if not cargo:
+            return all_columns
+
+        # Normalize cargo
+        from cargos.core.constants import OCCUPATION_GROUP_MAPPING, VILLA_STEAKHOUSE_COLUMN_MAPPING
+        
+        # Check explicit mapping first
+        cargo_upper = str(cargo).upper().strip()
+        
+        # Find the group for this occupation
+        # We try exact match, then partial match
+        target_group = None
+        
+        # 1. Try exact match in mapping
+        if cargo_upper in OCCUPATION_GROUP_MAPPING:
+            target_group = OCCUPATION_GROUP_MAPPING[cargo_upper]
+        
+        # 2. Try partial match (e.g. "MOZO (EVENTUAL)" -> matches "MOZO")
+        if not target_group:
+            for key, group in OCCUPATION_GROUP_MAPPING.items():
+                if key in cargo_upper:
+                    target_group = group
+                    break
+        
+        # If no group determined, return all columns (fallback)
+        if not target_group:
+            return all_columns
+            
+        # Filter columns that belong to this group
+        filtered_columns = []
+        for col in all_columns:
+            # Column format is usually LOCATION_GROUP_ITEM (e.g. LIMA_ICA_SALON_CAMISA)
+            # We check if the group name (e.g. "SALON") appears in the column name
+            if f"_{target_group}_" in str(col).upper():
+                filtered_columns.append(col)
+        
+        # Special Logic for Villa Steakhouse / San Isidro
+        # If the location is Villa Steakhouse/San Isidro, they might use 'CORREDOR' items even if they are 'SALON'
+        # But our OCCUPATION_GROUP_MAPPING says 'CORREDOR' -> 'CORREDOR'
+        # So we should be careful. 
+        # Actually, the user said: "if the tienda is SAN ISIDRO then you can assume that theyll use salon y corredor"
+        # So if we are in San Isidro, and the person is SALON, we should ALSO include CORREDOR columns.
+        
+        # Check metadata from the worksheet this row belongs to?
+        # That's hard because we just have the row here.
+        # But we can infer from the column names if they are VILLA_STEAKHOUSE columns
+        is_villa = any("VILLA_STEAKHOUSE" in str(c).upper() for c in all_columns)
+        
+        if is_villa and target_group == "SALON":
+             # Add CORREDOR columns too
+             for col in all_columns:
+                 if "_CORREDOR_" in str(col).upper():
+                     filtered_columns.append(col)
+
+        if not filtered_columns:
+             # If filtering removed everything (maybe mismatch in naming), fall back to all
+             self.logger.warning(f"Filtering for group '{target_group}' resulted in 0 columns for '{cargo}'. Using all columns.")
+             return all_columns
+             
+        return filtered_columns
 
     def _sanitize_name(self, s: str) -> str:
         return "".join(ch for ch in s if ch.isalnum() or ch in ("_", "-", " ")).strip().replace(" ", "_")

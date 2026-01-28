@@ -35,7 +35,7 @@ MAIN_DATA_COLUMNS = {
 # Uniform data constants
 UNIFORM_DATA_START_ROW = DATA_START_ROW  # Row 9 in Excel (0-indexed = 8)
 UNIFORM_DATA_START_COLUMN = 9   # Column J (0-indexed)
-UNIFORM_DATA_END_COLUMN = 71    # Column BT (0-indexed) - 72 total columns
+UNIFORM_DATA_END_COLUMN = 70    # Column BS (0-indexed) - last column with data
 
 # Location-based column groups for uniforms
 # Each group has different pricing
@@ -53,7 +53,7 @@ LOCATION_GROUPS = {
     "VILLA_STEAKHOUSE": {
         "display_name": "VILLA STEAKHOUSE (SAN ISIDRO)",
         "start_col": 64,
-        "end_col": 71,
+        "end_col": 70,
     },
 }
 
@@ -65,6 +65,7 @@ OLD_TO_NEW_LOCATION_MAPPING = {
 }
 
 # Detailed column mapping for LIMA E ICA PROVINCIA (columns J-AX, indices 9-49)
+# Detailed column mapping for LIMA E ICA PROVINCIA (Indices 9-47)
 LIMA_ICA_COLUMN_MAPPING = {
     # SALÓN (9-12)
     9: ("SALON", "CAMISA"),
@@ -83,85 +84,159 @@ LIMA_ICA_COLUMN_MAPPING = {
     19: ("BAR", "BLUSA"),
     20: ("BAR", "POLO"),
     21: ("BAR", "PECHERA"),
-    # ANFITRIONAJE (22-25)
+    # ANFITRIONAJE (22-24)
     22: ("ANFITRIONAJE", "CAMISA"),
-    23: ("ANFITRIONAJE", "SACO_H"),
-    24: ("ANFITRIONAJE", "BLUSA"),
-    25: ("ANFITRIONAJE", "SACO_M"),
-    # SEGURIDAD (26-27)
-    26: ("SEGURIDAD", "CAMISA"),
-    27: ("SEGURIDAD", "CASACA"),
-    # PRODUCCIÓN (28-32)
-    28: ("PRODUCCION", "CHAQUETA"),
-    29: ("PRODUCCION", "POLO"),
-    30: ("PRODUCCION", "PANTALON"),
-    31: ("PRODUCCION", "PECHERA"),
-    32: ("PRODUCCION", "GARIBALDI"),
-    # CAJA (33-36)
-    33: ("CAJA", "CAMISA"),
-    34: ("CAJA", "SACO_H"),
-    35: ("CAJA", "BLUSA"),
-    36: ("CAJA", "SACO_M"),
-    # Additional columns (37-38) - unclear from headers, might be CAJA continued
-    37: ("CAJA", "CHALECO"),
-    38: ("CAJA", "PANTALON"),
-    # MANTENIMIENTO (39-41)
-    39: ("MANTENIMIENTO", "CHAQUETA"),
-    40: ("MANTENIMIENTO", "POLO"),
-    41: ("MANTENIMIENTO", "PANTALON"),
-    # ADMINISTRACIÓN (42-47)
-    42: ("ADMINISTRACION", "CAMISA"),
-    43: ("ADMINISTRACION", "SACO_H"),
-    44: ("ADMINISTRACION", "POLO"),
-    45: ("ADMINISTRACION", "GORRA"),
-    46: ("ADMINISTRACION", "BLUSA"),
-    47: ("ADMINISTRACION", "SACO_M"),
-    # AUDITORÍA (48-49)
-    48: ("AUDITORIA", "POLO"),
-    49: ("AUDITORIA", "CASACA"),
+    23: ("ANFITRIONAJE", "BLUSA"),
+    24: ("ANFITRIONAJE", "SACO"),
+    # SEGURIDAD (25-26)
+    25: ("SEGURIDAD", "CAMISA"),
+    26: ("SEGURIDAD", "CASACA"),
+    # PRODUCCIÓN (27-31)
+    27: ("PRODUCCION", "CHAQUETA"),
+    28: ("PRODUCCION", "POLO"),
+    29: ("PRODUCCION", "PANTALON"),
+    30: ("PRODUCCION", "PECHERA"),
+    31: ("PRODUCCION", "GARIBALDI"),
+    # CAJA (32-36)
+    32: ("CAJA", "CAMISA"),
+    33: ("CAJA", "BLUSA"),
+    34: ("CAJA", "CHALECO"),
+    35: ("CAJA", "PANTALON"),
+    36: ("CAJA", "SACO"),
+    # ADMINISTRACIÓN (37-42)
+    37: ("ADMINISTRACION", "BLUSA"),
+    38: ("ADMINISTRACION", "CAMISA"),
+    39: ("ADMINISTRACION", "CORBATA_1"),
+    40: ("ADMINISTRACION", "POLO"),
+    41: ("ADMINISTRACION", "SACO"),
+    42: ("ADMINISTRACION", "CORBATA_2"),
+    # MANTENIMIENTO (43-45)
+    43: ("MANTENIMIENTO", "CHAQUETA"),
+    44: ("MANTENIMIENTO", "POLO"),
+    45: ("MANTENIMIENTO", "PANTALON"),
+    # AUDITORÍA (46-47)
+    46: ("AUDITORIA", "POLO"),
+    47: ("AUDITORIA", "CASACA"),
 }
 
-# Detailed column mapping for PATIOS DE COMIDA (columns AY-BL, indices 50-63)
+# Detailed column mapping for PATIOS DE COMIDA (Indices 48-62)
+# Starts at 48: COUNTER
 PATIOS_COMIDA_COLUMN_MAPPING = {
-    # COUNTER (50-51)
-    50: ("COUNTER", "POLO_MANGA_CORTA"),
-    51: ("COUNTER", "CASACA"),
-    # ADMINISTRACIÓN (52-54)
-    52: ("ADMINISTRACION", "CAMISA"),
-    53: ("ADMINISTRACION", "BLUSA"),
-    54: ("ADMINISTRACION", "GORRO"),
-    # PRODUCCIÓN (55-60)
-    55: ("PRODUCCION", "POLO_MANGA_CORTA"),
-    56: ("PRODUCCION", "CHAQUETA"),
-    57: ("PRODUCCION", "POLO"),
-    58: ("PRODUCCION", "PANTALON"),
-    59: ("PRODUCCION", "PECHERA"),
-    60: ("PRODUCCION", "GARIBALDI"),
-    # DELIVERY (61-63)
-    61: ("DELIVERY", "POLO_MANGA_CORTA"),
-    62: ("DELIVERY", "CASACA"),
-    63: ("DELIVERY", "GORRA"),
+    # COUNTER (48-49)
+    48: ("COUNTER", "POLO_MANGA_CORTA"),
+    49: ("COUNTER", "GORRA"),
+    # ADMINISTRACIÓN (50-54)
+    50: ("ADMINISTRACION", "CAMISA"),
+    51: ("ADMINISTRACION", "BLUSA"),
+    52: ("ADMINISTRACION", "GORRO"),
+    53: ("ADMINISTRACION", "POLO_MANGA_CORTA"),
+    54: ("ADMINISTRACION", "SACO"),
+    # PRODUCCIÓN (55-59)
+    # 55: CHAQUETA, 56: POLO, 57: PANTALON, 58: PECHERA, 59: GARIBALDI
+    55: ("PRODUCCION", "CHAQUETA"),
+    56: ("PRODUCCION", "POLO"),
+    57: ("PRODUCCION", "PANTALON"),
+    58: ("PRODUCCION", "PECHERA"),
+    59: ("PRODUCCION", "GARIBALDI"),
+    # DELIVERY (60-62)
+    # 60: POLO MC, 61: CASACA, 62: GORRA
+    60: ("DELIVERY", "POLO_MANGA_CORTA"),
+    61: ("DELIVERY", "CASACA"),
+    62: ("DELIVERY", "GORRA"),
 }
 
-# Detailed column mapping for VILLA STEAKHOUSE (columns BM-BT, indices 64-71)
+# Detailed column mapping for VILLA STEAKHOUSE (Indices 63-70)
 VILLA_STEAKHOUSE_COLUMN_MAPPING = {
-    # SALÓN (64-67)
-    64: ("SALON", "CAMISA"),
-    65: ("SALON", "BLUSA"),
-    66: ("SALON", "PECHERA"),
-    67: ("SALON", "ANDARIN"),
-    # CORREDOR (68-71)
-    68: ("CORREDOR", "CAMISA"),
-    69: ("CORREDOR", "BLUSA"),
-    70: ("CORREDOR", "PECHERA"),
-    71: ("CORREDOR", "ANDARIN"),
+    # SALÓN (63-66)
+    63: ("SALON", "CAMISA"),
+    64: ("SALON", "BLUSA"),
+    65: ("SALON", "PECHERA"),
+    66: ("SALON", "ANDARIN"),
+    # CORREDOR (67-70)
+    67: ("CORREDOR", "CAMISA"),
+    68: ("CORREDOR", "BLUSA"),
+    69: ("CORREDOR", "PECHERA"),
+    70: ("CORREDOR", "ANDARIN"),
 }
+
 
 # Combined mapping by location group
 LOCATION_COLUMN_MAPPINGS = {
     "LIMA_ICA": LIMA_ICA_COLUMN_MAPPING,
     "PATIOS_COMIDA": PATIOS_COMIDA_COLUMN_MAPPING,
     "VILLA_STEAKHOUSE": VILLA_STEAKHOUSE_COLUMN_MAPPING,
+}
+
+# Mapping from Configured Occupation Name -> Excel Column Group Name
+# This ensures that when we process a person, we ONLY look at columns relevant to their role.
+OCCUPATION_GROUP_MAPPING = {
+    # SALÓN Group
+    "AZAFATA": "SALON",
+    "MOZO": "SALON",
+    "SALON": "SALON",
+    
+    # ANFITRIONAJE Group
+    "ANFITRIONAJE": "ANFITRIONAJE",
+    "ANFITRIONAJE (HOMBRE)": "ANFITRIONAJE",
+    "ANFITRIONAJE (MUJER)": "ANFITRIONAJE",
+    
+    # BAR Group
+    "BAR": "BAR",
+    "BARTENDER": "BAR",
+    
+    # CAJA Group
+    "CAJA": "CAJA",
+    "CAJA (HOMBRE)": "CAJA",
+    "CAJA (MUJER)": "CAJA",
+    "CAJERO": "CAJA",
+    "CAJERO(A)": "CAJA",
+    
+    # CORREDOR Group (Villa)
+    "CORREDOR": "CORREDOR",
+    
+    # COUNTER Group (Patios)
+    "COUNTER": "COUNTER",
+    
+    # DELIVERY Group
+    "DELIVERY": "DELIVERY",
+    "MOTORIZADO": "DELIVERY",
+    "MOTORIZADO(A)": "DELIVERY",
+    
+    # MANTENIMIENTO Group
+    "MANTENIMIENTO": "MANTENIMIENTO",
+    "LIMPIEZA": "MANTENIMIENTO",
+    "LIMPIEZA / MANTENIMIENTO": "MANTENIMIENTO",
+    "AUXILIAR DE LIMPIEZA": "MANTENIMIENTO",
+    
+    # PACKER Group
+    "PACKER": "PACKER",
+    
+    # PRODUCCIÓN Group
+    "PRODUCCION": "PRODUCCION",
+    "PRODUCCIÓN": "PRODUCCION",
+    "PRODUCCIÓN / COCINA": "PRODUCCION",
+    "COCINERO": "PRODUCCION",
+    "COCINERO(A)": "PRODUCCION",
+    "HORNERO": "PRODUCCION",
+    "HORNERO(A)": "PRODUCCION",
+    "LAVAPLATOS": "PRODUCCION",
+    "AYUDANTE DE COCINA": "PRODUCCION",
+    
+    # SEGURIDAD Group
+    "SEGURIDAD": "SEGURIDAD",
+    
+    # ADMINISTRACIÓN Group
+    "ADMINISTRACION": "ADMINISTRACION",
+    "ADMINISTRACIÓN": "ADMINISTRACION",
+    "ADMINISTRADOR": "ADMINISTRACION",
+    "ADMINISTRADOR(A)": "ADMINISTRACION",
+    "STAFF ADMINISTRATIVO (HOMBRE)": "ADMINISTRACION",
+    "STAFF ADMINISTRATIVO (MUJER)": "ADMINISTRACION",
+    
+    # AUDITORÍA Group
+    "AUDITORIA": "AUDITORIA",
+    "AUDITOR": "AUDITORIA",
+    "AUDITOR(A)": "AUDITORIA",
 }
 
 # Legacy mapping for backward compatibility (kept for reference)

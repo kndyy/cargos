@@ -204,19 +204,14 @@ class UnifiedConfig:
         if any(x in local_upper for x in ["PATIO", "LARCOMAR", "PURUCHUCO", "IQUITOS"]):
             return "patios_comida"
         
-        # VILLA STEAKHOUSE (San Isidro)
-        if "VILLA" in local_upper or "STEAKHOUSE" in local_upper:
+        # VILLA STEAKHOUSE (San Isidro) - SAN ISIDRO uses villa_steakhouse pricing
+        if any(x in local_upper for x in ["VILLA", "STEAKHOUSE", "SAN ISIDRO", "SAN_ISIDRO"]):
             return "villa_steakhouse"
         
         # === OLD FORMAT location groups (kept for backward compatibility) ===
         # Check for TARAPOTO (exact match or contains "TARAPOTO")
         if local_upper == "TARAPOTO" or "TARAPOTO" in local_upper:
             return "tarapoto"
-        
-        # Check for SAN ISIDRO (exact match or contains "SAN ISIDRO" or "SAN_ISIDRO")
-        if (local_upper in ["SAN ISIDRO", "SAN_ISIDRO"] or 
-            "SAN ISIDRO" in local_upper or "SAN_ISIDRO" in local_upper):
-            return "san_isidro"
         
         # Default to other (which maps to lima_ica for new prices)
         return "other"

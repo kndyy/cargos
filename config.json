@@ -162,7 +162,9 @@
         "STAFF ADMINISTRATIVO",
         "ADMINISTRATIVO",
         "ADMIN",
-        "ADMINISTRADOR"
+        "ADMINISTRADOR",
+        "ADMINISTRADOR(A)",
+        "ADMINISTRADOR (A)"
       ],
       "prendas": [
         {
@@ -218,6 +220,24 @@
           "price_sml_san_isidro": 0.0,
           "price_xl_san_isidro": 0.0,
           "price_xxl_san_isidro": 0.0
+        },
+        {
+          "prenda_type": "CORBATA",
+          "display_name": "Corbata",
+          "has_sizes": false,
+          "garment_type": "ACCESSORY",
+          "is_required": false,
+          "default_quantity": 2,
+          "is_primary": false,
+          "price_sml_other": 10.0,
+          "price_xl_other": 10.0,
+          "price_xxl_other": 10.0,
+          "price_sml_tarapoto": 10.0,
+          "price_xl_tarapoto": 10.0,
+          "price_xxl_tarapoto": 10.0,
+          "price_sml_san_isidro": 10.0,
+          "price_xl_san_isidro": 10.0,
+          "price_xxl_san_isidro": 10.0
         }
       ],
       "is_active": true,
@@ -304,7 +324,9 @@
         "CAJA (HOMBRE) F/T",
         "CAJA (HOMBRE) FULL TIME",
         "CAJA",
-        "CAJERO"
+        "CAJERO",
+        "CAJERO(A)",
+        "CAJERO (A)"
       ],
       "prendas": [
         {
@@ -466,6 +488,24 @@
           "price_sml_san_isidro": 0.0,
           "price_xl_san_isidro": 0.0,
           "price_xxl_san_isidro": 0.0
+        },
+        {
+          "prenda_type": "CHALECO",
+          "display_name": "Chaleco",
+          "has_sizes": true,
+          "garment_type": "UPPER",
+          "is_required": false,
+          "default_quantity": 0,
+          "is_primary": false,
+          "price_sml_other": 17.5,
+          "price_xl_other": 17.5,
+          "price_xxl_other": 18.5,
+          "price_sml_tarapoto": 17.5,
+          "price_xl_tarapoto": 17.5,
+          "price_xxl_tarapoto": 18.5,
+          "price_sml_san_isidro": 17.5,
+          "price_xl_san_isidro": 17.5,
+          "price_xxl_san_isidro": 18.5
         }
       ],
       "is_active": true,
@@ -883,7 +923,8 @@
         "LIMPIEZA / MANTENIMIENTO PART TIME",
         "LIMPIEZA / MANTENIMIENTO F/T",
         "LIMPIEZA / MANTENIMIENTO FULL TIME",
-        "MANTENIMIENTO"
+        "MANTENIMIENTO",
+        "AUXILIAR DE LIMPIEZA"
       ],
       "prendas": [
         {
@@ -1129,7 +1170,9 @@
         "SALTEADOR(A) FULL TIME",
         "SALTEADOR (A) FULL TIME",
         "SALTEADORA(A) FULL TIME",
-        "SALTEADORA (A) FULL TIME"
+        "SALTEADORA (A) FULL TIME",
+        "COCINERO(A)",
+        "COCINERO (A)"
       ],
       "prendas": [
         {
