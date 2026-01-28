@@ -907,7 +907,8 @@ class DataPreviewFrame:
         self.data_tree["show"] = "headings"
 
         for col in columns:
-            self.data_tree.heading(col, text=str(col))
+            header_text = "Total Price" if str(col) == "total_price" else str(col)
+            self.data_tree.heading(col, text=header_text)
             self.data_tree.column(col, width=TREE_COLUMN_WIDTH_DATA, minwidth=50)
 
     def _identify_fecha_columns(self, columns):
@@ -961,6 +962,8 @@ class DataPreviewFrame:
                 val = self._to_scalar(row[col])
                 if col in fecha_cols:
                     row_values.append(self._format_date_only(val))
+                elif str(col) == "total_price":
+                    row_values.append(self._format_currency(val))
                 else:
                     row_values.append(self._format_cell_value(val))
             self.data_tree.insert("", "end", iid=str(index), values=row_values)
@@ -990,6 +993,21 @@ class DataPreviewFrame:
             return ts.date().isoformat()
         except Exception:
             return str(value)
+
+    def _format_currency(self, value):
+        """Format value as currency (S/. X.XX)."""
+        try:
+            if pd.isna(value) or value is None:
+                return "S/. 0.00"
+            # Handle string numbers
+            if isinstance(value, str):
+                value = value.replace("S/.", "").strip()
+            float_val = float(value)
+            if float_val == 0:
+                return "S/. 0.00"
+            return f"S/. {float_val:.2f}"
+        except Exception:
+            return "S/. 0.00"
 
     def _format_cell_value(self, val):
         """Format a cell value for display in the treeview."""

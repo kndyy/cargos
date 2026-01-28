@@ -121,3 +121,16 @@ Templates are clean - empty pages caused by document merging logic, not template
 - Python syntax check passed for excel_service.py and main.py
 - LSP diagnostics show only pre-existing import/type errors
 - No virtual environment available for import test, but syntax is valid
+
+## Task 4: Add "Total Price" column to UI preview treeview
+
+**Date:** 2026-01-28
+
+**Changes Made:**
+- Modified `src/cargos/ui/ui_components.py` to display the "Total Price" column in the data preview.
+- Added `_format_currency` method to `DataPreviewFrame` to format prices as "S/. X.XX".
+- Updated `_configure_data_treeview` to rename the "total_price" column header to "Total Price".
+- Updated `_populate_data_tree` to apply currency formatting to the "total_price" column.
+
+**Dependencies:**
+- Relies on `total_price` column being present in the DataFrame (added in Task 3).
