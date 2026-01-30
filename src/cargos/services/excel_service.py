@@ -202,7 +202,6 @@ class ExcelService:
                             f"Using tienda '{metadata.tienda}' -> location group '{metadata.location_group}'"
                         )
                     elif self.unified_config_service:
-                        # Fall back to _determine_local_group for unknown tiendas
                         mapped_internal = self.unified_config_service.unified_config._determine_local_group(
                             metadata.tienda
                         )
@@ -219,7 +218,6 @@ class ExcelService:
                             f"Mapped tienda '{metadata.tienda}' -> location group '{metadata.location_group}'"
                         )
 
-                # If still no location group, use header row as fallback
                 if not metadata.location_group:
                     raw_location = (
                         str(metadata.location_group).strip()
@@ -440,7 +438,7 @@ class ExcelService:
                     prices.append(0.0)
                     continue
 
-                person_name = self._extract_name(row)
+                person_name = self._extract_name_from_row(row)
 
                 normalized_cargo = self.unified_config_service.normalize_occupation(
                     str(cargo)
@@ -450,7 +448,6 @@ class ExcelService:
 
                 prendas = self._build_prendas_from_uniform_row(uniform_row, talla)
 
-                # Use CLAVE-based price lookup with detailed logging
                 total_price = self._calculate_price_with_clave(
                     prendas=prendas,
                     cargo=normalized_cargo,
@@ -484,20 +481,6 @@ class ExcelService:
         person_name: str = "",
         row_idx: int = -1,
     ) -> float:
-        """
-        Calculate total price using CLAVE-based lookups with detailed debug logging.
-
-        Args:
-            prendas: List of prenda dicts with 'column_name', 'qty', etc.
-            cargo: Normalized occupation/cargo
-            location_group: Location group from metadata
-            talla: Size
-            person_name: Name of person for debug logging
-            row_idx: Row index for debug logging
-
-        Returns:
-            Total price for all prendas
-        """
         total = 0.0
         person_ctx = f"[{person_name}]" if person_name else f"[Row {row_idx}]"
 
@@ -527,7 +510,6 @@ class ExcelService:
                 f"{person_ctx} Prenda {i}: {column_name} (type: {prenda_type}, qty: {qty})"
             )
 
-            # Find best matching CLAVE
             clave = price_loader.find_best_clave(
                 location_group=location_group,
                 cargo=cargo,
@@ -541,19 +523,48 @@ class ExcelService:
                     line_total = price * qty
                     total += line_total
                     self.logger.info(
-                        f"{person_ctx} ✓ {column_name} -> CLAVE: {clave} = S/. {price} x {qty} = S/. {line_total}"
+                        f"{person_ctx} OK {column_name} -> CLAVE: {clave} = S/. {price} x {qty} = S/. {line_total}"
                     )
                 else:
                     self.logger.warning(
-                        f"{person_ctx} ✗ {column_name} -> CLAVE: {clave} has NO PRICE"
+                        f"{person_ctx} NO PRICE {column_name} -> CLAVE: {clave}"
                     )
             else:
                 self.logger.warning(
-                    f"{person_ctx} ✗ {column_name} -> NO CLAVE MATCH for {cargo}/{prenda_type} at {location_group}"
+                    f"{person_ctx} NO CLAVE MATCH {column_name} for {cargo}/{prenda_type} at {location_group}"
                 )
 
         self.logger.info(f"{person_ctx} Total price: S/. {total}")
         return total
+
+    def _extract_name_from_row(self, row: pd.Series) -> str:
+        lowered = {str(k).lower(): k for k in row.index}
+        combined = None
+        for key in lowered:
+            if "nombre" in key and "apellido" in key:
+                combined = row[lowered[key]]
+                if isinstance(combined, pd.Series):
+                    combined = combined.iloc[0] if len(combined) > 0 else None
+                break
+        if pd.notna(combined) and str(combined).strip():
+            return str(combined).strip()
+        first = None
+        last = None
+        for key in lowered:
+            if first is None and ("nombre" in key or "name" in key):
+                first = row[lowered[key]]
+                if isinstance(first, pd.Series):
+                    first = first.iloc[0] if len(first) > 0 else None
+            if last is None and ("apellido" in key or "last" in key):
+                last = row[lowered[key]]
+                if isinstance(last, pd.Series):
+                    last = last.iloc[0] if len(last) > 0 else None
+        name = ""
+        if pd.notna(first):
+            name = str(first).strip()
+        if pd.notna(last):
+            name = (name + " " + str(last).strip()).strip()
+        return name
 
     def _get_cargo_from_row(self, row: pd.Series) -> str:
         """Extract cargo value from a data row."""
@@ -1158,8 +1169,9 @@ class FileGenerationService:
 
             # Build prendas list (same as in _get_monto_for_person)
             talla_superior = self._extract_talla_superior(row)
+            data_row = uniform_row if uniform_row is not None else row
             prendas = self._build_prendas_list(
-                uniform_row if uniform_row is not None else row, talla_superior
+                data_row, talla_superior, None, "", normalized_cargo
             )
 
             if not prendas:
@@ -1348,7 +1360,11 @@ class FileGenerationService:
             # Build prendas list from uniform data
             # Use uniform_row if available, otherwise fall back to main row
             data_row = uniform_row if uniform_row is not None else row
-            prendas = self._build_prendas_list(data_row, talla_superior)
+            location_group = metadata.location_group if metadata else ""
+            cargo = self._find_in_row(row, ["cargo"]) or ""
+            prendas = self._build_prendas_list(
+                data_row, talla_superior, None, location_group, cargo
+            )
 
             # Get monto (calculated from pricing service)
             monto_value = self._get_monto_for_person(row, metadata, uniform_row)
@@ -1570,8 +1586,10 @@ class FileGenerationService:
 
             # Build prendas list for pricing calculation
             talla_superior = self._extract_talla_superior(row)
+            data_row = uniform_row if uniform_row is not None else row
+            location_group = metadata.location_group if metadata else ""
             prendas = self._build_prendas_list(
-                uniform_row if uniform_row is not None else row, talla_superior
+                data_row, talla_superior, None, location_group, normalized_cargo
             )
 
             # Debug: log detailed information for PACKER and MOTORIZADO
@@ -1671,61 +1689,52 @@ class FileGenerationService:
         return "UPPER"
 
     def _build_prendas_list(
-        self, row: pd.Series, talla_superior: str
+        self,
+        row: pd.Series,
+        talla_superior: str,
+        sheet_data: Optional[pd.DataFrame] = None,
+        location_group: str = "",
+        cargo: str = "",
     ) -> List[Dict[str, Any]]:
-        """Build list of prendas from uniform data with quantities."""
+        """Build list of prendas from uniform data with hierarchical filtering."""
         prendas = []
 
-        # Enhanced approach: Check all uniform columns dynamically
-        uniform_columns = self._get_uniform_columns_from_row(row)
+        # Use hierarchical column filtering based on location and occupation
+        uniform_columns = self._get_uniform_columns_from_row(
+            row, sheet_data, location_group, cargo
+        )
 
-        for column_name in uniform_columns:
-            qty_value = row[column_name]
+        for col_info in uniform_columns:
+            column_name = col_info.get("column_name", "")
+            prenda_label = col_info.get("prenda", "")
+            qty = col_info.get("qty", 0)
 
-            # Handle Series values (from duplicate column names)
-            if isinstance(qty_value, pd.Series):
-                qty_value = qty_value.iloc[0] if len(qty_value) > 0 else None
+            if qty > 0 and prenda_label:
+                # Use the prenda label from hierarchy (row 8)
+                prenda_type = self._normalize_prenda_type(prenda_label)
+                display_name = self._get_display_name(prenda_type)
 
-            # Check if we have a valid quantity value (not NaN, not empty, not zero)
-            if (
-                qty_value is not None
-                and pd.notna(qty_value)
-                and str(qty_value).strip() not in ["", "nan", "NaN", "0"]
-            ):
-                try:
-                    qty = int(float(str(qty_value).strip()))
-                    if qty > 0:
-                        # Normalize column name to prenda type
-                        prenda_type = self._normalize_prenda_type(column_name)
-                        display_name = self._get_display_name(prenda_type)
+                # Determine garment type and get appropriate talla
+                garment_type = self._determine_garment_type(prenda_type)
+                talla = self._get_talla_for_garment(row, garment_type)
 
-                        # Determine garment type and get appropriate talla
-                        garment_type = self._determine_garment_type(prenda_type)
-                        talla = self._get_talla_for_garment(row, garment_type)
+                # Use the determined talla (not just talla_superior)
+                if not talla:
+                    talla = talla_superior  # Fallback to talla_superior if not found
 
-                        # Use the determined talla (not just talla_superior)
-                        if not talla:
-                            talla = talla_superior  # Fallback to talla_superior if not found
+                # Create formatted prenda string for display
+                prenda_string = self._format_prenda_string(display_name, talla)
 
-                        # Create formatted prenda string for display
-                        prenda_string = self._format_prenda_string(display_name, talla)
+                prenda_dict = {
+                    "string": prenda_string,
+                    "qty": qty,
+                    "prenda_type": prenda_type,
+                    "column_name": column_name,
+                    "garment_type": garment_type,
+                    "talla": talla,
+                }
+                prendas.append(prenda_dict)
 
-                        prenda_dict = {
-                            "string": prenda_string,
-                            "qty": qty,
-                            "prenda_type": prenda_type,
-                            "garment_type": garment_type,
-                            "talla": talla,
-                        }
-                        prendas.append(prenda_dict)
-
-                except (ValueError, TypeError):
-                    # Only log warning for truly invalid values, not NaN/empty
-                    if str(qty_value).strip() not in ["", "nan", "NaN"]:
-                        self.logger.warning(
-                            f"Invalid quantity value for {column_name}: {qty_value}"
-                        )
-                    continue
         prendas = self._apply_business_rules(prendas, row)
 
         return prendas
@@ -1942,23 +1951,192 @@ class FileGenerationService:
         # If no pattern matched, return as-is
         return cargo
 
-    def _get_uniform_columns_from_row(self, row: pd.Series) -> List[str]:
-        """Get all uniform-related columns from a row dynamically."""
-        uniform_columns = []
+    def _build_column_hierarchy(
+        self, sheet_data: pd.DataFrame
+    ) -> Dict[int, Dict[str, str]]:
+        """
+        Build hierarchical column mapping from header rows.
 
-        # Get all columns that could be uniform data
-        for col in row.index:
-            col_str = str(col).lower().strip()
+        Hierarchy:
+        - Row 6 (index 5): Local group markers (LIMA E ICA PROVINCIA, TARAPOTO, etc.)
+        - Row 7 (index 6): Occupation markers (SALON, ADMINISTRACION, etc.)
+        - Row 8 (index 7): Prenda names (CAMISA, BLUSA, etc.)
 
-            # Skip empty or non-uniform columns
-            if not col_str or col_str in ["", "nan", "none"]:
-                continue
+        Returns:
+            Dict mapping column index -> {local_group, occupation, prenda}
+        """
+        hierarchy = {}
 
-            # Check if this looks like a prenda column
-            if self._is_prenda_column(col_str):
-                uniform_columns.append(col)
+        if len(sheet_data) <= HEADER_ROW:
+            return hierarchy
 
-        return uniform_columns
+        current_local_group = ""
+        current_occupation = ""
+
+        # Scan uniform columns (J through BS, indices 9-70)
+        for col_idx in range(
+            UNIFORM_DATA_START_COLUMN,
+            min(UNIFORM_DATA_END_COLUMN + 1, len(sheet_data.columns)),
+        ):
+            # Row 6: Local group
+            if len(sheet_data) > LOCATION_ROW:
+                loc_val = sheet_data.iloc[LOCATION_ROW, col_idx]
+                if pd.notna(loc_val) and str(loc_val).strip():
+                    current_local_group = str(loc_val).strip()
+
+            # Row 7: Occupation
+            if len(sheet_data) > OCCUPATION_ROW:
+                occ_val = sheet_data.iloc[OCCUPATION_ROW, col_idx]
+                if pd.notna(occ_val) and str(occ_val).strip():
+                    current_occupation = str(occ_val).strip().upper()
+
+            # Row 8: Prenda name
+            prenda = ""
+            if len(sheet_data) > HEADER_ROW:
+                prenda_val = sheet_data.iloc[HEADER_ROW, col_idx]
+                if pd.notna(prenda_val) and str(prenda_val).strip():
+                    prenda = str(prenda_val).strip().upper()
+
+            # Only store if we have a prenda name
+            if prenda:
+                hierarchy[col_idx] = {
+                    "local_group": current_local_group,
+                    "occupation": current_occupation,
+                    "prenda": prenda,
+                    "column_name": f"{current_local_group}_{current_occupation}_{prenda}"
+                    if current_local_group and current_occupation
+                    else str(
+                        sheet_data.columns[col_idx]
+                        if col_idx < len(sheet_data.columns)
+                        else f"COL_{col_idx}"
+                    ),
+                }
+
+        return hierarchy
+
+    def _get_uniform_columns_from_row(
+        self,
+        row: pd.Series,
+        sheet_data: pd.DataFrame = None,
+        location_group: str = "",
+        cargo: str = "",
+    ) -> List[Dict[str, Any]]:
+        """
+        Get uniform columns for a row using hierarchical filtering.
+
+        Args:
+            row: The data row
+            sheet_data: Full sheet data for building hierarchy
+            location_group: Person's location group for filtering
+            cargo: Person's cargo for occupation filtering
+
+        Returns:
+            List of column info dicts: {column_name, prenda, qty, local_group, occupation}
+        """
+        results = []
+
+        # Build hierarchy if sheet data provided
+        hierarchy = {}
+        if sheet_data is not None:
+            hierarchy = self._build_column_hierarchy(sheet_data)
+
+        # Get occupation group from cargo
+        occupation_group = ""
+        if cargo and self.unified_config_service:
+            occupation_group = (
+                self.unified_config_service.unified_config._get_occupation_group(cargo)
+            )
+
+        # Process each column in the row
+        for col_idx, qty_value in enumerate(row.values):
+            # Map to actual column index (accounting for main data offset)
+            actual_col_idx = col_idx + UNIFORM_DATA_START_COLUMN
+
+            # Check if this column is in our hierarchy
+            if actual_col_idx in hierarchy:
+                col_info = hierarchy[actual_col_idx]
+
+                # Filter by local group
+                if location_group and col_info["local_group"]:
+                    # Normalize both for comparison
+                    loc_norm = (
+                        location_group.upper()
+                        .replace("LIMA E ICA PROVINCIA", "LIMA_ICA")
+                        .replace(" ", "_")
+                    )
+                    col_loc_norm = (
+                        col_info["local_group"]
+                        .upper()
+                        .replace("LIMA E ICA PROVINCIA", "LIMA_ICA")
+                        .replace(" ", "_")
+                    )
+                    if loc_norm not in col_loc_norm and col_loc_norm not in loc_norm:
+                        continue
+
+                # Filter by occupation group
+                if occupation_group and col_info["occupation"]:
+                    occ_norm = occupation_group.upper().replace(" ", "_")
+                    col_occ_norm = col_info["occupation"].upper().replace(" ", "_")
+                    if occ_norm not in col_occ_norm and col_occ_norm not in occ_norm:
+                        continue
+
+                # Check quantity
+                if isinstance(qty_value, pd.Series):
+                    qty_value = qty_value.iloc[0] if len(qty_value) > 0 else None
+
+                if qty_value is not None:
+                    try:
+                        val_str = str(qty_value).strip()
+                        if val_str and val_str not in ["nan", "NaN", "0", ""]:
+                            qty = int(float(val_str))
+                            if qty > 0:
+                                results.append(
+                                    {
+                                        "column_name": col_info["column_name"],
+                                        "prenda": col_info["prenda"],
+                                        "qty": qty,
+                                        "local_group": col_info["local_group"],
+                                        "occupation": col_info["occupation"],
+                                        "column_index": actual_col_idx,
+                                    }
+                                )
+                    except (ValueError, TypeError):
+                        pass
+            else:
+                # Fallback: use old name-based method for columns not in hierarchy
+                col_name = str(row.index[col_idx])
+                col_str = col_name.lower().strip()
+
+                if col_str and col_str not in ["", "nan", "none"]:
+                    if self._is_prenda_column(col_str):
+                        if isinstance(qty_value, pd.Series):
+                            qty_value = (
+                                qty_value.iloc[0] if len(qty_value) > 0 else None
+                            )
+
+                        if qty_value is not None:
+                            try:
+                                val_str = str(qty_value).strip()
+                                if val_str and val_str not in ["nan", "NaN", "0", ""]:
+                                    qty = int(float(val_str))
+                                    if qty > 0:
+                                        prenda_type = self._normalize_prenda_type(
+                                            col_name
+                                        )
+                                        results.append(
+                                            {
+                                                "column_name": col_name,
+                                                "prenda": prenda_type,
+                                                "qty": qty,
+                                                "local_group": "",
+                                                "occupation": "",
+                                                "column_index": actual_col_idx,
+                                            }
+                                        )
+                            except (ValueError, TypeError):
+                                pass
+
+        return results
 
     def _is_prenda_column(self, column_name: str) -> bool:
         """Check if a column name represents a prenda type.
