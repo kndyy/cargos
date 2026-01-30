@@ -182,6 +182,43 @@ class ExcelService:
                                 f"Detected location group: '{metadata.location_group}' in sheet '{sheet_name}'"
                             )
                             break
+
+                valid_location_groups = {
+                    "LIMA E ICA PROVINCIA",
+                    "TARAPOTO",
+                    "PATIO DE COMIDA",
+                    "VILLA STEAKHOUSE",
+                }
+                raw_location = (
+                    str(metadata.location_group).strip()
+                    if metadata.location_group
+                    else ""
+                )
+                raw_upper = raw_location.upper()
+                if (
+                    not raw_upper
+                    or raw_upper in {"SALON", "SALÓN"}
+                    or raw_upper not in valid_location_groups
+                ):
+                    local_source = metadata.tienda or sheet_name
+                    if self.unified_config_service and local_source:
+                        mapped_internal = self.unified_config_service.unified_config._determine_local_group(
+                            local_source
+                        )
+                        label_map = {
+                            "lima_ica": "LIMA E ICA PROVINCIA",
+                            "patios_comida": "PATIO DE COMIDA",
+                            "villa_steakhouse": "VILLA STEAKHOUSE",
+                            "tarapoto": "TARAPOTO",
+                        }
+                        metadata.location_group = label_map.get(
+                            mapped_internal, mapped_internal
+                        )
+                        self.logger.info(
+                            f"Normalized location group to '{metadata.location_group}' using local '{local_source}'"
+                        )
+                    elif not metadata.location_group:
+                        metadata.location_group = "lima_ica"
             except Exception as meta_error:
                 result.errors.append(f"Error extracting metadata: {str(meta_error)}")
                 self.logger.warning(
@@ -345,7 +382,7 @@ class ExcelService:
         metadata: WorksheetMetadata,
     ) -> pd.DataFrame:
         """
-        Assign total prices to each row based on uniform data.
+        Assign total prices to each row based on uniform data using CLAVE-based lookups.
 
         This calculates prices during Excel loading so they are available
         immediately for UI display before document generation.
@@ -394,8 +431,9 @@ class ExcelService:
 
                 prendas = self._build_prendas_from_uniform_row(uniform_row, talla)
 
-                total_price = self.unified_config_service.calculate_total_price(
-                    prendas, normalized_cargo, local, local_group=location_group
+                # Use CLAVE-based price lookup
+                total_price = self._calculate_price_with_clave(
+                    prendas, normalized_cargo, location_group, talla
                 )
 
                 prices.append(total_price)
@@ -417,23 +455,103 @@ class ExcelService:
 
         return main_data
 
+    def _calculate_price_with_clave(
+        self,
+        prendas: List[Dict[str, Any]],
+        cargo: str,
+        location_group: str,
+        talla: str,
+    ) -> float:
+        """
+        Calculate total price using CLAVE-based lookups.
+
+        Args:
+            prendas: List of prenda dicts with 'column_name', 'qty', etc.
+            cargo: Normalized occupation/cargo
+            location_group: Location group from metadata
+            talla: Size
+
+        Returns:
+            Total price for all prendas
+        """
+        total = 0.0
+
+        if (
+            not self.unified_config_service
+            or not self.unified_config_service.price_loader
+        ):
+            return 0.0
+
+        price_loader = self.unified_config_service.price_loader
+
+        for prenda in prendas:
+            column_name = prenda.get("column_name", "")
+            qty = prenda.get("qty", 1)
+
+            if not column_name:
+                continue
+
+            # Find best matching CLAVE
+            clave = price_loader.find_best_clave(
+                location_group=location_group,
+                cargo=cargo,
+                column_name=column_name,
+                talla=talla,
+            )
+
+            if clave:
+                price = price_loader.get_price_by_clave(clave, talla)
+                if price > 0:
+                    total += price * qty
+                    self.logger.debug(
+                        f"  CLAVE match: {column_name} -> {clave} = S/. {price} x {qty}"
+                    )
+                else:
+                    self.logger.warning(
+                        f"  ⚠️ NO PRICE for CLAVE: {clave} (column: {column_name})"
+                    )
+            else:
+                self.logger.warning(
+                    f"  ⚠️ NO CLAVE MATCH for {cargo}/{column_name} at {location_group}"
+                )
+
+        return total
+
     def _get_cargo_from_row(self, row: pd.Series) -> str:
         """Extract cargo value from a data row."""
+
+        def _coerce_scalar(value):
+            if isinstance(value, pd.Series):
+                for item in value.tolist():
+                    if pd.notna(item) and str(item).strip():
+                        return item
+                return value.iloc[0] if len(value) else ""
+            return value
+
         for col in row.index:
             col_lower = str(col).lower()
             if "cargo" in col_lower:
-                val = row[col]
+                val = _coerce_scalar(row[col])
                 if pd.notna(val) and str(val).strip():
                     return str(val).strip()
         return ""
 
     def _get_talla_from_row(self, row: pd.Series) -> str:
         """Extract talla prenda superior from a data row."""
+
+        def _coerce_scalar(value):
+            if isinstance(value, pd.Series):
+                for item in value.tolist():
+                    if pd.notna(item) and str(item).strip():
+                        return item
+                return value.iloc[0] if len(value) else ""
+            return value
+
         talla_keys = ["talla prenda superior", "talla superior", "talla", "size"]
         for col in row.index:
             col_lower = str(col).lower()
             if any(key in col_lower for key in talla_keys):
-                val = row[col]
+                val = _coerce_scalar(row[col])
                 if pd.notna(val) and str(val).strip():
                     return str(val).strip().upper()
         return "M"
@@ -452,24 +570,25 @@ class ExcelService:
             if isinstance(qty_value, pd.Series):
                 qty_value = qty_value.iloc[0] if len(qty_value) > 0 else None
 
-            if (
-                qty_value is not None
-                and pd.notna(qty_value)
-                and str(qty_value).strip() not in ["", "nan", "NaN", "0"]
-            ):
+            if qty_value is not None:
                 try:
-                    qty = int(float(str(qty_value).strip()))
-                    if qty > 0:
-                        prenda_type = self._normalize_prenda_column_name(str(col_name))
-                        prendas.append(
-                            {
-                                "string": f"{prenda_type} TALLA {talla}",
-                                "qty": qty,
-                                "prenda_type": prenda_type,
-                                "garment_type": "UPPER",
-                                "talla": talla,
-                            }
-                        )
+                    val_str = str(qty_value).strip()
+                    if val_str and val_str not in ["nan", "NaN", "0", ""]:
+                        qty = int(float(val_str))
+                        if qty > 0:
+                            prenda_type = self._normalize_prenda_column_name(
+                                str(col_name)
+                            )
+                            prendas.append(
+                                {
+                                    "string": f"{prenda_type} TALLA {talla}",
+                                    "qty": qty,
+                                    "prenda_type": prenda_type,
+                                    "column_name": str(col_name),
+                                    "garment_type": "UPPER",
+                                    "talla": talla,
+                                }
+                            )
                 except (ValueError, TypeError):
                     continue
 
@@ -478,17 +597,50 @@ class ExcelService:
     def _normalize_prenda_column_name(self, col_name: str) -> str:
         """Normalize uniform column name to prenda type."""
         name = str(col_name).upper().strip()
+        normalized = name.replace("_", " ").replace("-", " ")
+
+        keyword_map = {
+            "CAMISA": "CAMISA",
+            "BLUSA": "BLUSA",
+            "POLO": "POLO",
+            "SACO": "SACO",
+            "PANTALON": "PANTALON",
+            "PANTALÓN": "PANTALON",
+            "MANDILON": "MANDILON",
+            "MANDILÓN": "MANDILON",
+            "ANDARIN": "ANDARIN",
+            "ANDARÍN": "ANDARIN",
+            "CHAQUETA": "CHAQUETA",
+            "PECHERA": "PECHERA",
+            "GARIBALDI": "GARIBALDI",
+            "CHALECO": "CHALECO",
+            "CORBATA": "CORBATA",
+            "GORRA": "GORRA",
+            "GORRO": "GORRO",
+            "CASACA": "CASACA",
+        }
+
+        for keyword in sorted(keyword_map, key=len, reverse=True):
+            if keyword in normalized:
+                return keyword_map[keyword]
+
         for suffix in [
+            " SALON",
             " SALÓN",
             " DELIVERY",
             " PACKER",
             " BAR",
+            " ANFITRION",
             " ANFITRIÓN",
             " SEGURIDAD",
+            " PRODUCCION",
             " PRODUCCIÓN",
+            " ADMINISTRACION",
+            " ADMINISTRACIÓN",
         ]:
-            name = name.replace(suffix, "")
-        return name.strip()
+            normalized = normalized.replace(suffix, "")
+
+        return normalized.strip()
 
     def validate_excel_data(self, excel_data: ExcelData) -> ExcelValidationResult:
         """

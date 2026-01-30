@@ -2,52 +2,19 @@
 Price Loader Service - loads prices from precios.xlsx and caches them.
 
 This service reads the Precios sheet from the Excel file and builds a price cache
-that maps (occupation, prenda_type, size, location_group) to prices.
+that maps CLAVE (canonical key) to prices. CLAVE format: GRUPO|CARGO|MATERIAL
 """
 
 import json
 import logging
+import re
 from pathlib import Path
-from typing import Dict, Optional, Any
+from typing import Dict, Optional, Any, Tuple, List
 from datetime import datetime
+from difflib import SequenceMatcher
 
 import pandas as pd
 
-
-# Material name to prenda_type mapping
-MATERIAL_TO_PRENDA: Dict[str, str] = {
-    # Polo variants
-    "POLO PIQUÉ": "POLO",
-    "POLO 30/1": "POLO",
-    "POLO 31/1": "POLO",
-    # Camisa variants
-    "CAMISA BLANCA": "CAMISA",
-    "CAMISA OXFORD": "CAMISA",
-    "CAMISA NEGRA": "CAMISA",
-    "CAMISA CHARCOL": "CAMISA",
-    "CAMISA COLOR": "CAMISA",
-    # Blusa variants
-    "BLUSA BLANCA": "BLUSA",
-    "BLUSA COLOR": "BLUSA",
-    "BLUSA A RALLAS": "BLUSA",
-    "BLUSA OXFORD": "BLUSA",
-    # Other prendas
-    "CASACA": "CASACA",
-    "CHAQUETA": "CHAQUETA",
-    "PANTALÓN": "PANTALON",
-    "PANTALON": "PANTALON",
-    "GORRO": "GORRO",
-    "GORRA": "GORRA",
-    "SACO": "SACO",
-    "MANDILON": "MANDILON",
-    "MANDILÓN": "MANDILON",
-    "ANDARIN": "ANDARIN",
-    "ANDARÍN": "ANDARIN",
-    "PECHERA": "PECHERA",
-    "GARIBALDI": "GARIBALDI",
-    "CHALECO": "CHALECO",
-    "CORBATA": "CORBATA",
-}
 
 # Location group normalization
 LOCATION_GROUP_MAP: Dict[str, str] = {
@@ -74,32 +41,89 @@ SIZE_MAP: Dict[str, str] = {
 
 
 class PriceLoader:
-    """Service for loading and caching prices from Excel."""
+    """Service for loading and caching prices from Excel using CLAVE as canonical key."""
 
     def __init__(self, logger: Optional[logging.Logger] = None):
         self.logger = logger or logging.getLogger(__name__)
-        self.prices: Dict[str, float] = {}
+        self.prices: Dict[str, float] = {}  # CLAVE|size -> price
+        self.clave_metadata: Dict[
+            str, Dict
+        ] = {}  # CLAVE -> {grupo, cargo, material, gender}
         self.last_updated: Optional[str] = None
         self.source_file: Optional[str] = None
 
-    def _normalize_prenda_type(self, material: str) -> str:
-        """Extract prenda type from material name."""
+    def _normalize_location(self, grupo: str) -> str:
+        """Normalize location group name."""
+        grupo_upper = grupo.upper().strip()
+        return LOCATION_GROUP_MAP.get(grupo_upper, "lima_ica")
+
+    def _extract_material_keywords(self, material: str) -> List[str]:
+        """Extract searchable keywords from material description."""
         material_upper = material.upper().strip()
+        # Remove common descriptors and extract core garment type
+        keywords = []
 
-        # Check prefixes in order of specificity
-        for prefix, prenda_type in sorted(
-            MATERIAL_TO_PRENDA.items(), key=lambda x: -len(x[0])
-        ):
-            if material_upper.startswith(prefix):
-                return prenda_type
+        # Primary garment types (in order of priority)
+        garment_types = [
+            "POLO PIQUÉ",
+            "POLO 30/1",
+            "POLO 31/1",
+            "POLO",
+            "CAMISA OXFORD",
+            "CAMISA BLANCA",
+            "CAMISA NEGRA",
+            "CAMISA CHARCOL",
+            "CAMISA COLOR",
+            "CAMISA",
+            "BLUSA BLANCA",
+            "BLUSA COLOR",
+            "BLUSA A RALLAS",
+            "BLUSA OXFORD",
+            "BLUSA",
+            "PANTALÓN",
+            "PANTALON",
+            "MANDILÓN",
+            "MANDILON",
+            "ANDARÍN",
+            "ANDARIN",
+            "CHAQUETA",
+            "PECHERA",
+            "GARIBALDI",
+            "CHALECO",
+            "CORBATA",
+            "GORRA",
+            "GORRO",
+            "SACO",
+            "CASACA",
+        ]
 
-        # Fallback: check if any keyword is contained
-        for keyword, prenda_type in MATERIAL_TO_PRENDA.items():
-            if keyword in material_upper:
-                return prenda_type
+        for garment in garment_types:
+            if garment in material_upper:
+                keywords.append(garment.replace("Ó", "O").replace("Í", "I"))
+                break
 
-        # If no match, use first word
-        return material_upper.split()[0] if material_upper else "UNKNOWN"
+        # Extract color descriptors
+        colors = [
+            "BLANCA",
+            "NEGRA",
+            "COLOR",
+            "CELESTE",
+            "GRIS",
+            "AZUL",
+            "PLOMO",
+            "PIZARRA",
+        ]
+        for color in colors:
+            if color in material_upper:
+                keywords.append(color)
+
+        # Extract gender
+        if "HOMBRE" in material_upper:
+            keywords.append("HOMBRE")
+        elif "MUJER" in material_upper:
+            keywords.append("MUJER")
+
+        return keywords
 
     def _detect_gender_from_material(self, material: str) -> Optional[str]:
         """Detect gender from material name."""
@@ -108,30 +132,14 @@ class PriceLoader:
             return "HOMBRE"
         elif "MUJER" in material_upper:
             return "MUJER"
-        # Blusa is typically female, Camisa is typically male
-        elif "BLUSA" in material_upper:
-            return "MUJER"
-        elif "CAMISA" in material_upper:
-            return "HOMBRE"
         return None
 
-    def _normalize_location(self, grupo: str) -> str:
-        """Normalize location group name."""
-        grupo_upper = grupo.upper().strip()
-        return LOCATION_GROUP_MAP.get(grupo_upper, "lima_ica")
-
-    def _normalize_occupation(self, cargo: str) -> str:
-        """Normalize occupation name."""
-        return cargo.upper().strip()
-
-    def _make_price_key(
-        self, occupation: str, prenda_type: str, size: str, location: str
-    ) -> str:
-        """Create a unique key for the price cache."""
-        return f"{occupation}|{prenda_type}|{size}|{location}"
+    def _make_price_key(self, clave: str, size: str) -> str:
+        """Create a unique key for the price cache using CLAVE."""
+        return f"{clave}|{size}"
 
     def load_from_excel(self, excel_path: str) -> bool:
-        """Load prices from Excel Precios sheet."""
+        """Load prices from Excel Precios sheet using CLAVE as canonical key."""
         try:
             path = Path(excel_path)
             if not path.exists():
@@ -143,49 +151,45 @@ class PriceLoader:
             # Read Precios sheet
             df = pd.read_excel(excel_path, sheet_name="Precios", header=0)
 
-            # Expected columns from precios.xlsx Precios sheet
-            # Actual headers: GRUPO, CARGO ESTANDAR, MATERIAL, PRECIO (S,M,L), PRECIO (XL), PRECIO (XXL), CLAVE
-            col_mapping = {
-                "GRUPO": "GRUPO",
-                "CARGO ESTANDAR": "CARGO ESTANDAR",
-                "MATERIAL": "MATERIAL",
-                "SML": "PRECIO (S,M,L)",
-                "XL": "PRECIO (XL)",
-                "XXL": "PRECIO (XXL)",
-            }
-
-            for required, actual in [
-                ("GRUPO", "GRUPO"),
-                ("CARGO ESTANDAR", "CARGO ESTANDAR"),
-                ("MATERIAL", "MATERIAL"),
-            ]:
-                if actual not in df.columns:
-                    self.logger.error(f"Missing required column: {actual}")
+            # Expected columns: GRUPO, CARGO ESTANDAR, MATERIAL, PRECIO (S,M,L), PRECIO (XL), PRECIO (XXL), CLAVE
+            required_cols = ["GRUPO", "CARGO ESTANDAR", "MATERIAL", "CLAVE"]
+            for col in required_cols:
+                if col not in df.columns:
+                    self.logger.error(f"Missing required column: {col}")
                     return False
 
             self.prices = {}
+            self.clave_metadata = {}
             loaded_count = 0
 
             for _, row in df.iterrows():
-                grupo = str(row["GRUPO"]).strip()
-                cargo = str(row["CARGO ESTANDAR"]).strip()
-                material = str(row["MATERIAL"]).strip()
 
-                if not grupo or not cargo or not material:
+                def _scalar(val):
+                    if isinstance(val, pd.Series):
+                        return val.iloc[0] if len(val) > 0 else ""
+                    return val
+
+                grupo = str(_scalar(row["GRUPO"])).strip()
+                cargo = str(_scalar(row["CARGO ESTANDAR"])).strip()
+                material = str(_scalar(row["MATERIAL"])).strip()
+                clave = str(_scalar(row["CLAVE"])).strip()
+
+                if not grupo or not cargo or not material or not clave:
                     continue
 
                 location = self._normalize_location(grupo)
-                occupation = self._normalize_occupation(cargo)
-                prenda_type = self._normalize_prenda_type(material)
                 gender = self._detect_gender_from_material(material)
+                keywords = self._extract_material_keywords(material)
 
-                # Add gender suffix to occupation if detected
-                if gender:
-                    occupation_with_gender = f"{occupation} ({gender})"
-                    # Store both with and without gender
-                    occupations_to_store = [occupation, occupation_with_gender]
-                else:
-                    occupations_to_store = [occupation]
+                # Store metadata for this CLAVE
+                self.clave_metadata[clave] = {
+                    "grupo": grupo,
+                    "location": location,
+                    "cargo": cargo.upper(),
+                    "material": material,
+                    "gender": gender,
+                    "keywords": keywords,
+                }
 
                 # Store prices for each size
                 for size_col, size_key in [
@@ -195,19 +199,26 @@ class PriceLoader:
                 ]:
                     if size_col not in df.columns:
                         continue
-                    price = row[size_col]
-                    if pd.notna(price) and float(price) > 0:
-                        for occ in occupations_to_store:
-                            key = self._make_price_key(
-                                occ, prenda_type, size_key, location
-                            )
-                            self.prices[key] = float(price)
-                            loaded_count += 1
+                    price = _scalar(row[size_col])
+                    try:
+                        price_float = (
+                            float(price)
+                            if price is not None and str(price) != "nan"
+                            else 0.0
+                        )
+                    except (ValueError, TypeError):
+                        price_float = 0.0
+                    if price_float > 0:
+                        key = self._make_price_key(clave, size_key)
+                        self.prices[key] = price_float
+                        loaded_count += 1
 
             self.source_file = str(path.absolute())
             self.last_updated = datetime.now().isoformat()
 
-            self.logger.info(f"Loaded {loaded_count} price entries from Excel")
+            self.logger.info(
+                f"Loaded {loaded_count} price entries from Excel ({len(self.clave_metadata)} unique CLAVEs)"
+            )
             return True
 
         except Exception as e:
@@ -221,6 +232,7 @@ class PriceLoader:
                 "last_updated": self.last_updated,
                 "source_file": self.source_file,
                 "prices": self.prices,
+                "clave_metadata": self.clave_metadata,
             }
 
             with open(cache_path, "w", encoding="utf-8") as f:
@@ -245,174 +257,225 @@ class PriceLoader:
                 cache_data = json.load(f)
 
             self.prices = cache_data.get("prices", {})
+            self.clave_metadata = cache_data.get("clave_metadata", {})
             self.last_updated = cache_data.get("last_updated")
             self.source_file = cache_data.get("source_file")
 
-            self.logger.info(f"Loaded {len(self.prices)} prices from cache")
+            self.logger.info(
+                f"Loaded {len(self.prices)} prices from cache ({len(self.clave_metadata)} CLAVEs)"
+            )
             return True
 
         except Exception as e:
             self.logger.error(f"Failed to load cache: {e}")
             return False
 
-    def get_price(
-        self, occupation: str, prenda_type: str, size: str, location: str
-    ) -> float:
-        """Get price for a specific combination."""
+    def get_price_by_clave(self, clave: str, size: str) -> float:
+        """Get price for a specific CLAVE and size."""
+        size_key = SIZE_MAP.get(size.upper().strip(), "sml")
+        key = self._make_price_key(clave, size_key)
+
+        if key in self.prices:
+            return self.prices[key]
+
+        self.logger.warning(f"No price found for CLAVE: {clave} size: {size_key}")
+        return 0.0
+
+    def find_best_clave(
+        self, location_group: str, cargo: str, column_name: str, talla: str = "M"
+    ) -> Optional[str]:
+        """
+        Find the best matching CLAVE based on location, cargo, and column context.
+
+        Args:
+            location_group: Location group (e.g., "LIMA E ICA PROVINCIA", "TARAPOTO")
+            cargo: Occupation/cargo (e.g., "MOZO", "STAFF ADMINISTRATIVO")
+            column_name: Uniform column name (e.g., "LIMA_ICA_SALON_CAMISA")
+            talla: Size for gender detection
+
+        Returns:
+            Best matching CLAVE string or None
+        """
+        if not self.clave_metadata:
+            return None
+
         # Normalize inputs
+        loc_norm = self._normalize_location(location_group)
+        cargo_norm = cargo.upper().strip()
+        col_upper = column_name.upper().strip()
+
+        # Extract keywords from column name
+        col_keywords = []
+
+        # Extract garment type from column
+        garment_patterns = [
+            ("CAMISA", "CAMISA"),
+            ("BLUSA", "BLUSA"),
+            ("POLO", "POLO"),
+            ("PANTALON", "PANTALON"),
+            ("PANTALÓN", "PANTALON"),
+            ("MANDILON", "MANDILON"),
+            ("MANDILÓN", "MANDILON"),
+            ("ANDARIN", "ANDARIN"),
+            ("ANDARÍN", "ANDARIN"),
+            ("CHAQUETA", "CHAQUETA"),
+            ("PECHERA", "PECHERA"),
+            ("GARIBALDI", "GARIBALDI"),
+            ("CHALECO", "CHALECO"),
+            ("CORBATA", "CORBATA"),
+            ("GORRA", "GORRA"),
+            ("GORRO", "GORRO"),
+            ("SACO", "SACO"),
+            ("CASACA", "CASACA"),
+        ]
+
+        target_garment = None
+        for pattern, garment in garment_patterns:
+            if pattern in col_upper:
+                col_keywords.append(garment)
+                target_garment = garment
+                break
+
+        # Detect gender from column name or cargo context
+        gender = None
+        if "HOMBRE" in col_upper or cargo_norm.endswith("(HOMBRE)"):
+            gender = "HOMBRE"
+        elif "MUJER" in col_upper or cargo_norm.endswith("(MUJER)"):
+            gender = "MUJER"
+        elif "BLUSA" in col_upper:
+            gender = "MUJER"
+        elif "CAMISA" in col_upper and "BLUSA" not in col_upper:
+            gender = "HOMBRE"
+
+        if gender:
+            col_keywords.append(gender)
+
+        # Score all CLAVEs and find best match
+        best_clave = None
+        best_score = 0.0
+
+        for clave, metadata in self.clave_metadata.items():
+            score = 0.0
+
+            # Location match (highest priority)
+            if metadata["location"] == loc_norm:
+                score += 100.0
+
+            # Cargo match
+            meta_cargo = metadata["cargo"]
+            if cargo_norm == meta_cargo:
+                score += 50.0
+            elif (
+                cargo_norm.replace(" (HOMBRE)", "").replace(" (MUJER)", "").strip()
+                == meta_cargo
+            ):
+                score += 40.0
+
+            # Gender match
+            if gender and metadata["gender"] == gender:
+                score += 30.0
+
+            # Garment type match
+            if target_garment:
+                meta_material = metadata["material"].upper()
+                if target_garment in meta_material:
+                    score += 20.0
+                    # Bonus for exact match at start
+                    if meta_material.startswith(target_garment):
+                        score += 10.0
+
+            # Keyword overlap
+            meta_keywords = set(metadata["keywords"])
+            col_keywords_set = set(col_keywords)
+            if meta_keywords and col_keywords_set:
+                overlap = len(meta_keywords & col_keywords_set)
+                score += overlap * 5.0
+
+            if score > best_score:
+                best_score = score
+                best_clave = clave
+
+        if best_clave and best_score >= 50.0:  # Minimum threshold
+            self.logger.debug(
+                f"Matched column '{column_name}' to CLAVE '{best_clave}' (score: {best_score})"
+            )
+            return best_clave
+
+        self.logger.warning(
+            f"No good CLAVE match for {loc_norm}/{cargo_norm}/{column_name} (best score: {best_score})"
+        )
+        return None
+
+    def get_price(
+        self,
+        occupation: str,
+        prenda_type: str,
+        size: str,
+        location: str,
+        clave: Optional[str] = None,
+    ) -> float:
+        """
+        Get price for a specific combination.
+
+        If clave is provided, uses direct CLAVE lookup.
+        Otherwise falls back to legacy key format.
+        """
+        # If CLAVE provided, use direct lookup
+        if clave:
+            return self.get_price_by_clave(clave, size)
+
+        # Legacy fallback (should not be used with new system)
         occ = occupation.upper().strip()
         prenda = prenda_type.upper().strip()
         size_key = SIZE_MAP.get(size.upper().strip(), "sml")
         loc = self._normalize_location(location) if location else "lima_ica"
 
-        # Try exact match first
-        key = self._make_price_key(occ, prenda, size_key, loc)
-        if key in self.prices:
-            return self.prices[key]
+        # Try to find matching CLAVE
+        best_clave = self.find_best_clave(location, occupation, prenda, size)
+        if best_clave:
+            return self.get_price_by_clave(best_clave, size)
 
-        # Try without gender suffix
-        occ_base = occ.replace(" (HOMBRE)", "").replace(" (MUJER)", "").strip()
-        key_base = self._make_price_key(occ_base, prenda, size_key, loc)
-        if key_base in self.prices:
-            return self.prices[key_base]
-
-        # Try fallback locations
-        fallback_locs = ["lima_ica"]
-        for fallback_loc in fallback_locs:
-            if fallback_loc != loc:
-                key = self._make_price_key(occ, prenda, size_key, fallback_loc)
-                if key in self.prices:
-                    return self.prices[key]
-                key_base = self._make_price_key(
-                    occ_base, prenda, size_key, fallback_loc
-                )
-                if key_base in self.prices:
-                    return self.prices[key_base]
-
-        # No price found
         self.logger.warning(f"No price found for: {occ}/{prenda}/{size_key}/{loc}")
         return 0.0
 
     def get_price_summary(self) -> Dict[str, Any]:
         """Get summary of loaded prices."""
-        occupations = set()
-        prendas = set()
         locations = set()
+        cargos = set()
+        materials = set()
 
-        for key in self.prices:
-            parts = key.split("|")
-            if len(parts) == 4:
-                occupations.add(parts[0])
-                prendas.add(parts[1])
-                locations.add(parts[3])
+        for clave, metadata in self.clave_metadata.items():
+            locations.add(metadata["location"])
+            cargos.add(metadata["cargo"])
+            materials.add(metadata["material"])
 
         return {
             "total_entries": len(self.prices),
-            "occupations": sorted(occupations),
-            "prendas": sorted(prendas),
+            "unique_claves": len(self.clave_metadata),
             "locations": sorted(locations),
+            "cargos": sorted(cargos),
+            "materials_count": len(materials),
             "last_updated": self.last_updated,
             "source_file": self.source_file,
         }
 
-    def get_gendered_prices(
-        self, occupation_base: str, location: str
-    ) -> Dict[str, Dict[str, float]]:
-        """Get sample prices for both male and female variants of an occupation.
-
-        Args:
-            occupation_base: Base occupation name (e.g., "STAFF ADMINISTRATIVO")
-            location: Location group string
+    def get_claves_for_location_cargo(
+        self, location_group: str, cargo: str
+    ) -> List[Tuple[str, str, float]]:
+        """
+        Get all CLAVEs and their SML prices for a location/cargo combination.
 
         Returns:
-            {
-                'HOMBRE': {'CAMISA': 18.0, 'SACO': 35.0, ...},
-                'MUJER': {'BLUSA': 18.0, 'SACO': 35.0, ...}
-            }
+            List of (clave, material, price) tuples
         """
-        loc = self._normalize_location(location) if location else "lima_ica"
-        occ_base = occupation_base.upper().strip()
+        loc_norm = self._normalize_location(location_group)
+        cargo_norm = cargo.upper().strip()
+        results = []
 
-        result = {"HOMBRE": {}, "MUJER": {}}
+        for clave, metadata in self.clave_metadata.items():
+            if metadata["location"] == loc_norm and metadata["cargo"] == cargo_norm:
+                price = self.get_price_by_clave(clave, "sml")
+                if price > 0:
+                    results.append((clave, metadata["material"], price))
 
-        # Look for prices with gender suffix
-        for key, price in self.prices.items():
-            parts = key.split("|")
-            if len(parts) != 4:
-                continue
-
-            occ, prenda, size, key_loc = parts
-
-            # Only get SML prices for sample
-            if size != "sml":
-                continue
-
-            # Check if location matches
-            if key_loc != loc:
-                continue
-
-            # Check occupation
-            if occ == f"{occ_base} (HOMBRE)":
-                result["HOMBRE"][prenda] = price
-            elif occ == f"{occ_base} (MUJER)":
-                result["MUJER"][prenda] = price
-            elif occ == occ_base:
-                # Base occupation without gender - check prenda type
-                if prenda in ["CAMISA"]:
-                    result["HOMBRE"][prenda] = price
-                elif prenda in ["BLUSA"]:
-                    result["MUJER"][prenda] = price
-                else:
-                    # Same for both
-                    result["HOMBRE"][prenda] = price
-                    result["MUJER"][prenda] = price
-
-        return result
-
-    def is_gendered_occupation(self, occupation: str) -> bool:
-        """Check if an occupation has both male and female price variants."""
-        occ_base = (
-            occupation.upper().strip().replace(" (HOMBRE)", "").replace(" (MUJER)", "")
-        )
-
-        has_male = False
-        has_female = False
-
-        for key in self.prices:
-            if f"{occ_base} (HOMBRE)|" in key:
-                has_male = True
-            if f"{occ_base} (MUJER)|" in key:
-                has_female = True
-            if has_male and has_female:
-                return True
-
-        return False
-
-
-# Test when run directly
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-
-    loader = PriceLoader()
-
-    if loader.load_from_excel("sources/precios.xlsx"):
-        loader.save_cache("prices_cache.json")
-
-        summary = loader.get_price_summary()
-        print(f"\nPrice Summary:")
-        print(f"  Total entries: {summary['total_entries']}")
-        print(f"  Occupations: {len(summary['occupations'])}")
-        print(f"  Prendas: {len(summary['prendas'])}")
-        print(f"  Locations: {summary['locations']}")
-
-        # Test some lookups
-        print(f"\nTest lookups:")
-        print(
-            f"  MOZO/CAMISA/SML/lima_ica: S/{loader.get_price('MOZO', 'CAMISA', 'SML', 'LIMA E ICA'):.2f}"
-        )
-        print(
-            f"  AZAFATA/BLUSA/XL/lima_ica: S/{loader.get_price('AZAFATA', 'BLUSA', 'XL', 'LIMA E ICA'):.2f}"
-        )
-        print(
-            f"  PRODUCCIÓN / COCINA/CHAQUETA/XXL/tarapoto: S/{loader.get_price('PRODUCCIÓN / COCINA', 'CHAQUETA', 'XXL', 'TARAPOTO'):.2f}"
-        )
+        return sorted(results, key=lambda x: x[1])  # Sort by material name
