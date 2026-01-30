@@ -454,6 +454,8 @@ class PriceLoader:
             "unique_claves": len(self.clave_metadata),
             "locations": sorted(locations),
             "cargos": sorted(cargos),
+            "occupations": sorted(cargos),
+            "prendas": sorted(materials),
             "materials_count": len(materials),
             "last_updated": self.last_updated,
             "source_file": self.source_file,
