@@ -183,27 +183,28 @@ class ExcelService:
                             )
                             break
 
-                valid_location_groups = {
-                    "LIMA E ICA PROVINCIA",
-                    "TARAPOTO",
-                    "PATIO DE COMIDA",
-                    "VILLA STEAKHOUSE",
-                }
-                raw_location = (
-                    str(metadata.location_group).strip()
-                    if metadata.location_group
-                    else ""
-                )
-                raw_upper = raw_location.upper()
-                if (
-                    not raw_upper
-                    or raw_upper in {"SALON", "SALÓN"}
-                    or raw_upper not in valid_location_groups
-                ):
-                    local_source = metadata.tienda or sheet_name
-                    if self.unified_config_service and local_source:
+                # ALWAYS prioritize tienda (C4) over header row location group
+                # The tienda is the authoritative source for pricing location
+                if metadata.tienda:
+                    tienda_upper = metadata.tienda.upper().strip()
+                    # Direct mapping for known tiendas
+                    tienda_to_location = {
+                        "TARAPOTO": "TARAPOTO",
+                        "LIMA": "LIMA E ICA PROVINCIA",
+                        "MIRAFLORES": "LIMA E ICA PROVINCIA",
+                        "SAN ISIDRO": "VILLA STEAKHOUSE",
+                        "VILLA STEAKHOUSE": "VILLA STEAKHOUSE",
+                    }
+
+                    if tienda_upper in tienda_to_location:
+                        metadata.location_group = tienda_to_location[tienda_upper]
+                        self.logger.info(
+                            f"Using tienda '{metadata.tienda}' -> location group '{metadata.location_group}'"
+                        )
+                    elif self.unified_config_service:
+                        # Fall back to _determine_local_group for unknown tiendas
                         mapped_internal = self.unified_config_service.unified_config._determine_local_group(
-                            local_source
+                            metadata.tienda
                         )
                         label_map = {
                             "lima_ica": "LIMA E ICA PROVINCIA",
@@ -215,10 +216,26 @@ class ExcelService:
                             mapped_internal, mapped_internal
                         )
                         self.logger.info(
-                            f"Normalized location group to '{metadata.location_group}' using local '{local_source}'"
+                            f"Mapped tienda '{metadata.tienda}' -> location group '{metadata.location_group}'"
                         )
-                    elif not metadata.location_group:
-                        metadata.location_group = "lima_ica"
+
+                # If still no location group, use header row as fallback
+                if not metadata.location_group:
+                    raw_location = (
+                        str(metadata.location_group).strip()
+                        if metadata.location_group
+                        else ""
+                    )
+                    if raw_location:
+                        metadata.location_group = raw_location
+                        self.logger.info(
+                            f"Using header row location group: '{metadata.location_group}'"
+                        )
+                    else:
+                        metadata.location_group = "LIMA E ICA PROVINCIA"
+                        self.logger.warning(
+                            f"No location group found, defaulting to LIMA E ICA PROVINCIA"
+                        )
             except Exception as meta_error:
                 result.errors.append(f"Error extracting metadata: {str(meta_error)}")
                 self.logger.warning(
