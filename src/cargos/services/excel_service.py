@@ -440,6 +440,8 @@ class ExcelService:
                     prices.append(0.0)
                     continue
 
+                person_name = self._extract_name(row)
+
                 normalized_cargo = self.unified_config_service.normalize_occupation(
                     str(cargo)
                 )
@@ -448,16 +450,17 @@ class ExcelService:
 
                 prendas = self._build_prendas_from_uniform_row(uniform_row, talla)
 
-                # Use CLAVE-based price lookup
+                # Use CLAVE-based price lookup with detailed logging
                 total_price = self._calculate_price_with_clave(
-                    prendas, normalized_cargo, location_group, talla
+                    prendas=prendas,
+                    cargo=normalized_cargo,
+                    location_group=location_group,
+                    talla=talla,
+                    person_name=person_name,
+                    row_idx=idx,
                 )
 
                 prices.append(total_price)
-
-                self.logger.debug(
-                    f"Row {idx}: {cargo} -> {normalized_cargo}, {len(prendas)} prendas, total={total_price}"
-                )
 
             except Exception as e:
                 self.logger.warning(f"Row {idx}: Failed to calculate price: {e}")
@@ -478,35 +481,51 @@ class ExcelService:
         cargo: str,
         location_group: str,
         talla: str,
+        person_name: str = "",
+        row_idx: int = -1,
     ) -> float:
         """
-        Calculate total price using CLAVE-based lookups.
+        Calculate total price using CLAVE-based lookups with detailed debug logging.
 
         Args:
             prendas: List of prenda dicts with 'column_name', 'qty', etc.
             cargo: Normalized occupation/cargo
             location_group: Location group from metadata
             talla: Size
+            person_name: Name of person for debug logging
+            row_idx: Row index for debug logging
 
         Returns:
             Total price for all prendas
         """
         total = 0.0
+        person_ctx = f"[{person_name}]" if person_name else f"[Row {row_idx}]"
 
         if (
             not self.unified_config_service
             or not self.unified_config_service.price_loader
         ):
+            self.logger.warning(f"{person_ctx} No price loader available")
             return 0.0
 
         price_loader = self.unified_config_service.price_loader
 
-        for prenda in prendas:
+        self.logger.info(
+            f"{person_ctx} Calculating price for {cargo} at {location_group} with {len(prendas)} prendas"
+        )
+
+        for i, prenda in enumerate(prendas):
             column_name = prenda.get("column_name", "")
+            prenda_type = prenda.get("prenda_type", "")
             qty = prenda.get("qty", 1)
 
             if not column_name:
+                self.logger.debug(f"{person_ctx} Prenda {i}: No column_name, skipping")
                 continue
+
+            self.logger.debug(
+                f"{person_ctx} Prenda {i}: {column_name} (type: {prenda_type}, qty: {qty})"
+            )
 
             # Find best matching CLAVE
             clave = price_loader.find_best_clave(
@@ -519,19 +538,21 @@ class ExcelService:
             if clave:
                 price = price_loader.get_price_by_clave(clave, talla)
                 if price > 0:
-                    total += price * qty
-                    self.logger.debug(
-                        f"  CLAVE match: {column_name} -> {clave} = S/. {price} x {qty}"
+                    line_total = price * qty
+                    total += line_total
+                    self.logger.info(
+                        f"{person_ctx} ✓ {column_name} -> CLAVE: {clave} = S/. {price} x {qty} = S/. {line_total}"
                     )
                 else:
                     self.logger.warning(
-                        f"  ⚠️ NO PRICE for CLAVE: {clave} (column: {column_name})"
+                        f"{person_ctx} ✗ {column_name} -> CLAVE: {clave} has NO PRICE"
                     )
             else:
                 self.logger.warning(
-                    f"  ⚠️ NO CLAVE MATCH for {cargo}/{column_name} at {location_group}"
+                    f"{person_ctx} ✗ {column_name} -> NO CLAVE MATCH for {cargo}/{prenda_type} at {location_group}"
                 )
 
+        self.logger.info(f"{person_ctx} Total price: S/. {total}")
         return total
 
     def _get_cargo_from_row(self, row: pd.Series) -> str:
