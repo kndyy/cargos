@@ -281,11 +281,125 @@ class PriceLoader:
         self.logger.warning(f"No price found for CLAVE: {clave} size: {size_key}")
         return 0.0
 
+    def _get_candidates_by_location_cargo(
+        self, loc_norm: str, cargo_norm: str
+    ) -> Dict[str, Dict[str, Any]]:
+        """
+        Get CLAVE candidates filtered by location and cargo.
+
+        Args:
+            loc_norm: Normalized location string
+            cargo_norm: Normalized cargo string (uppercase, stripped)
+
+        Returns:
+            Dict of clave -> metadata for matching CLAVEs
+        """
+        candidates = {}
+        cargo_base = cargo_norm.replace(" (HOMBRE)", "").replace(" (MUJER)", "").strip()
+
+        for clave, metadata in self.clave_metadata.items():
+            if metadata["location"] != loc_norm:
+                continue
+            meta_cargo = metadata["cargo"]
+            if meta_cargo == cargo_norm or meta_cargo == cargo_base:
+                candidates[clave] = metadata
+
+        return candidates
+
+    def _get_candidates_by_location(self, loc_norm: str) -> Dict[str, Dict[str, Any]]:
+        """
+        Get CLAVE candidates filtered by location only (fallback).
+
+        Args:
+            loc_norm: Normalized location string
+
+        Returns:
+            Dict of clave -> metadata for matching CLAVEs
+        """
+        candidates = {}
+        for clave, metadata in self.clave_metadata.items():
+            if metadata["location"] == loc_norm:
+                candidates[clave] = metadata
+        return candidates
+
+    def _calculate_match_score(
+        self,
+        metadata: Dict[str, Any],
+        loc_norm: str,
+        cargo_norm: str,
+        target_garment: Optional[str],
+        gender: Optional[str],
+        col_keywords: List[str],
+    ) -> float:
+        """
+        Calculate match score for a CLAVE candidate.
+
+        Scoring weights:
+        - Location match: +100
+        - Cargo exact match: +50, base match: +40
+        - Gender match: +30
+        - Garment match: +20, starts with: +10 bonus
+        - Keyword overlap: +5 per keyword
+
+        Args:
+            metadata: CLAVE metadata dict
+            loc_norm: Normalized location
+            cargo_norm: Normalized cargo
+            target_garment: Detected garment type from column
+            gender: Detected gender
+            col_keywords: Keywords extracted from column
+
+        Returns:
+            Match score as float
+        """
+        score = 0.0
+
+        # Location match (highest priority)
+        if metadata["location"] == loc_norm:
+            score += 100.0
+
+        # Cargo match
+        meta_cargo = metadata["cargo"]
+        cargo_base = cargo_norm.replace(" (HOMBRE)", "").replace(" (MUJER)", "").strip()
+        if cargo_norm == meta_cargo:
+            score += 50.0
+        elif cargo_base == meta_cargo:
+            score += 40.0
+
+        # Gender match
+        if gender and metadata["gender"] == gender:
+            score += 30.0
+
+        # Garment type match
+        if target_garment:
+            meta_material = metadata["material"].upper()
+            if target_garment in meta_material:
+                score += 20.0
+                # Bonus for exact match at start
+                if meta_material.startswith(target_garment):
+                    score += 10.0
+
+        # Keyword overlap
+        meta_keywords = set(metadata["keywords"])
+        col_keywords_set = set(col_keywords)
+        if meta_keywords and col_keywords_set:
+            overlap = len(meta_keywords & col_keywords_set)
+            score += overlap * 5.0
+
+        return score
+
     def find_best_clave(
         self, location_group: str, cargo: str, column_name: str, talla: str = "M"
     ) -> Optional[str]:
         """
         Find the best matching CLAVE based on location, cargo, and column context.
+
+        Uses hierarchical pre-filtering to reduce candidates:
+        1. Stage 1: Filter by Location + Cargo (~10 CLAVEs)
+        2. Stage 2: Filter by Garment type (~2 CLAVEs)
+        3. Score remaining candidates
+
+        Fallback: If Stage 1 returns empty, tries Location only.
 
         Args:
             location_group: Location group (e.g., "LIMA E ICA PROVINCIA", "TARAPOTO")
@@ -350,46 +464,45 @@ class PriceLoader:
         if gender:
             col_keywords.append(gender)
 
-        # Score all CLAVEs and find best match
+        # === STAGE 1: Filter by Location + Cargo ===
+        candidates = self._get_candidates_by_location_cargo(loc_norm, cargo_norm)
+
+        # Fallback: if no candidates, try location only
+        if not candidates:
+            self.logger.warning(
+                f"No CLAVEs found for location+cargo: {loc_norm}/{cargo_norm}, "
+                f"falling back to location-only filter"
+            )
+            candidates = self._get_candidates_by_location(loc_norm)
+
+        if not candidates:
+            self.logger.warning(f"No CLAVEs found for location: {loc_norm}")
+            return None
+
+        # === STAGE 2: Filter by Garment type ===
+        if target_garment:
+            garment_candidates = {}
+            for clave, metadata in candidates.items():
+                meta_material = metadata["material"].upper()
+                if target_garment in meta_material:
+                    garment_candidates[clave] = metadata
+
+            if garment_candidates:
+                candidates = garment_candidates
+            else:
+                self.logger.warning(
+                    f"Garment filter '{target_garment}' eliminated all {len(candidates)} candidates "
+                    f"for {loc_norm}/{cargo_norm}, using unfiltered candidates"
+                )
+
+        # === STAGE 3: Score remaining candidates ===
         best_clave = None
         best_score = 0.0
 
-        for clave, metadata in self.clave_metadata.items():
-            score = 0.0
-
-            # Location match (highest priority)
-            if metadata["location"] == loc_norm:
-                score += 100.0
-
-            # Cargo match
-            meta_cargo = metadata["cargo"]
-            if cargo_norm == meta_cargo:
-                score += 50.0
-            elif (
-                cargo_norm.replace(" (HOMBRE)", "").replace(" (MUJER)", "").strip()
-                == meta_cargo
-            ):
-                score += 40.0
-
-            # Gender match
-            if gender and metadata["gender"] == gender:
-                score += 30.0
-
-            # Garment type match
-            if target_garment:
-                meta_material = metadata["material"].upper()
-                if target_garment in meta_material:
-                    score += 20.0
-                    # Bonus for exact match at start
-                    if meta_material.startswith(target_garment):
-                        score += 10.0
-
-            # Keyword overlap
-            meta_keywords = set(metadata["keywords"])
-            col_keywords_set = set(col_keywords)
-            if meta_keywords and col_keywords_set:
-                overlap = len(meta_keywords & col_keywords_set)
-                score += overlap * 5.0
+        for clave, metadata in candidates.items():
+            score = self._calculate_match_score(
+                metadata, loc_norm, cargo_norm, target_garment, gender, col_keywords
+            )
 
             if score > best_score:
                 best_score = score
