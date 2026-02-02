@@ -456,22 +456,8 @@ class ExcelService:
                             self.logger.info(
                                 f"Row {idx} ({person_name}): Detected gender '{detected_gender}' from prendas"
                             )
-                    except Exception:
-                        pass
-
-                total_price = self._calculate_price_with_clave(
-                    prendas=prendas,
-                    cargo=normalized_cargo,
-                    location_group=location_group,
-                    talla=talla,
-                    person_name=person_name,
-                    row_idx=idx,
-                    detected_gender=detected_gender,
-                )
-                if detected_gender:
-                    self.logger.info(
-                        f"Row {idx} ({person_name}): Detected gender '{detected_gender}' from prendas"
-                    )
+                    except Exception as e:
+                        self.logger.debug(f"Gender detection failed: {e}")
 
                 total_price = self._calculate_price_with_clave(
                     prendas=prendas,
@@ -1836,14 +1822,7 @@ class FileGenerationService:
         return prendas
 
     def _detect_gender_from_row(self, row: pd.Series) -> Optional[str]:
-        """Detect gender from prenda columns.
-
-        Returns:
-            'HOMBRE' - if male-specific prendas found (CAMISA, SACO_H)
-            'MUJER' - if female-specific prendas found (BLUSA, SACO_M)
-            None - if gender cannot be determined
-        """
-        # Check for male indicators
+        """Detect gender from prenda columns."""
         male_indicators = ["CAMISA", "SACO_H", "SACO H", "CORBATA"]
         female_indicators = ["BLUSA", "SACO_M", "SACO M", "FALDA", "VESTIDO"]
 
@@ -1854,7 +1833,6 @@ class FileGenerationService:
             col_upper = str(col).upper()
             value = row[col]
 
-            # Check if column has a positive quantity
             has_value = False
             if pd.notna(value):
                 try:
@@ -1866,13 +1844,20 @@ class FileGenerationService:
             if has_value:
                 if any(ind in col_upper for ind in male_indicators):
                     has_male = True
-                elif any(ind in col_upper for ind in female_indicators):
+                    self.logger.debug(
+                        f"Gender detection: Found male indicator in '{col}'"
+                    )
+                if any(ind in col_upper for ind in female_indicators):
                     has_female = True
+                    self.logger.debug(
+                        f"Gender detection: Found female indicator in '{col}'"
+                    )
 
-        if has_male and not has_female:
-            return "HOMBRE"
-        elif has_female and not has_male:
+        # Female indicators take precedence (more specific)
+        if has_female:
             return "MUJER"
+        elif has_male:
+            return "HOMBRE"
         return None
 
     def _is_gendered_occupation(self, cargo: str) -> bool:
