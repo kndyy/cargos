@@ -253,37 +253,75 @@ class UnifiedConfigService:
         return "M"
 
     def get_configuration_matrix(self) -> List[Dict]:
-        """Get a flat list of all pricing configurations for display in UI."""
+        """Get a flat list of all pricing configurations for display in UI.
+
+        This uses price_loader (precios.xlsm) as the authoritative source.
+        """
         matrix = []
 
-        for occupation in self.unified_config.occupations:
-            for prenda in occupation.prendas:
-                # Add entries for each size group and local combination
-                for size_group in ["S/M/L", "XL", "XXL"]:
-                    for local_group, local_name in [
-                        ("other", "OTHER"),
-                        ("tarapoto", "TARAPOTO"),
-                        ("san_isidro", "SAN ISIDRO"),
-                    ]:
-                        # Get the price for this combination
-                        if size_group == "S/M/L":
-                            price = getattr(prenda, f"price_sml_{local_group}", 0.0)
-                        elif size_group == "XL":
-                            price = getattr(prenda, f"price_xl_{local_group}", 0.0)
-                        else:  # XXL
-                            price = getattr(prenda, f"price_xxl_{local_group}", 0.0)
+        if not self.price_loader or not self.price_loader.prices:
+            return matrix
 
-                        matrix.append(
-                            {
-                                "occupation_display": occupation.display_name,
-                                "occupation_name": occupation.name,
-                                "prenda_type": prenda.display_name
-                                or prenda.prenda_type,
-                                "size_group": size_group,
-                                "local_group": local_name,
-                                "price": price,
-                            }
-                        )
+        size_label_map = {
+            "sml": "S/M/L",
+            "xl": "XL",
+            "xxl": "XXL",
+        }
+        local_label_map = {
+            "lima_ica": "LIMA E ICA PROVINCIA",
+            "patios_comida": "PATIO DE COMIDA",
+            "villa_steakhouse": "VILLA STEAKHOUSE",
+            "tarapoto": "TARAPOTO",
+        }
+
+        occupation_display_map = {
+            occ.name.upper(): occ.display_name or occ.name
+            for occ in self.unified_config.occupations
+        }
+        prenda_display_map = {
+            prenda.prenda_type.upper(): prenda.display_name or prenda.prenda_type
+            for occ in self.unified_config.occupations
+            for prenda in occ.prendas
+        }
+
+        for key, price in self.price_loader.prices.items():
+            parts = key.split("|")
+            if len(parts) != 4:
+                continue
+
+            occ, prenda, size_key, local_key = parts
+            occ_base = occ.replace(" (HOMBRE)", "").replace(" (MUJER)", "").strip()
+            base_display = occupation_display_map.get(occ_base.upper(), occ_base)
+
+            if occ != occ_base:
+                if "(HOMBRE)" in occ:
+                    occupation_display = f"{base_display} (HOMBRE)"
+                elif "(MUJER)" in occ:
+                    occupation_display = f"{base_display} (MUJER)"
+                else:
+                    occupation_display = occ
+            else:
+                occupation_display = base_display
+
+            matrix.append(
+                {
+                    "occupation_display": occupation_display,
+                    "occupation_name": occ,
+                    "prenda_type": prenda_display_map.get(prenda.upper(), prenda),
+                    "size_group": size_label_map.get(size_key, size_key.upper()),
+                    "local_group": local_label_map.get(local_key, local_key.upper()),
+                    "price": price,
+                }
+            )
+
+        matrix.sort(
+            key=lambda row: (
+                row["occupation_display"],
+                row["prenda_type"],
+                row["size_group"],
+                row["local_group"],
+            )
+        )
 
         return matrix
 
@@ -430,7 +468,7 @@ class UnifiedConfigService:
             occupation_name: Name of the occupation (e.g., "MOZO", "PRODUCCION")
             prenda_type: Type of prenda (e.g., "POLO", "CAMISA")
             size_group: Size group (e.g., "sml", "xl", "xxl")
-            local_group: Location group (e.g., "other", "tarapoto", "san_isidro", "lima_ica", "patios_comida")
+            local_group: Location group (e.g., "lima_ica", "tarapoto", "patios_comida", "villa_steakhouse")
             price: New price value
 
         Returns:
@@ -452,16 +490,21 @@ class UnifiedConfigService:
             prenda = new_prenda
             self.logger.info(f"Created new prenda {prenda_type} in {occupation_name}")
 
-        # Build the price attribute name
-        # Map new location groups to old field names if needed
+        local_group_norm = local_group.strip().lower()
         local_mapping = {
-            "lima_ica": "other",
-            "patios_comida": "other",
-            "villa_steakhouse": "san_isidro",
+            "lima_ica": "lima_ica",
+            "lima e ica": "lima_ica",
+            "lima e ica provincia": "lima_ica",
+            "patios_comida": "patios_comida",
+            "patio de comida": "patios_comida",
+            "patios de comida": "patios_comida",
+            "villa_steakhouse": "villa_steakhouse",
+            "villa steakhouse": "villa_steakhouse",
+            "san isidro": "villa_steakhouse",
+            "tarapoto": "tarapoto",
         }
 
-        # Use mapped local if available, otherwise use original
-        mapped_local = local_mapping.get(local_group.lower(), local_group.lower())
+        mapped_local = local_mapping.get(local_group_norm, local_group_norm)
 
         # Normalize size_group
         size_norm = size_group.lower()

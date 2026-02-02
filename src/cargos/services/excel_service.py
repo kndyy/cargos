@@ -1833,6 +1833,15 @@ class FileGenerationService:
             col_upper = str(col).upper()
             value = row[col]
 
+            if isinstance(value, pd.Series):
+                non_null = value.dropna()
+                if len(non_null) > 0:
+                    value = non_null.iloc[0]
+                elif len(value) > 0:
+                    value = value.iloc[0]
+                else:
+                    value = None
+
             has_value = False
             if pd.notna(value):
                 try:

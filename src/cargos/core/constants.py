@@ -11,14 +11,14 @@ METADATA_ROW_ADMINISTRADOR = 4  # C5
 METADATA_COL_ADMINISTRADOR = 2
 
 # New Excel format row indices (0-indexed)
-LOCATION_ROW = 5           # Row 6 in Excel - Location group headers
-OCCUPATION_ROW = 6         # Row 7 in Excel - Occupation headers
-HEADER_ROW = 7             # Row 8 in Excel - Column headers (DNI, CARGO, prendas, etc.)
-DATA_START_ROW = 8         # Row 9 in Excel - First data row
+LOCATION_ROW = 5  # Row 6 in Excel - Location group headers
+OCCUPATION_ROW = 6  # Row 7 in Excel - Occupation headers
+HEADER_ROW = 7  # Row 8 in Excel - Column headers (DNI, CARGO, prendas, etc.)
+DATA_START_ROW = 8  # Row 9 in Excel - First data row
 
 # Data extraction constants
-IGNORE_COLUMN_INDEX = 0    # Column A (row numbers)
-MAIN_DATA_END_COLUMN = 8   # Column I (0-indexed, inclusive)
+IGNORE_COLUMN_INDEX = 0  # Column A (row numbers)
+MAIN_DATA_END_COLUMN = 8  # Column I (0-indexed, inclusive)
 
 # Main data columns (columns B-I, indices 1-8)
 MAIN_DATA_COLUMNS = {
@@ -34,8 +34,8 @@ MAIN_DATA_COLUMNS = {
 
 # Uniform data constants
 UNIFORM_DATA_START_ROW = DATA_START_ROW  # Row 9 in Excel (0-indexed = 8)
-UNIFORM_DATA_START_COLUMN = 9   # Column J (0-indexed)
-UNIFORM_DATA_END_COLUMN = 70    # Column BS (0-indexed) - last column with data
+UNIFORM_DATA_START_COLUMN = 9  # Column J (0-indexed)
+UNIFORM_DATA_END_COLUMN = 70  # Column BS (0-indexed) - last column with data
 
 # Location-based column groups for uniforms
 # Each group has different pricing
@@ -106,10 +106,9 @@ LIMA_ICA_COLUMN_MAPPING = {
     # ADMINISTRACIÓN (37-42)
     37: ("ADMINISTRACION", "BLUSA"),
     38: ("ADMINISTRACION", "CAMISA"),
-    39: ("ADMINISTRACION", "CORBATA_1"),
+    39: ("ADMINISTRACION", "CORBATA"),
     40: ("ADMINISTRACION", "POLO"),
     41: ("ADMINISTRACION", "SACO"),
-    42: ("ADMINISTRACION", "CORBATA_2"),
     # MANTENIMIENTO (43-45)
     43: ("MANTENIMIENTO", "CHAQUETA"),
     44: ("MANTENIMIENTO", "POLO"),
@@ -174,43 +173,34 @@ OCCUPATION_GROUP_MAPPING = {
     "AZAFATA": "SALON",
     "MOZO": "SALON",
     "SALON": "SALON",
-    
     # ANFITRIONAJE Group
     "ANFITRIONAJE": "ANFITRIONAJE",
     "ANFITRIONAJE (HOMBRE)": "ANFITRIONAJE",
     "ANFITRIONAJE (MUJER)": "ANFITRIONAJE",
-    
     # BAR Group
     "BAR": "BAR",
     "BARTENDER": "BAR",
-    
     # CAJA Group
     "CAJA": "CAJA",
     "CAJA (HOMBRE)": "CAJA",
     "CAJA (MUJER)": "CAJA",
     "CAJERO": "CAJA",
     "CAJERO(A)": "CAJA",
-    
     # CORREDOR Group (Villa)
     "CORREDOR": "CORREDOR",
-    
     # COUNTER Group (Patios)
     "COUNTER": "COUNTER",
-    
     # DELIVERY Group
     "DELIVERY": "DELIVERY",
     "MOTORIZADO": "DELIVERY",
     "MOTORIZADO(A)": "DELIVERY",
-    
     # MANTENIMIENTO Group
     "MANTENIMIENTO": "MANTENIMIENTO",
     "LIMPIEZA": "MANTENIMIENTO",
     "LIMPIEZA / MANTENIMIENTO": "MANTENIMIENTO",
     "AUXILIAR DE LIMPIEZA": "MANTENIMIENTO",
-    
     # PACKER Group
     "PACKER": "PACKER",
-    
     # PRODUCCIÓN Group
     "PRODUCCION": "PRODUCCION",
     "PRODUCCIÓN": "PRODUCCION",
@@ -221,10 +211,8 @@ OCCUPATION_GROUP_MAPPING = {
     "HORNERO(A)": "PRODUCCION",
     "LAVAPLATOS": "PRODUCCION",
     "AYUDANTE DE COCINA": "PRODUCCION",
-    
     # SEGURIDAD Group
     "SEGURIDAD": "SEGURIDAD",
-    
     # ADMINISTRACIÓN Group
     "ADMINISTRACION": "ADMINISTRACION",
     "ADMINISTRACIÓN": "ADMINISTRACION",
@@ -232,7 +220,6 @@ OCCUPATION_GROUP_MAPPING = {
     "ADMINISTRADOR(A)": "ADMINISTRACION",
     "STAFF ADMINISTRATIVO (HOMBRE)": "ADMINISTRACION",
     "STAFF ADMINISTRATIVO (MUJER)": "ADMINISTRACION",
-    
     # AUDITORÍA Group
     "AUDITORIA": "AUDITORIA",
     "AUDITOR": "AUDITORIA",
@@ -267,6 +254,7 @@ LEGACY_UNIFORM_COLUMN_MAPPING = {
     33: "PRODUCCION_GARIBALDI",
 }
 
+
 # Build unified column name mapping (LOCATION_OCCUPATION_PRENDA format)
 def _build_uniform_column_mapping():
     """Build a flat mapping of column index to unified column name."""
@@ -276,6 +264,7 @@ def _build_uniform_column_mapping():
             # Format: LOCATION_OCCUPATION_PRENDA
             mapping[col_idx] = f"{location}_{occupation}_{prenda}"
     return mapping
+
 
 UNIFORM_COLUMN_MAPPING = _build_uniform_column_mapping()
 
@@ -297,9 +286,18 @@ TREE_COLUMN_WIDTH_DATA = 100
 
 # Spanish month names for CARGO documents
 SPANISH_MONTHS = {
-    1: "enero", 2: "febrero", 3: "marzo", 4: "abril",
-    5: "mayo", 6: "junio", 7: "julio", 8: "agosto", 
-    9: "septiembre", 10: "octubre", 11: "noviembre", 12: "diciembre"
+    1: "enero",
+    2: "febrero",
+    3: "marzo",
+    4: "abril",
+    5: "mayo",
+    6: "junio",
+    7: "julio",
+    8: "agosto",
+    9: "septiembre",
+    10: "octubre",
+    11: "noviembre",
+    12: "diciembre",
 }
 
 # File paths

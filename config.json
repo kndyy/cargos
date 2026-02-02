@@ -44,15 +44,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 17.0,
-          "price_xl_other": 17.0,
-          "price_xxl_other": 17.0,
           "price_sml_tarapoto": 13.5,
           "price_xl_tarapoto": 13.5,
-          "price_xxl_tarapoto": 15.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 15.0
         },
         {
           "prenda_type": "GORRA",
@@ -62,15 +56,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 5.0,
-          "price_xl_other": 5.0,
-          "price_xxl_other": 5.0,
           "price_sml_tarapoto": 5.0,
           "price_xl_tarapoto": 5.0,
-          "price_xxl_tarapoto": 5.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 5.0
         },
         {
           "prenda_type": "CASACA",
@@ -80,15 +68,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 39.0,
-          "price_xl_other": 39.0,
-          "price_xxl_other": 41.0,
           "price_sml_tarapoto": 39.0,
           "price_xl_tarapoto": 39.0,
-          "price_xxl_tarapoto": 41.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 41.0
         }
       ],
       "is_active": true,
@@ -118,15 +100,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 17.0,
-          "price_xl_other": 17.0,
-          "price_xxl_other": 18.0,
           "price_sml_tarapoto": 13.5,
           "price_xl_tarapoto": 13.5,
-          "price_xxl_tarapoto": 15.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 15.0
         },
         {
           "prenda_type": "GORRA",
@@ -136,15 +112,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 5.0,
-          "price_xl_other": 5.0,
-          "price_xxl_other": 5.0,
           "price_sml_tarapoto": 5.0,
           "price_xl_tarapoto": 5.0,
-          "price_xxl_tarapoto": 5.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 5.0
         }
       ],
       "is_active": true,
@@ -175,15 +145,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 18.0,
-          "price_xl_other": 18.0,
-          "price_xxl_other": 19.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "SACO",
@@ -193,15 +157,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 60.0,
-          "price_xl_other": 60.0,
-          "price_xxl_other": 62.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "POLO",
@@ -211,15 +169,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 13.5,
-          "price_xl_other": 13.5,
-          "price_xxl_other": 15.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "CORBATA",
@@ -229,15 +181,9 @@
           "is_required": false,
           "default_quantity": 2,
           "is_primary": false,
-          "price_sml_other": 10.0,
-          "price_xl_other": 10.0,
-          "price_xxl_other": 10.0,
           "price_sml_tarapoto": 10.0,
           "price_xl_tarapoto": 10.0,
-          "price_xxl_tarapoto": 10.0,
-          "price_sml_san_isidro": 10.0,
-          "price_xl_san_isidro": 10.0,
-          "price_xxl_san_isidro": 10.0
+          "price_xxl_tarapoto": 10.0
         }
       ],
       "is_active": true,
@@ -264,15 +210,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 18.0,
-          "price_xl_other": 18.0,
-          "price_xxl_other": 19.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "SACO",
@@ -282,15 +222,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 35.0,
-          "price_xl_other": 35.0,
-          "price_xxl_other": 37.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "POLO",
@@ -300,15 +234,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 13.5,
-          "price_xl_other": 13.5,
-          "price_xxl_other": 15.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         }
       ],
       "is_active": true,
@@ -337,15 +265,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 18.0,
-          "price_xl_other": 18.0,
-          "price_xxl_other": 19.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "PANTALON",
@@ -355,15 +277,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 20.0,
-          "price_xl_other": 20.0,
-          "price_xxl_other": 21.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "UNIFORME",
@@ -373,15 +289,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 17.5,
-          "price_xl_other": 17.5,
-          "price_xxl_other": 18.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "SACO",
@@ -391,15 +301,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 60.0,
-          "price_xl_other": 60.0,
-          "price_xxl_other": 62.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         }
       ],
       "is_active": true,
@@ -425,15 +329,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 18.0,
-          "price_xl_other": 18.0,
-          "price_xxl_other": 19.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "PANTALON",
@@ -443,15 +341,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 20.0,
-          "price_xl_other": 20.0,
-          "price_xxl_other": 21.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "UNIFORME",
@@ -461,15 +353,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 17.5,
-          "price_xl_other": 17.5,
-          "price_xxl_other": 18.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "SACO",
@@ -479,15 +365,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 35.0,
-          "price_xl_other": 35.0,
-          "price_xxl_other": 37.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "CHALECO",
@@ -497,15 +377,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 17.5,
-          "price_xl_other": 17.5,
-          "price_xxl_other": 18.5,
           "price_sml_tarapoto": 17.5,
           "price_xl_tarapoto": 17.5,
-          "price_xxl_tarapoto": 18.5,
-          "price_sml_san_isidro": 17.5,
-          "price_xl_san_isidro": 17.5,
-          "price_xxl_san_isidro": 18.5
+          "price_xxl_tarapoto": 18.5
         }
       ],
       "is_active": true,
@@ -540,15 +414,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 18.5,
-          "price_xl_other": 18.5,
-          "price_xxl_other": 19.5,
           "price_sml_tarapoto": 17.0,
           "price_xl_tarapoto": 17.0,
-          "price_xxl_tarapoto": 18.0,
-          "price_sml_san_isidro": 21.5,
-          "price_xl_san_isidro": 21.5,
-          "price_xxl_san_isidro": 23.0
+          "price_xxl_tarapoto": 18.0
         },
         {
           "prenda_type": "MANDILON",
@@ -558,15 +426,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 7.0,
-          "price_xl_other": 7.0,
-          "price_xxl_other": 7.0,
           "price_sml_tarapoto": 7.0,
           "price_xl_tarapoto": 7.0,
-          "price_xxl_tarapoto": 7.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 7.0
         },
         {
           "prenda_type": "ANDARIN",
@@ -576,15 +438,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 1.75,
-          "price_xl_other": 1.75,
-          "price_xxl_other": 1.75,
           "price_sml_tarapoto": 1.75,
           "price_xl_tarapoto": 1.75,
-          "price_xxl_tarapoto": 1.75,
-          "price_sml_san_isidro": 1.75,
-          "price_xl_san_isidro": 1.75,
-          "price_xxl_san_isidro": 1.75
+          "price_xxl_tarapoto": 1.75
         },
         {
           "prenda_type": "PECHERA",
@@ -594,15 +450,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 0.0,
-          "price_xl_other": 0.0,
-          "price_xxl_other": 0.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 12.0,
-          "price_xl_san_isidro": 12.0,
-          "price_xxl_san_isidro": 12.0
+          "price_xxl_tarapoto": 0.0
         }
       ],
       "is_active": true,
@@ -632,15 +482,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 18.5,
-          "price_xl_other": 18.5,
-          "price_xxl_other": 19.5,
           "price_sml_tarapoto": 17.0,
           "price_xl_tarapoto": 17.0,
-          "price_xxl_tarapoto": 18.0,
-          "price_sml_san_isidro": 21.5,
-          "price_xl_san_isidro": 21.5,
-          "price_xxl_san_isidro": 23.0
+          "price_xxl_tarapoto": 18.0
         },
         {
           "prenda_type": "MANDILON",
@@ -650,15 +494,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 7.0,
-          "price_xl_other": 7.0,
-          "price_xxl_other": 7.0,
           "price_sml_tarapoto": 7.0,
           "price_xl_tarapoto": 7.0,
-          "price_xxl_tarapoto": 7.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 7.0
         },
         {
           "prenda_type": "ANDARIN",
@@ -668,15 +506,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 1.75,
-          "price_xl_other": 1.75,
-          "price_xxl_other": 1.75,
           "price_sml_tarapoto": 1.75,
           "price_xl_tarapoto": 1.75,
-          "price_xxl_tarapoto": 1.75,
-          "price_sml_san_isidro": 1.75,
-          "price_xl_san_isidro": 1.75,
-          "price_xxl_san_isidro": 1.75
+          "price_xxl_tarapoto": 1.75
         },
         {
           "prenda_type": "PECHERA",
@@ -686,15 +518,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 0.0,
-          "price_xl_other": 0.0,
-          "price_xxl_other": 0.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 12.0,
-          "price_xl_san_isidro": 12.0,
-          "price_xxl_san_isidro": 12.0
+          "price_xxl_tarapoto": 0.0
         }
       ],
       "is_active": true,
@@ -729,15 +555,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 18.0,
-          "price_xl_other": 18.0,
-          "price_xxl_other": 19.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "GORRA",
@@ -747,15 +567,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 5.0,
-          "price_xl_other": 5.0,
-          "price_xxl_other": 5.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "CASACA",
@@ -765,15 +579,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 39.0,
-          "price_xl_other": 39.0,
-          "price_xxl_other": 39.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         }
       ],
       "is_active": true,
@@ -795,15 +603,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 18.0,
-          "price_xl_other": 18.0,
-          "price_xxl_other": 19.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "BLUSA",
@@ -813,15 +615,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 18.0,
-          "price_xl_other": 18.0,
-          "price_xxl_other": 19.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "SACO",
@@ -831,15 +627,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 60.0,
-          "price_xl_other": 60.0,
-          "price_xxl_other": 62.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         }
       ],
       "is_active": true,
@@ -864,15 +654,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 18.0,
-          "price_xl_other": 18.0,
-          "price_xxl_other": 19.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "BLUSA",
@@ -882,15 +666,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 18.0,
-          "price_xl_other": 18.0,
-          "price_xxl_other": 19.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "SACO",
@@ -900,15 +678,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 35.0,
-          "price_xl_other": 35.0,
-          "price_xxl_other": 37.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         }
       ],
       "is_active": true,
@@ -935,15 +707,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 12.5,
-          "price_xl_other": 12.5,
-          "price_xxl_other": 13.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "CHAQUETA",
@@ -953,15 +719,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 14.0,
-          "price_xl_other": 14.0,
-          "price_xxl_other": 15.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "POLO",
@@ -971,15 +731,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 7.5,
-          "price_xl_other": 7.5,
-          "price_xxl_other": 8.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         }
       ],
       "is_active": true,
@@ -1015,15 +769,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 16.5,
-          "price_xl_other": 16.5,
-          "price_xxl_other": 17.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "PECHERA",
@@ -1033,15 +781,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 19.5,
-          "price_xl_other": 19.5,
-          "price_xxl_other": 19.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "POLO",
@@ -1051,15 +793,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 7.5,
-          "price_xl_other": 7.5,
-          "price_xxl_other": 8.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         }
       ],
       "is_active": true,
@@ -1183,15 +919,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 11.0,
-          "price_xl_other": 11.0,
-          "price_xxl_other": 11.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "PECHERA",
@@ -1201,15 +931,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 6.5,
-          "price_xl_other": 6.5,
-          "price_xxl_other": 6.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "GARIBALDI",
@@ -1219,15 +943,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 4.5,
-          "price_xl_other": 4.5,
-          "price_xxl_other": 4.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "CHAQUETA",
@@ -1237,15 +955,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 16.25,
-          "price_xl_other": 16.25,
-          "price_xxl_other": 17.25,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "POLO",
@@ -1255,15 +967,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 7.5,
-          "price_xl_other": 7.5,
-          "price_xxl_other": 8.5,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         }
       ],
       "is_active": true,
@@ -1288,15 +994,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 0.0,
-          "price_xl_other": 0.0,
-          "price_xxl_other": 0.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 21.5,
-          "price_xl_san_isidro": 21.5,
-          "price_xxl_san_isidro": 23.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "ANDARIN",
@@ -1306,15 +1006,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 0.0,
-          "price_xl_other": 0.0,
-          "price_xxl_other": 0.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 1.75,
-          "price_xl_san_isidro": 1.75,
-          "price_xxl_san_isidro": 1.75
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "PECHERA",
@@ -1324,15 +1018,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 0.0,
-          "price_xl_other": 0.0,
-          "price_xxl_other": 0.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 12.0,
-          "price_xl_san_isidro": 12.0,
-          "price_xxl_san_isidro": 12.0
+          "price_xxl_tarapoto": 0.0
         }
       ],
       "is_active": true,
@@ -1356,15 +1044,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 13.5,
-          "price_xl_other": 13.5,
-          "price_xxl_other": 15.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         }
       ],
       "is_active": true,
@@ -1387,15 +1069,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": true,
-          "price_sml_other": 13.5,
-          "price_xl_other": 13.5,
-          "price_xxl_other": 15.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         },
         {
           "prenda_type": "GORRA",
@@ -1405,15 +1081,9 @@
           "is_required": false,
           "default_quantity": 0,
           "is_primary": false,
-          "price_sml_other": 5.0,
-          "price_xl_other": 5.0,
-          "price_xxl_other": 5.0,
           "price_sml_tarapoto": 0.0,
           "price_xl_tarapoto": 0.0,
-          "price_xxl_tarapoto": 0.0,
-          "price_sml_san_isidro": 0.0,
-          "price_xl_san_isidro": 0.0,
-          "price_xxl_san_isidro": 0.0
+          "price_xxl_tarapoto": 0.0
         }
       ],
       "is_active": true,

@@ -782,6 +782,15 @@ class DataPreviewFrame:
 
     def _extract_name_and_cargo(self, series):
         """Extract name and cargo from a pandas Series."""
+
+        def _coerce_scalar(value):
+            if isinstance(value, pd.Series):
+                for item in value.tolist():
+                    if pd.notna(item) and str(item).strip():
+                        return item
+                return value.iloc[0] if len(value) else ""
+            return value
+
         name_val = ""
         cargo_val = ""
         lowered = {str(k).lower(): k for k in series.index}
@@ -789,14 +798,14 @@ class DataPreviewFrame:
         # Extract cargo
         for key in lowered:
             if "cargo" in key:
-                cargo_val = series[lowered[key]]
+                cargo_val = _coerce_scalar(series[lowered[key]])
                 break
 
         # Extract name: try combined first, then components
         combined = None
         for key in lowered:
             if "nombre" in key and "apellido" in key:
-                combined = series[lowered[key]]
+                combined = _coerce_scalar(series[lowered[key]])
                 break
 
         if pd.notna(combined) and str(combined).strip():
@@ -806,9 +815,9 @@ class DataPreviewFrame:
             last = None
             for key in lowered:
                 if first is None and ("nombre" in key or "name" in key):
-                    first = series[lowered[key]]
+                    first = _coerce_scalar(series[lowered[key]])
                 if last is None and ("apellido" in key or "last" in key):
-                    last = series[lowered[key]]
+                    last = _coerce_scalar(series[lowered[key]])
 
             if pd.notna(first) and pd.notna(last):
                 name_val = f"{str(first).strip()} {str(last).strip()}".strip()
@@ -817,7 +826,7 @@ class DataPreviewFrame:
             else:
                 # Fallback: first non-null string field
                 for key in series.index:
-                    val = series[key]
+                    val = _coerce_scalar(series[key])
                     if pd.notna(val) and isinstance(val, str) and len(val.strip()) > 2:
                         name_val = val
                         break
@@ -2058,17 +2067,24 @@ class ConfigurationTab:
         ttk.Label(pricing_frame, text="Size\\Local").grid(
             row=0, column=0, padx=2, pady=2
         )
-        ttk.Label(pricing_frame, text="OTHER").grid(row=0, column=1, padx=2, pady=2)
+        ttk.Label(pricing_frame, text="LIMA E ICA PROVINCIA").grid(
+            row=0, column=1, padx=2, pady=2
+        )
         ttk.Label(pricing_frame, text="TARAPOTO").grid(row=0, column=2, padx=2, pady=2)
-        ttk.Label(pricing_frame, text="SAN_ISIDRO").grid(
+        ttk.Label(pricing_frame, text="PATIO DE COMIDA").grid(
             row=0, column=3, padx=2, pady=2
+        )
+        ttk.Label(pricing_frame, text="VILLA STEAKHOUSE").grid(
+            row=0, column=4, padx=2, pady=2
         )
 
         # Price entry variables
         price_vars = {}
         for i, size in enumerate(["SML", "XL", "XXL"], 1):
             ttk.Label(pricing_frame, text=size).grid(row=i, column=0, padx=2, pady=2)
-            for j, local in enumerate(["other", "tarapoto", "san_isidro"], 1):
+            for j, local in enumerate(
+                ["lima_ica", "tarapoto", "patios_comida", "villa_steakhouse"], 1
+            ):
                 price_attr = f"price_{size.lower()}_{local}"
                 price_value = getattr(prenda, price_attr, 0.0) if prenda else 0.0
                 price_vars[price_attr] = tk.StringVar(value=str(price_value))
