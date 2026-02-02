@@ -389,7 +389,12 @@ class PriceLoader:
         return score
 
     def find_best_clave(
-        self, location_group: str, cargo: str, column_name: str, talla: str = "M"
+        self,
+        location_group: str,
+        cargo: str,
+        column_name: str,
+        talla: str = "M",
+        detected_gender: Optional[str] = None,
     ) -> Optional[str]:
         """
         Find the best matching CLAVE based on location, cargo, and column context.
@@ -406,6 +411,10 @@ class PriceLoader:
             cargo: Occupation/cargo (e.g., "MOZO", "STAFF ADMINISTRATIVO")
             column_name: Uniform column name (e.g., "LIMA_ICA_SALON_CAMISA")
             talla: Size for gender detection
+            detected_gender: Row-level gender ('HOMBRE' or 'MUJER') detected from
+                feminine/masculine prendas in the same row. When provided, this
+                overrides column-level gender inference, ensuring all prendas for
+                a person use consistent gender-specific pricing.
 
         Returns:
             Best matching CLAVE string or None
@@ -451,8 +460,18 @@ class PriceLoader:
                 break
 
         # Detect gender from column name or cargo context
+        # Row-level detected_gender takes precedence over column-level inference
         gender = None
-        if "HOMBRE" in col_upper or cargo_norm.endswith("(HOMBRE)"):
+        if detected_gender:
+            gender = detected_gender
+            self.logger.debug(f"Using row-level gender '{gender}' for {column_name}")
+        elif "HOMBRE" in col_upper or cargo_norm.endswith("(HOMBRE)"):
+            gender = "HOMBRE"
+        elif "MUJER" in col_upper or cargo_norm.endswith("(MUJER)"):
+            gender = "MUJER"
+        elif "BLUSA" in col_upper:
+            gender = "MUJER"
+        elif "CAMISA" in col_upper and "BLUSA" not in col_upper:
             gender = "HOMBRE"
         elif "MUJER" in col_upper or cargo_norm.endswith("(MUJER)"):
             gender = "MUJER"

@@ -448,6 +448,17 @@ class ExcelService:
 
                 prendas = self._build_prendas_from_uniform_row(uniform_row, talla)
 
+                detected_gender = None
+                if uniform_row is not None:
+                    try:
+                        detected_gender = self._detect_gender_from_row(uniform_row)
+                        if detected_gender:
+                            self.logger.info(
+                                f"Row {idx} ({person_name}): Detected gender '{detected_gender}' from prendas"
+                            )
+                    except Exception:
+                        pass
+
                 total_price = self._calculate_price_with_clave(
                     prendas=prendas,
                     cargo=normalized_cargo,
@@ -455,6 +466,21 @@ class ExcelService:
                     talla=talla,
                     person_name=person_name,
                     row_idx=idx,
+                    detected_gender=detected_gender,
+                )
+                if detected_gender:
+                    self.logger.info(
+                        f"Row {idx} ({person_name}): Detected gender '{detected_gender}' from prendas"
+                    )
+
+                total_price = self._calculate_price_with_clave(
+                    prendas=prendas,
+                    cargo=normalized_cargo,
+                    location_group=location_group,
+                    talla=talla,
+                    person_name=person_name,
+                    row_idx=idx,
+                    detected_gender=detected_gender,
                 )
 
                 prices.append(total_price)
@@ -480,6 +506,7 @@ class ExcelService:
         talla: str,
         person_name: str = "",
         row_idx: int = -1,
+        detected_gender: Optional[str] = None,
     ) -> float:
         total = 0.0
         person_ctx = f"[{person_name}]" if person_name else f"[Row {row_idx}]"
@@ -515,6 +542,7 @@ class ExcelService:
                 cargo=cargo,
                 column_name=column_name,
                 talla=talla,
+                detected_gender=detected_gender,
             )
 
             if clave:
@@ -1816,8 +1844,8 @@ class FileGenerationService:
             None - if gender cannot be determined
         """
         # Check for male indicators
-        male_indicators = ["CAMISA", "SACO_H", "SACO H"]
-        female_indicators = ["BLUSA", "SACO_M", "SACO M"]
+        male_indicators = ["CAMISA", "SACO_H", "SACO H", "CORBATA"]
+        female_indicators = ["BLUSA", "SACO_M", "SACO M", "FALDA", "VESTIDO"]
 
         has_male = False
         has_female = False
