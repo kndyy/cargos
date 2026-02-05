@@ -700,7 +700,7 @@ class DataPreviewFrame:
 
         # Define column groups
         talla_cols = [col for col in main_df.columns if "talla" in str(col).lower()]
-        packer_cols = ["packerpolo", "packergorra"]
+        packer_cols = ["packerpolo", "packergorro"]
         mozo_cols = ["camisa", "blusa", "mandilon", "andarin"]
 
         # Other uniform columns
@@ -736,7 +736,7 @@ class DataPreviewFrame:
         )
 
         # Define column groups for role-based display
-        packer_cols = ["packerpolo", "packergorra"]
+        packer_cols = ["packerpolo", "packergorro"]
         mozo_cols = ["camisa", "blusa", "mandilon", "andarin"]
         talla_cols = [col for col in main_df.columns if "talla" in str(col).lower()]
 

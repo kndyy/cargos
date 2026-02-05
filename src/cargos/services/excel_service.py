@@ -35,6 +35,7 @@ from cargos.core.constants import (
     UNIFORM_DATA_END_COLUMN,
     UNIFORM_COLUMN_MAPPING,
     LOCATION_GROUPS,
+    OCCUPATION_GROUP_MAPPING,
     SPANISH_MONTHS,
 )
 
@@ -678,7 +679,6 @@ class ExcelService:
             "GARIBALDI": "GARIBALDI",
             "CHALECO": "CHALECO",
             "CORBATA": "CORBATA",
-            "GORRA": "GORRA",
             "GORRO": "GORRO",
             "CASACA": "CASACA",
         }
@@ -809,6 +809,52 @@ class ExcelService:
             result.message = "Unexpected error during validation"
             self.logger.exception(f"Excel validation error: {str(e)}")
             return result
+
+    def _detect_gender_from_row(self, row: pd.Series) -> Optional[str]:
+        male_indicators = ["CAMISA", "SACO_H", "SACO H"]
+        female_indicators = ["BLUSA", "SACO_M", "SACO M", "FALDA", "VESTIDO"]
+
+        has_male = False
+        has_female = False
+
+        for col in row.index:
+            col_upper = str(col).upper()
+            value = row[col]
+
+            if isinstance(value, pd.Series):
+                non_null = value.dropna()
+                if len(non_null) > 0:
+                    value = non_null.iloc[0]
+                elif len(value) > 0:
+                    value = value.iloc[0]
+                else:
+                    value = None
+
+            has_value = False
+            if pd.notna(value):
+                try:
+                    qty = int(float(str(value).strip()))
+                    has_value = qty > 0
+                except (ValueError, TypeError):
+                    pass
+
+            if has_value:
+                if any(ind in col_upper for ind in male_indicators):
+                    has_male = True
+                    self.logger.debug(
+                        f"Gender detection: Found male indicator in '{col}'"
+                    )
+                if any(ind in col_upper for ind in female_indicators):
+                    has_female = True
+                    self.logger.debug(
+                        f"Gender detection: Found female indicator in '{col}'"
+                    )
+
+        if has_female:
+            return "MUJER"
+        elif has_male:
+            return "HOMBRE"
+        return None
 
 
 class FileGenerationService:
@@ -1823,7 +1869,7 @@ class FileGenerationService:
 
     def _detect_gender_from_row(self, row: pd.Series) -> Optional[str]:
         """Detect gender from prenda columns."""
-        male_indicators = ["CAMISA", "SACO_H", "SACO H", "CORBATA"]
+        male_indicators = ["CAMISA", "SACO_H", "SACO H"]
         female_indicators = ["BLUSA", "SACO_M", "SACO M", "FALDA", "VESTIDO"]
 
         has_male = False
@@ -2064,10 +2110,27 @@ class FileGenerationService:
 
         # Get occupation group from cargo
         occupation_group = ""
-        if cargo and self.unified_config_service:
-            occupation_group = (
-                self.unified_config_service.unified_config._get_occupation_group(cargo)
-            )
+        if cargo:
+            cargo_upper = str(cargo).upper().strip()
+            normalized_cargo = cargo_upper
+            if self.unified_service:
+                normalized_cargo = (
+                    self.unified_service.normalize_occupation(cargo) or cargo_upper
+                )
+
+            if normalized_cargo in OCCUPATION_GROUP_MAPPING:
+                occupation_group = OCCUPATION_GROUP_MAPPING[normalized_cargo]
+            else:
+                for key, group in OCCUPATION_GROUP_MAPPING.items():
+                    if key in normalized_cargo:
+                        occupation_group = group
+                        break
+
+            if not occupation_group and normalized_cargo != cargo_upper:
+                for key, group in OCCUPATION_GROUP_MAPPING.items():
+                    if key in cargo_upper:
+                        occupation_group = group
+                        break
 
         # Process each column in the row
         for col_idx, qty_value in enumerate(row.values):
@@ -2192,7 +2255,6 @@ class FileGenerationService:
             "blusa",
             "polo",
             "casaca",
-            "gorra",
             "mandilon",
             "andarin",
             "pechera",
@@ -2244,7 +2306,6 @@ class FileGenerationService:
             "BLUSA",
             "POLO",
             "CASACA",
-            "GORRA",
             "MANDILON",
             "ANDARIN",
             "PECHERA",
@@ -2283,7 +2344,6 @@ class FileGenerationService:
             "blusa": "BLUSA",
             "polo": "POLO",
             "casaca": "CASACA",
-            "gorra": "GORRA",
             "mandilon": "MANDILON",
             "mandilón": "MANDILON",
             "andarin": "ANDARIN",
@@ -2320,7 +2380,7 @@ class FileGenerationService:
         no_talla_items = {
             "ANDARIN",
             "MANDILON",
-            "GORRA",
+            "GORRO",
             "PECHERA",
             "PECHERA BAR",
             "GARIBALDI",
@@ -2389,94 +2449,6 @@ class FileGenerationService:
         if pd.notna(last):
             name = (name + " " + str(last).strip()).strip()
         return name
-
-    def _get_uniform_columns_from_row(self, row: pd.Series) -> List[str]:
-        """
-        Get relevant uniform columns for this row based on occupation group.
-        This prevents 'cross-talk' where an employee in one role gets items from another column group.
-        """
-        all_columns = [
-            col
-            for col in row.index
-            if col
-            not in [
-                "apellidos_y_nombres",
-                "dni",
-                "cargo",
-                "fecha_ingrese",
-                "talla_zapato",
-                "talla_pantalon",
-                "talla_prenda_superior",
-            ]
-        ]
-
-        # Get cargo from row
-        cargo = self._find_in_row(row, ["cargo"]) or ""
-        if not cargo:
-            return all_columns
-
-        # Normalize cargo
-        from cargos.core.constants import (
-            OCCUPATION_GROUP_MAPPING,
-            VILLA_STEAKHOUSE_COLUMN_MAPPING,
-        )
-
-        # Check explicit mapping first
-        cargo_upper = str(cargo).upper().strip()
-
-        # Find the group for this occupation
-        # We try exact match, then partial match
-        target_group = None
-
-        # 1. Try exact match in mapping
-        if cargo_upper in OCCUPATION_GROUP_MAPPING:
-            target_group = OCCUPATION_GROUP_MAPPING[cargo_upper]
-
-        # 2. Try partial match (e.g. "MOZO (EVENTUAL)" -> matches "MOZO")
-        if not target_group:
-            for key, group in OCCUPATION_GROUP_MAPPING.items():
-                if key in cargo_upper:
-                    target_group = group
-                    break
-
-        # If no group determined, return all columns (fallback)
-        if not target_group:
-            return all_columns
-
-        # Filter columns that belong to this group
-        filtered_columns = []
-        for col in all_columns:
-            # Column format is usually LOCATION_GROUP_ITEM (e.g. LIMA_ICA_SALON_CAMISA)
-            # We check if the group name (e.g. "SALON") appears in the column name
-            if f"_{target_group}_" in str(col).upper():
-                filtered_columns.append(col)
-
-        # Special Logic for Villa Steakhouse / San Isidro
-        # If the location is Villa Steakhouse/San Isidro, they might use 'CORREDOR' items even if they are 'SALON'
-        # But our OCCUPATION_GROUP_MAPPING says 'CORREDOR' -> 'CORREDOR'
-        # So we should be careful.
-        # Actually, the user said: "if the tienda is SAN ISIDRO then you can assume that theyll use salon y corredor"
-        # So if we are in San Isidro, and the person is SALON, we should ALSO include CORREDOR columns.
-
-        # Check metadata from the worksheet this row belongs to?
-        # That's hard because we just have the row here.
-        # But we can infer from the column names if they are VILLA_STEAKHOUSE columns
-        is_villa = any("VILLA_STEAKHOUSE" in str(c).upper() for c in all_columns)
-
-        if is_villa and target_group == "SALON":
-            # Add CORREDOR columns too
-            for col in all_columns:
-                if "_CORREDOR_" in str(col).upper():
-                    filtered_columns.append(col)
-
-        if not filtered_columns:
-            # If filtering removed everything (maybe mismatch in naming), fall back to all
-            self.logger.warning(
-                f"Filtering for group '{target_group}' resulted in 0 columns for '{cargo}'. Using all columns."
-            )
-            return all_columns
-
-        return filtered_columns
 
     def _sanitize_name(self, s: str) -> str:
         return (

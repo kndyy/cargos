@@ -7,7 +7,7 @@
   },
   "occupations": [
     {
-      "name": "DELIVERY",
+      "name": "MOTORIZADO",
       "display_name": "Motorizado",
       "synonyms": [
         "DELIVERY",
@@ -25,12 +25,10 @@
         "DELIVERY FULL TIME",
         "DELIVERYMAN FULL TIME",
         "REPARTIDOR FULL TIME",
-        "MOTORIZADO",
         "MOTORIZADO P/T",
         "MOTORIZADO PART TIME",
         "MOTORIZADO F/T",
         "MOTORIZADO FULL TIME",
-        "MOTORIZADO",
         "MOTORIZADA",
         "MOTORIZADO(A)",
         "MOTORIZADO (A)"
@@ -49,8 +47,8 @@
           "price_xxl_tarapoto": 15.0
         },
         {
-          "prenda_type": "GORRA",
-          "display_name": "Gorra",
+          "prenda_type": "GORRO",
+          "display_name": "Gorro",
           "has_sizes": false,
           "garment_type": "UPPER",
           "is_required": false,
@@ -105,8 +103,8 @@
           "price_xxl_tarapoto": 15.0
         },
         {
-          "prenda_type": "GORRA",
-          "display_name": "Gorra",
+          "prenda_type": "GORRO",
+          "display_name": "Gorro",
           "has_sizes": false,
           "garment_type": "UPPER",
           "is_required": false,
@@ -560,8 +558,8 @@
           "price_xxl_tarapoto": 0.0
         },
         {
-          "prenda_type": "GORRA",
-          "display_name": "Gorra",
+          "prenda_type": "GORRO",
+          "display_name": "Gorro",
           "has_sizes": false,
           "garment_type": "UPPER",
           "is_required": false,
@@ -1033,6 +1031,8 @@
         "AUDITORIA",
         "AUDITORÍA",
         "AUDITOR",
+        "AUDITOR(A)",
+        "AUDITOR (A)",
         "AUDITORA"
       ],
       "prendas": [
@@ -1074,8 +1074,8 @@
           "price_xxl_tarapoto": 0.0
         },
         {
-          "prenda_type": "GORRA",
-          "display_name": "Gorra",
+          "prenda_type": "GORRO",
+          "display_name": "Gorro",
           "has_sizes": false,
           "garment_type": "UPPER",
           "is_required": false,
@@ -1088,6 +1088,97 @@
       ],
       "is_active": true,
       "description": "Personal de counter/mostrador"
+    },
+    {
+      "name": "OPERACIONES",
+      "display_name": "Operaciones",
+      "synonyms": [
+        "OPERACIONES",
+        "SUPERVISOR DE OPERACIONES",
+        "SUPERVISOR OPERACIONES",
+        "SUPERVISOR(A) DE OPERACIONES",
+        "SUPERVISOR(A) OPERACIONES"
+      ],
+      "prendas": [
+        {
+          "prenda_type": "POLO",
+          "display_name": "Polo",
+          "has_sizes": true,
+          "garment_type": "UPPER",
+          "is_required": false,
+          "default_quantity": 0,
+          "is_primary": true,
+          "price_sml_tarapoto": 0.0,
+          "price_xl_tarapoto": 0.0,
+          "price_xxl_tarapoto": 0.0
+        },
+        {
+          "prenda_type": "PANTALON",
+          "display_name": "Pantalon",
+          "has_sizes": true,
+          "garment_type": "LOWER",
+          "is_required": false,
+          "default_quantity": 0,
+          "is_primary": false,
+          "price_sml_tarapoto": 0.0,
+          "price_xl_tarapoto": 0.0,
+          "price_xxl_tarapoto": 0.0
+        },
+        {
+          "prenda_type": "CASACA",
+          "display_name": "Casaca",
+          "has_sizes": true,
+          "garment_type": "UPPER",
+          "is_required": false,
+          "default_quantity": 0,
+          "is_primary": false,
+          "price_sml_tarapoto": 0.0,
+          "price_xl_tarapoto": 0.0,
+          "price_xxl_tarapoto": 0.0
+        }
+      ],
+      "is_active": true,
+      "description": "Personal de operaciones"
+    },
+    {
+      "name": "S.S.T.",
+      "display_name": "S.S.T.",
+      "synonyms": [
+        "S.S.T.",
+        "SST",
+        "SUPERVISOR(A) SST",
+        "SUPERVISOR SST",
+        "SUPERVISOR(A) S.S.T.",
+        "SUPERVISOR S.S.T."
+      ],
+      "prendas": [
+        {
+          "prenda_type": "POLO",
+          "display_name": "Polo",
+          "has_sizes": true,
+          "garment_type": "UPPER",
+          "is_required": false,
+          "default_quantity": 0,
+          "is_primary": true,
+          "price_sml_tarapoto": 0.0,
+          "price_xl_tarapoto": 0.0,
+          "price_xxl_tarapoto": 0.0
+        },
+        {
+          "prenda_type": "GORRO",
+          "display_name": "Gorro",
+          "has_sizes": false,
+          "garment_type": "UPPER",
+          "is_required": false,
+          "default_quantity": 0,
+          "is_primary": false,
+          "price_sml_tarapoto": 0.0,
+          "price_xl_tarapoto": 0.0,
+          "price_xxl_tarapoto": 0.0
+        }
+      ],
+      "is_active": true,
+      "description": "Seguridad y salud en el trabajo"
     }
   ],
   "default_occupation": "MOZO",
